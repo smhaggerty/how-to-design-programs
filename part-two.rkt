@@ -1151,41 +1151,114 @@ Exercise 218:
 
 
 ; Exercise 221:
-
+; Design the interactive program tetris-main, which displays blocks dropping in
+; a straight line from the top of the canvas and landing on the floor or on
+; blocks that are already resting. The input to tetris-main should determine
+; the rate at which the clock ticks. See the documentation of on-tick for how
+; to specify the rate.
+;
+; To discover whether a block landed, we suggest you drop it and check whether
+; it is on the floor or it overlaps with one of the blocks on the list of
+; resting blocks. Hint Read up on the member? primitive.
+; 
+; When a block lands, your program should immediately create another block that
+; descends on the column to the right of the current one. If the current block
+; is already in the right-most column, the next block should use the left-most
+; one. Alternatively, define the function block-generate, which randomly
+; selects a column different from the current one; see exercise 219 for
+; inspiration.
 
 
 ; Exercise 222:
-
+; Modify the program from exercise 221 so that a player can control the
+; horizontal movement of the dropping block. Each time the player presses the
+; "left" arrow key, the dropping block should shift one column to the left
+; unless it is in column 0 or there is already a stack of resting blocks to its
+; left. Similarly, each time the player presses "right", the dropping block
+; should move one column to the right if possible.
 
 
 ; Exercise 223:
-
+; Equip the program from exercise 222 with a stop-when clause. The game ends
+; when one of the columns contains enough blocks to “touch” the top of the
+; canvas.
 
 
 ; Exercise 224:
-
+; Use the lessons learned from the preceding two sections and design the game
+; extension slowly, adding one feature of the game after another. Always use
+; the design recipe and rely on the guidelines for auxiliary functions. If you
+; like the game, add other features: show a running text; equip the UFO with
+; charges that can eliminate the tank; create an entire fleet of attacking
+; UFOs; and above all, use your imagination.
 
 
 ; Exercise 225:
-
+; Design a fire-fighting game.
+;
+; The game is set in the western states where fires rage through vast forests.
+; It simulates an airborne fire-fighting effort. Specifically, the player acts
+; as the pilot of an airplane that drops loads of water on fires on the ground.
+; The player controls the plane’s horizontal movements and the release of water
+; loads.
+;
+; Your game software starts fires at random places on the ground. You may wish
+; to limit the number of fires, making them a function of how many fires are
+; currently burning or other factors. The purpose of the game is to extinguish
+; all fires in a limited amount of time. Hint Use an iterative design approach
+; as illustrated in this chapter to create this game.
 
 
 ; Exercise 226:
-
+; Design state=?, an equality predicate for states.
 
 
 ; Exercise 227:
-
+; The BW Machine is an FSM that flips from black to white and back to black for
+; every key event. Formulate a data representation for the BW Machine.
 
 
 ; Exercise 228:
-
+; Complete the design of find.
+;
+; Once the auxiliary functions are tested, use simulate to play with
+; fsm-traffic and the BW Machine from exercise 227.
 
 
 ; Exercise 229:
-
+; Here is a revised data definition for Transition:
+;
+;   (define-struct ktransition [current key next])
+;   ; A Transition.v2 is a structure:
+;   ;   (make-ktransition FSM-State KeyEvent FSM-State)
+;
+; Represent the FSM from exercise 109 using lists of Transition.v2s; ignore
+; errors and final states.
+;
+; Modify the design of simulate so that it deals with keystrokes in the
+; appropriate manner now. Follow the design recipe, starting with the
+; adaptation of the data examples.
+;
+; Use the revised program to simulate a run of the FSM from exercise 109 on the
+; following sequence of keystrokes: "a", "b", "b", "c", and "d".
 
 
 ; Exercise 230:
-
-
+; Consider the following data representation for FSMs:
+;
+;   (define-struct fsm [initial transitions final])
+;   (define-struct transition [current key next])
+;   ; An FSM.v2 is a structure: 
+;   ;   (make-fsm FSM-State LOT FSM-State)
+;   ; A LOT is one of: 
+;   ; – '() 
+;   ; – (cons Transition.v3 LOT)
+;   ; A Transition.v3 is a structure: 
+;   ;   (make-transition FSM-State KeyEvent FSM-State)
+;
+; Represent the FSM from exercise 109 in this context.
+;
+; Design the function fsm-simulate, which accepts an FSM.v2 and runs it on a
+; player’s keystrokes. If the sequence of keystrokes forces the FSM.v2 to reach
+; a final state, fsm-simulate stops. Hint The function uses the initial field
+; of the given fsm structure to track the current state.
