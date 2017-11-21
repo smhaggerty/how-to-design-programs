@@ -901,83 +901,253 @@
 
 
 ; Exercise 201:
+; Design select-all-album-titles. The function consumes an LTracks and produces
+; the list of album titles as a List-of-strings.
 
+; Also design the function create-set. It consumes a List-of-strings and 
+; constructs one that contains every String from the given list exactly once.
+; Hint If String s is at the front of the given list and occurs in the rest of
+; the list, too, create-set does not keep s.
+;
+; Finally design select-album-titles/unique, which consumes an LTracks and 
+; produces a list of unique album titles. Use this function to determine all 
+; album titles in your iTunes collection and also find out how many distinct 
+; albums it contains.
 
 
 ; Exercise 202:
-
+; Design select-album. The function consumes the title of an album and an
+; LTracks. It extracts from the latter the list of tracks that belong to the
+; given album.
 
 
 ; Exercise 203:
-
+; Design select-album-date. The function consumes the title of an album, a
+; date, and an LTracks. It extracts from the latter the list of tracks that
+; belong to the given album and have been played after the given date. Hint
+; You must design a function that consumes two Dates and determines whether
+; the first occurs before the second.
 
 
 ; Exercise 204:
-
+; Design select-albums. The function consumes an element of LTracks. It
+; produces a list of LTracks, one per album. Each album is uniquely identified
+; by its title and shows up in the result only once. Hints (1) You want to use
+; some of the solutions of the preceding exercises. (2) The function that
+; groups consumes two lists: the list of album titles and the list of tracks;
+; it considers the latter as atomic until it is handed over to an auxiliary
+; function. See exercise 196.
 
 
 ; Exercise 205:
-
+; Develop examples of LAssoc and LLists, that is, the list representation of
+; tracks and lists of such tracks.
 
 
 ; Exercise 206:
-
+; Design the function find-association. It consumes three arguments: a String
+; called key, an LAssoc, and an element of Any called default. It produces the
+; first Association whose first item is equal to key, or default if there is no
+; such Association.
+;
+; Note Read up on assoc after you have designed this function.
 
 
 ; Exercise 207:
-
+; Design total-time/list, which consumes an LLists and produces the total
+; amount of play time. Hint Solve exercise 206 first.
+;
+; Once you have completed the design, compute the total play time of your
+; iTunes collection. Compare this result with the time that the total-time
+; function from exercise 200 computes. Why is there a difference?
 
 
 ; Exercise 208:
-
+; Design boolean-attributes. The function consumes an LLists and produces the
+; Strings that are associated with a Boolean attribute. Hint Use create-set
+; from exercise 201.
+;
+; Once you are done, determine how many Boolean-valued attributes your iTunes
+; library employs for its tracks. Do they make sense?
 
 
 ; Exercise 209:
-
+; The above leaves us with two additional wishes: a function that consumes a
+; String and produces its corresponding Word, and a function for the opposite
+; direction. Here are the wish-list entries:
+;
+;   ; String -> Word
+;   ; converts s to the chosen word representation 
+;   (define (string->word s) ...)
+;     
+;   ; Word -> String
+;   ; converts w to a string
+;   (define (word->string w) ...)
+;
+; Look up the data definition for Word in the next section and complete the
+; definitions of string->word and word->string. Hint You may wish to look in
+; the list of functions that BSL provides.
 
 
 ; Exercise 210:
-
+; Complete the design of the words->strings function specified in figure 78.
+; Hint Use your solution to exercise 209.
 
 
 ; Exercise 211:
-
+; Complete the design of in-dictionary, specified in figure 78. Hint See
+; Real-World Data: Dictionaries for how to read a dictionary.
 
 
 ; Exercise 212:
-
+; Write down the data definition for List-of-words. Make up examples of Words
+; and List-of-words. Finally, formulate the functional example from above with
+; check-expect. Instead of the full example, consider working with a word of
+; just two letters, say "d" and "e".
 
 
 ; Exercise 213:
-
+; Design insert-everywhere/in-all-words. It consumes a 1String and a list of
+; words. The result is a list of words like its second argument, but with the
+; first argument inserted at the beginning, between all letters, and at the end
+; of all words of the given list.
+;
+; Start with a complete wish-list entry. Supplement it with tests for empty
+; lists, a list with a one-letter word, and another list with a two-letter
+; word, and the like. Before you continue, study the following three hints
+; carefully.
+;
+; Hints (1) Reconsider the example from above. It says that "d" needs to be
+; inserted into the words (list "e" "r") and (list "r" "e"). The following
+; application is therefore one natural candidate for an example:
+;
+;   (insert-everywhere/in-all-words "d"
+;     (cons (list "e" "r")
+;       (cons (list "r" "e")
+;         '())))
+;
+; (2) You want to use the BSL+ operation append, which consumes two lists and
+; produces the concatenation of the two lists:
+;
+;   > (append (list "a" "b" "c") (list "d" "e"))
+;
+;   (list "a" "b" "c" "d" "e")
+;
+; The development of functions like append is the subject of Simultaneous
+; Processing.
+;
+; (3) This solution of this exercise is a series of functions. Patiently stick
+; to the design recipe and systematically work through your wish list.
 
 
 ; Exercise 214:
-
+; Integrate arrangements with the partial program from Word Games, Composition
+; Illustrated. After making sure that the entire suite of tests passes, run it
+; on some of your favorite examples.
 
 
 ; Exercise 215:
-
+; Design a world program that continually moves a one-segment worm and enables
+; a player to control the movement of the worm with the four cardinal arrow
+; keys. Your program should use a red disk to render the one-and-only segment
+; of the worm. For each clock tick, the worm should move a diameter.
+;
+; Hints (1) Reread Designing World Programs to recall how to design world
+; programs. When you define the worm-main function, use the rate at which the
+; clock ticks as its argument. See the documentation for on-tick on how to
+; describe the rate. (2) When you develop a data representation for the worm,
+; contemplate the use of two different kinds of representations: a physical
+; representation and a logical one. The physical representation keeps track of
+; the actual physical position of the worm on the canvas; the logical one
+; counts how many (widths of) segments the worm is from the left and the top.
+; For which of the two is it easier to change the physical appearances (size of
+; worm segment, size of game box) of the “game”?
 
 
 ; Exercise 216:
-
+; Modify your program from exercise 215 so that it stops if the worm has
+; reached the walls of the world. When the program stops because of this
+; condition, it should render the final scene with the text "worm hit border"
+; in the lower left of the world scene. Hint You can use the stop-when clause
+; in big-bang to render the last world in a special way.
 
 
 ; Exercise 217:
+; Develop a data representation for worms with tails. A worm’s tail is a
+; possibly empty sequence of “connected” segments. Here “connected” means that
+; the coordinates of a segment differ from those of its predecessor in at most
+; one direction. To keep things simple, treat all segments—head and tail
+; segments—the same.
+;
+; Now modify your program from exercise 215 to accommodate a multi-segment
+; worm. Keep things simple: (1) your program may render all worm segments as
+; red disks and (2) ignore that the worm may run into the wall or itself. Hint
+; One way to realize the worm’s movement is to add a segment in the direction
+; in which it is moving and to delete the last one.
 
 
-
-; Exercise 218:
-
+Exercise 218:
+; Redesign your program from exercise 217 so that it stops if the worm has run
+; into the walls of the world or into itself. Display a message like the one in
+; exercise 216 to explain whether the program stopped because the worm hit the
+; wall or because it ran into itself.
+;
+; Hints (1) To determine whether a worm is going to run into itself, check
+; whether the position of the head would coincide with one of its old tail
+; segments if it moved. (2) Read up on the member? function.
 
 
 ; Exercise 219:
-
+; Equip your program from exercise 218 with food. At any point in time, the box
+; should contain one piece of food. To keep things simple, a piece of food is
+; of the same size as a worm segment. When the worm’s head is located at the
+; same position as the food, the worm eats the food, meaning the worm’s tail is
+; extended by one segment. As the piece of food is eaten, another one shows up
+; at a different location.
+;
+; Adding food to the game requires changes to the data representation of world
+; states. In addition to the worm, the states now also include a representation
+; of the food, especially its current location. A change to the game
+; representation suggests new functions for dealing with events, though these
+; functions can reuse the functions for the worm (from exercise 218) and their
+; test cases. It also means that the tick handler must not only move the worm;
+; in addition it must manage the eating process and the creation of new food.
+;
+; Your program should place the food randomly within the box. To do so
+; properly, you need a design technique that you haven’t seen before—so-called
+; generative recursion, which is introduced in Generative Recursion—so we
+; provide these functions in figure 80. Before you use them, however, explain
+; how these functions work—assuming MAX is greater than 1—and then formulate
+; purpose statements.
+; 
+; Hints (1) One way to interpret “eating” is to say that the head moves where
+; the food used to be located and the tail grows by one segment, inserted
+; where the head used to be. Why is this interpretation easy to design as a
+; function? (2) We found it useful to add a second parameter to the worm-main
+; function for this last step, a Boolean that determines whether big-bang
+; displays the current state of the world in a separate window; see the
+; documentation for state on how to ask for this information.
 
 
 ; Exercise 220:
-
+; When you are presented with a complex data definition—like the one for the
+; state of a Tetris game—you start by creating instances of the various data
+; collections. Here are some suggestive names for examples you can later use
+; for functional examples:
+;
+;   (define landscape0 ...)
+;   (define block-dropping ...)
+;   (define tetris0 ...)
+;   (define tetris0-drop ...)
+;   ...
+;   (define block-landed (make-block 0 (- HEIGHT 1)))
+;   ...
+;  (define block-on-block (make-block 0 (- HEIGHT 2)))
+;
+; Design the program tetris-render, which turns a given instance of Tetris into
+; an Image. Use DrRacket’s interactions area to develop the expression that
+; renders some of your (extremely) simple data examples. Then formulate the
+; functional examples as unit tests and the function itself.
 
 
 ; Exercise 221:
