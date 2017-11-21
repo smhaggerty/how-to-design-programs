@@ -871,149 +871,544 @@
 
 
 ; Exercise 79:
-
+; Create examples for the following data definitions:
+;
+;       ; A Color is one of: 
+;       ; — "white"
+;       ; — "yellow"
+;       ; — "orange"
+;       ; — "green"
+;       ; — "red"
+;       ; — "blue"
+;       ; — "black"
+;
+;   Note DrRacket recognizes many more strings as colors. End
+;
+;       ; H is a Number between 0 and 100.
+;       ; interpretation represents a happiness value
+;
+;       (define-struct person [fstname lstname male?])
+;       ; A Person is a structure:
+;       ;   (make-person String String Boolean)
+;
+;   Is it a good idea to use a field name that looks like the 
+;   name of a predicate?
+;
+;       (define-struct dog [owner name age happiness])
+;       ; A Dog is a structure:
+;       ;   (make-dog Person String PositiveInteger H)
+;
+;   Add an interpretation to this data definition, too.
+;
+;       ; A Weapon is one of: 
+;       ; — #false
+;       ; — Posn
+;       ; interpretation #false means the missile hasn't 
+;       ; been fired yet; a Posn means it is in flight
+;
+; The last definition is an unusual itemization, combining
+; built-in data with a structure type. The next chapter
+; deals with such definitions in depth.
 
 
 ; Exercise 80:
-
+; Create templates for functions that consume instances of
+; the following structure types:
+;
+;   (define-struct movie [title director year])
+;
+;   (define-struct pet [name number])
+;
+;   (define-struct CD [artist title price])
+;
+;   (define-struct sweater [material size color])
+;
+; No, you do not need data definitions for this task.
 
 
 ; Exercise 81:
-
+; Design the function time->seconds, which consumes
+; instances of time structures (see exercise 77) and
+; produces the number of seconds that have passed since
+; midnight. For example, if you are representing 12 hours,
+; 30 minutes, and 2 seconds with one of these structures
+; and if you then apply time->seconds to this instance,
+; the correct result is 45002.
 
 
 ; Exercise 82:
-
+; Design the function compare-word. The function consumes
+; two three-letter words (see exercise 78). It produces a
+; word that indicates where the given ones agree and
+; disagree. The function retains the content of the
+; structure fields if the two agree; otherwise it places
+; #false in the field of the resulting word. Hint The
+; exercises mentions two tasks: the comparison of words
+; and the comparison of “letters.”
 
 
 ; Exercise 83:
-
+; Design the function render, which consumes an Editor and
+; produces an image.
+; 
+; The purpose of the function is to render the text within
+; an empty scene of image pixels. For the cursor, use a
+; image red rectangle and for the strings, black text of
+; size 16.
+;
+; Develop the image for a sample string in DrRacket’s 
+; interactions area. We started with this expression:
+;
+;   (overlay/align "left" "center"
+;                  (text "hello world" 11 "black")
+;                  (empty-scene 200 20))
+;
+; You may wish to read up on beside, above, and such 
+; functions. When you are happy with the looks of the 
+; image, use the expression as a test and as a guide to 
+; the design of render.
 
 
 ; Exercise 84:
-
+; Design edit. The function consumes two inputs, an editor
+; ed and a KeyEvent ke, and it produces another editor.
+; Its task is to add a single-character KeyEvent ke to the
+; end of the pre field of ed, unless ke denotes the
+; backspace ("\b") key. In that case, it deletes the
+; character immediately to the left of the cursor (if
+; there are any). The function ignores the tab key ("\t")
+; and the return key ("\r").
+;
+; The function pays attention to only two KeyEvents longer
+; than one letter: "left" and "right". The left arrow moves
+; the cursor one character to the left (if any), and the
+; right arrow moves it one character to the right (if any).
+; All other such KeyEvents are ignored.
+;
+; Develop a goodly number of examples for edit, paying
+; attention to special cases. When we solved this exercise,
+; we created 20 examples and turned all of them into tests.
+;
+; Hint Think of this function as consuming KeyEvents, a
+; collection that is specified as an enumeration. It uses
+; auxiliary functions to deal with the Editor structure.
+; Keep a wish list handy; you will need to design additional
+; functions for most of these auxiliary functions, such as
+; string-first, string-rest, string-last, and 
+; string-remove-last. If you haven’t done so, solve the
+; exercises in Functions.
 
 
 ; Exercise 85:
-
+; Define the function run. Given the pre field of an
+; editor, it launches an interactive editor, using render
+; and edit from the preceding two exercises for the
+; to-draw and on-key clauses, respectively.
 
 
 ; Exercise 86:
-
+; Notice that if you type a lot, your editor program does
+; not display all of the text. Instead the text is cut off
+; at the right margin. Modify your function edit from
+; exercise 84 so that it ignores a keystroke if adding it
+; to the end of the pre field would mean the rendered text
+; is too wide for your canvas.
 
 
 ; Exercise 87:
-
-
-
-; Exercise 89:
-
+; Develop a data representation for an editor based on our
+; first idea, using a string and an index. Then solve the
+; preceding exercises again. Retrace the design recipe.
+; Hint if you haven’t done so, solve the exercises in
+; Functions.
+;
+; Note on Design Choices The exercise is a first study of
+; making design choices. It shows that the very first
+; design choice concerns the data representation. Making
+; the right choice requires planning ahead and weighing
+; the complexity of each. Of course, getting good at this
+; is a question of gaining experience.
 
 
 ; Exercise 88:
+; Define a structure type that keeps track of the cat’s
+; x-coordinate and its happiness. Then formulate a data
+; definition for cats, dubbed VCat, including an
+; interpretation.
 
+
+; Exercise 89:
+; Design the happy-cat world program, which manages a
+; walking cat and its happiness level. Let’s assume that
+; the cat starts out with perfect happiness.
+;
+; Hints (1) Reuse the functions from the world programs in
+; Virtual Pet Worlds. (2) Use structure type from the
+; preceding exercise to represent the state of the world.
 
 
 ; Exercise 90:
-
+; Modify the happy-cat program from the preceding exercises
+; so that it stops whenever the cat’s happiness falls to 0.
 
 
 ; Exercise 91:
-
+; Extend your structure type definition and data
+; definition from exercise 88 to include a direction field.
+; Adjust your happy-cat program so that the cat moves in
+; the specified direction. The program should move the
+; cat in the current direction, and it should turn the cat
+; around when it reaches either end of the scene.
 
 
 ; Exercise 92:
+; Design the cham program, which has the chameleon
+; continuously walking across the canvas from left to
+; right. When it reaches the right end of the canvas, it
+; disappears and immediately reappears on the left. Like
+; the cat, the chameleon gets hungry from all the walking,
+; and, as time passes by, this hunger expresses itself as
+; unhappiness.
+;
+; For managing the chameleon’s happiness gauge, you may
+; reuse the happiness gauge from the virtual cat. To
+; make the chameleon happy, you feed it (down arrow, two
+; points only); petting isn’t allowed. Of course, like all
+; chameleons, ours can change color, too: "r" turns it
+; red, "b" blue, and "g" green. Add the chameleon world
+; program to the virtual cat game and reuse functions from
+; the latter when possible.
 
+Start with a data definition, VCham, for representing chameleons.
 
 
 ; Exercise 93:
-
+; Copy your solution to exercise 92 and modify the copy so
+; that the chameleon walks across a tricolor background.
+; Our solution uses these colors:
+;
+;   (define BACKGROUND
+;     (beside (empty-scene WIDTH HEIGHT "green")
+;             (empty-scene WIDTH HEIGHT "white")
+;             (empty-scene WIDTH HEIGHT "red")))
+;
+; but you may use any colors. Observe how the chameleon
+; changes colors to blend in as it crosses the border
+; between two colors.
+;
+; Note When you watch the animation carefully, you see the
+; chameleon riding on a white rectangle. If you know how
+; to use image editing software, modify the picture so
+; that the white rectangle is invisible. Then the
+; chameleon will really blend in.
 
 
 ; Exercise 94:
-
+; Draw some sketches of what the game scenery looks like 
+; at various stages. Use the sketches to determine the
+; constant and the variable pieces of the game. For the
+; former, develop physical and graphical constants that
+; describe the dimensions of the world (canvas) and its
+; objects. Also develop some background scenery. Finally,
+; create your initial scene from the constants for the
+; tank, the UFO, and the background.
 
 
 ; Exercise 95:
-
+; Explain why the three instances are generated according
+; to the first or second clause of the data definition.
 
 
 ; Exercise 96:
-
+; Sketch how each of the three game states could be
+; rendered assuming a 200x200 image canvas.
 
 
 ; Exercise 97:
-
+; Design the functions tank-render, ufo-render, and
+; missile-render. Compare this expression:
+;
+;   (tank-render
+;     (fired-tank s)
+;     (ufo-render (fired-ufo s)
+;                 (missile-render (fired-missile s)
+;                                 BACKGROUND)))
+;
+; with this one:
+;
+;   (ufo-render
+;     (fired-ufo s)
+;     (tank-render (fired-tank s)
+;                  (missile-render (fired-missile s)
+;                                  BACKGROUND)))
+;
+; When do the two expressions produce the same result?
 
 
 ; Exercise 98:
-
+; Design the function si-game-over? for use as the 
+; stop-when handler. The game stops if the UFO lands or
+; if the missile hits the UFO. For both conditions, we
+; recommend that you check for proximity of one object
+; to another.
+;
+; The stop-when clause allows for an optional second
+; sub-expression, namely a function that renders the
+; final state of the game. Design si-render-final and use
+; it as the second part for your stop-when clause in the
+; main function of exercise 100.
 
 
 ; Exercise 99:
-
+; Design si-move. This function is called for every clock
+; tick to determine to which position the objects move now.
+; Accordingly, it consumes an element of SIGS and produces
+; another one.
+;
+; Moving the tank and the missile (if any) is relatively
+; straightforward. They move in straight lines at a
+; constant speed. Moving the UFO calls for small random
+; jumps to the left or the right. Since you have never
+; dealt with functions that create random numbers, the
+; rest of this exercise is a longish hint on how to deal
+; with this issue.
+;
+; BSL comes with a function that creates random numbers.
+; Introducing this function illustrates why the signatures
+; and purpose statements play such an important role during
+; the design. Here is the relevant material for the
+; function you need:
+;
+;   ; Number -> Number
+;   ; produces a number in the interval [0,n),
+;   ; possibly a different one each time it is called 
+;   (define (random n) ...)
+;
+; Since the signature and purpose statement precisely
+; describe what a function computes, you can now
+; experiment with random in DrRacket’s interactions area.
+; Stop! Do so!
+; 
+; If random produces different numbers (almost) every time
+; it is called, testing functions that use random is
+; difficult. To start with, separate si-move and its
+; proper functionality into two parts:
+;
+;   (define (si-move w)
+;     (si-move-proper w (random ...)))
+;    
+;   ; SIGS Number -> SIGS 
+;   ; moves the space-invader objects predictably by delta
+;   (define (si-move-proper w delta)
+;     w)
+;
+; With this definition you separate the creation of a
+; random number from the act of moving the game objects.
+; While random may produce different results every time
+; it is called, si-move-proper can be tested on specific
+; numeric inputs and is thus guaranteed to return the same
+; result when given the same inputs. In short, most of the
+; code remains testable.
+;
+; Instead of calling random directly, you may wish to
+; design a function that creates a random x-coordinate for
+; the UFO. Consider using check-random from BSL’s testing
+; framework to test such a function.
 
 
 ; Exercise 100:
-
+; Design the function si-control, which plays the role of
+; the key-event handler. As such, it consumes a game state
+; and a KeyEvent and produces a new game state. It reacts
+; to three different keys:
+;
+;   pressing the left arrow ensures that the tank moves left;
+;
+;   pressing the right arrow ensures that the tank moves right; and
+;
+;   pressing the space bar fires the missile if it hasn’t been launched yet.
+;
+; Once you have this function, you can define the si-main 
+; function, which uses big-bang to spawn the game-playing 
+; window. Enjoy!
 
 
 ; Exercise 101:
-
+; Turn the examples in figure 35 into test cases.
 
 
 ; Exercise 102:
-
+; Design all other functions that are needed to complete
+; the game for this second data definition.
 
 
 ; Exercise 103:
-
+; Develop a data representation for the following four
+; kinds of zoo animals:
+;
+;   spiders, whose relevant attributes are the number of remaining legs (we assume that spiders can lose legs in accidents) and the space they need in case of transport;
+;
+;   elephants, whose only attributes are the space they need in case of transport;
+;
+;   boa constrictors, whose attributes include length and girth; and
+;
+;   armadillos, for which you must determine appropriate attributes, including one that determines the space needed for transport.
+;
+; Develop a template for functions that consume zoo
+; animals.
+;
+; Design the fits? function, which consumes a zoo animal
+; and a description of a cage. It determines whether the
+; cage’s volume is large enough for the animal.
 
 
 ; Exercise 104:
-
+; Your home town manages a fleet of vehicles: automobiles,
+; vans, buses, and SUVs. Develop a data representation
+; for vehicles. The representation of each vehicle must
+; describe the number of passengers that it can carry,
+; its license plate number, and its fuel consumption
+; (miles per gallon). Develop a template for functions
+; that consume vehicles.
 
 
 ; Exercise 105:
-
+; Some program contains the following data definition:
+;
+;   ; A Coordinate is one of: 
+;   ; – a NegativeNumber 
+;   ; interpretation on the y axis, distance from top
+;   ; – a PositiveNumber 
+;   ; interpretation on the x axis, distance from left
+;   ; – a Posn
+;   ; interpretation an ordinary Cartesian point
+;
+; Make up at least two data examples per clause in the
+; data definition. For each of the examples, explain its
+; meaning with a sketch of a canvas.
 
 
 ; Exercise 106:
-
+; In More Virtual Pets we discussed the creation of virtual
+; pets that come with happiness gauges. One of the virtual
+; pets is a cat; the other one, a chameleon. Each program
+; is dedicated to a single pet, however.
+;
+; Design the cat-cham world program. Given both a location
+; and an animal, it walks the latter across the canvas,
+; starting from the given location. Here is the chosen data
+; representation for animals:
+;
+;   ; A VAnimal is either
+;   ; – a VCat
+;   ; – a VCham
+;
+; where VCat and VCham are your data definitions from 
+; exercises 88 and 92.
+;
+; Given that VAnimal is the collection of world states, 
+; you need to design
+;
+;   a rendering function from VAnimal to Image;
+;
+;   a function for handling clock ticks, from VAnimal to VAnimal; and
+;
+;   a function for dealing with key events so that you can feed and pet and colorize your animal—as applicable.
+;
+; It remains impossible to change the color of a cat or to pet a chameleon.
 
 
 ; Exercise 107:
-
+; Design the cham-and-cat program, which deals with both a
+; virtual cat and a virtual chameleon. You need a data
+; definition for a “zoo” containing both animals and
+; functions for dealing with it.
+;
+; The problem statement leaves open how keys manipulate 
+; the two animals. Here are two possible interpretations:
+;
+;   Each key event goes to both animals.
+;
+;   Each key event applies to only one of the two animals.
+;
+;   For this alternative, you need a data representation that specifies a focus animal, that is, the animal that can currently be manipulated. To switch focus, have the key-handling function interpret "k" for “kitty” and "l" for lizard. Once a player hits "k", the following keystrokes apply to the cat only—until the player hits "l".
+;
+; Choose one of the alternatives and design the appropriate
+; program.
 
 
 ; Exercise 108:
-
+; In its default state, a pedestrian crossing light shows
+; an orange person standing on a red background. When it
+; is time to allow the pedestrian to cross the street, the
+; light receives a signal and switches to a green, walking
+; person. This phase lasts for 10 seconds. After that the
+; light displays the digits 9, 8, ..., 0 with odd numbers
+; colored orange and even numbers colored green. When the
+; countdown reaches 0, the light switches back to its
+; default state.
+;
+; Design a world program that implements such a pedestrian
+; traffic light. The light switches from its default state
+; when you press the space bar on your keyboard. All other
+; transitions must be reactions to clock ticks.
 
 
 ; Exercise 109:
-
-
+; Design a world program that recognizes a pattern in a
+; sequence of KeyEvents. Initially the program shows a 100
+; by 100 white rectangle. Once your program has
+; encountered the first desired letter, it displays a
+; yellow rectangle of the same size. After encountering
+; the final letter, the color of the rectangle turns green.
+; If any “bad” key event occurs, the program displays a
+; red rectangle.
+;
+; The specific sequences that your program looks for start
+; with "a", followed by an arbitrarily long mix of "b" and
+; "c", and ended by a "d". Clearly, "acbd" is one example
+; of an acceptable string; two others are "ad" and
+; "abcbbbcd". Of course, "da", "aa", or "d" do not match.
 
 ; Exercise 110:
-
+; A checked version of area-of-disk can also enforce that
+; the arguments to the function are positive numbers, not
+; just arbitrary numbers. Modify checked-area-of-disk in
+; this way.
 
 
 ; Exercise 111:
-
+; Take a look at these definitions:
+;
+;   (define-struct vec [x y])
+;   ; A vec is
+;   ;   (make-vec PositiveNumber PositiveNumber)
+;   ; interpretation represents a velocity vector
+;
+; Develop the function checked-make-vec, which is to be
+; understood as a checked version of the primitive
+; operation make-vec. It ensures that the arguments to
+; make-vec are positive numbers. In other words,
+; checked-make-vec enforces our informal data definition.
 
 
 ; Exercise 112:
-
+; Reformulate the predicate now using an or expression. 
 
 
 ; Exercise 113:
-
+; Design predicates for the following data definitions
+; from the preceding section: SIGS, Coordinate (exercise
+; 105), and VAnimal.
 
 
 ; Exercise 114:
-
+; Use the predicates from exercise 113 to check the space
+; invader world program, the virtual pet program (exercise
+; 106), and the editor program (A Graphical Editor).
 
 
 ; Exercise 115:
-
+; Revise light=? so that the error message specifies which
+; of the two arguments isn’t an element of TrafficLight.
 
