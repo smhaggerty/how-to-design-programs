@@ -1086,7 +1086,7 @@
 ; in which it is moving and to delete the last one.
 
 
-Exercise 218:
+; Exercise 218:
 ; Redesign your program from exercise 217 so that it stops if the worm has run
 ; into the walls of the world or into itself. Display a message like the one in
 ; exercise 216 to explain whether the program stopped because the worm hit the
