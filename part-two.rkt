@@ -140,7 +140,9 @@
 
 
 ; Exercise 141:
-; If you are asked to design the function cat, which consumes a list of strings and appends them all into one long string, you are guaranteed to end up with this partial definition:
+; If you are asked to design the function cat, which consumes a list of strings
+; and appends them all into one long string, you are guaranteed to end up with
+; this partial definition:
 ;
 ;   ; List-of-string -> String
 ;   ; concatenates all strings in l into one long string
