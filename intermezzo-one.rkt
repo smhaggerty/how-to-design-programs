@@ -53,8 +53,8 @@
 ;
 ;   (+ 1 2 3)
 ;
-; Explain why the sentences are legal or illegal. Determine
-; whether the legal ones belong to the category expr or def.
+; Explain why the sentences are legal or illegal. Determine whether the legal
+; ones belong to the category expr or def.
 
 
 ; Exercise 121:
@@ -80,8 +80,7 @@
 ;   (define (f x y)
 ;     (+ (* 3 x) (* y y)))
 ;
-; Show how DrRacket evaluates the following expressions,
-; step-by-step:
+; Show how DrRacket evaluates the following expressions, step-by-step:
 ;
 ;   (+ (f 1 2) (f 2 1))
 ;
@@ -93,12 +92,11 @@
 
 
 ; Exercise 123:
-; The use of if may have surprised you in another way
-; because this intermezzo does not mention this form elsewhere.
-; In short, the intermezzo appears to explain and with a form
-; that has no explanation either. At this point, we are relying
-; on your intuitive understanding of if as a short-hand for cond.
-; Write down a rule that shows how to reformulate
+; The use of if may have surprised you in another way because this intermezzo
+; does not mention this form elsewhere. In short, the intermezzo appears to
+; explain and with a form that has no explanation either. At this point, we are
+; relying on your intuitive understanding of if as a short-hand for cond. Write
+; down a rule that shows how to reformulate
 ;
 ;   (if exp-test exp-then exp-else)
 ;
@@ -144,7 +142,8 @@
 
 
 ; Exercise 126:
-; Identify the values among the following expressions, assuming the definitions area contains these structure type definitions:
+; Identify the values among the following expressions, assuming the definitions
+; area contains these structure type definitions:
 ;
 ;   (define-struct point [x y z])
 ;   (define-struct none  [])
