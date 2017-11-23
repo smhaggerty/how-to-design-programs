@@ -109,22 +109,16 @@
 (define b 1)
 (define c .)
 (define (foo in) (if (number? in)
-
     (if (> in 0)
         (- in 1)
         (abs in))
-
-    (if (string? in)
-
-        (string-length in)
-
-        (if (image? in)
-
-            (* (image-width in) (image-height in))
-
+        (if (string? in)
+          (string-length in)
+          (if (image? in)
+          (* (image-width in) (image-height in))
             (if (and in #true)
-                10
-                20)))))
+            10
+            20)))))
 
 
 ; Exercise 10:
@@ -132,52 +126,80 @@
 
 
 
-
-
 ; Exercise 11: 
-;Define a functino that consumes two numbers, x and y, and that computes the
+;Define a function that consumes two numbers, x and y, and that computes the
 ; distance of point (x, y) to the origin
+(define (f x y) (sqrt (+ (expt x 2) (expt y 2))))
 
-(define (f x y) (sqrt (+ (* x x) (* y y))))
 
 ; Exercise 12: Define the function cvolume, which accepts the length of a side
 ; of an equalateral cube and computes its volume. If you have time, consider
 ; defining csurface, too.
+(define (cvolume side-length) 
+        (expt side-length 3))
 
-; Exercise 13: Define the function string-first, which extracts the first
+(define (csurface side-length)
+        (* (expt side-length 2) 6))
+
+
+; Exercise 13:
+; Define the function string-first, which extracts the first
 ; 1String from a non-empty string
+(define (string-first non-empty-string)
+        (substring non-empty-string 0 1))        
 
 
 ; Exercise 14:
-; Define the function string-last, which extracts the first 1String from a
+; Define the function string-last, which extracts the last
+; 1String from a
 ; non-empty string.
-
+(define (string-last string)
+        (substring string (- (string-length string) 1)))
 
 ; Exercise 15:
 ; Define ==>. The function consumes two Boolean values, call them sunny and
 ; friday. Its answer is #true if sunny is false or friday is true. Note
 ; Logicians call this Boolean operation implication and they use the notation
 ; sunny => friday for this purpose
+(define (==> sunny friday)
+        (if (or (not sunny) friday)
+            #true
+            #false))
 
 
 ; Exercise 16:
 ; Define the function image-area, which counts the number of pixels in a given
 ; image. See exercise 6 for ideas
+(define (image-area img)
+        (+ (image-width img) (image-height img)))
+
 
 ; Exercise 17:
 ; Define the function image-classify, which consumes an image and conditionally
 ; produces "tall" if the image is taller than wide, "wide" if it is wider than
 ; tall, or "square" if its width and height are the same. See exercise 8 for
 ; ideas.
+(define (image-classify img2)
+        (if (> (image-width img2) (image-height img2))
+            "wide"
+            (if (= (image-width img2) (image-height img2))
+                "square"
+                "tall")))
+
 
 ; Exercise 18: Define the function string-join, which consumes two strings and
 ; appends them with "_" in between. See exercise 2 for ideas.
-
+(define (string-join prefix suffix)
+        (string-append prefix "_" suffix))
 
 ; Exercise 19: Define the function string-insert, which consumes a string plus
 ; a number i and inserts "_" at the ith position of str. Assume i is a number
 ; between 0 and the length of the given string (inclusive). See exercise 3 for
 ; ideas. Ponder how string-insert copes with "".
+(define (string-insert str3 number)
+        (string-append (substring str3 0 number) "_" (substring str3 number)))
+; The function will return an error if an index greater than 0 is used with an
+; empty string
 
 
 ; Exercise 20:
@@ -185,6 +207,14 @@
 ; and deletes the ith position from str. Assume i is a number between 0
 ; (inclusive) and the length of the given string (exclusive). See exercise 4
 ; for ideas. Can string-delete deal with empty strings?
+(define (string-delete str4 number2)
+        (if (equal? str4 "")
+            ""
+            (string-append
+              (substring str4 0 number2) (substring str4 (+ number2 1)))))
+; Yes, string-delete can check for empty strings and return an empty string
+; if so
+
 
 ; Exercise 21:
 ; Use DrRacket's stepper to evaluate (ff (ff 1)) step-by-step. Also try 
