@@ -1,1279 +1,6311 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname part-one) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-; Exercise 1:
-; Add the following definitions for x and y to DrRacket's definitions area:
-;   (define x 3)
-;   (define y 4)
-; Now imagine that x and y are coordinates of a Cartesian point. Write down an
-; expression that computes the distance of this point to the origin, that is, a
-; point with the coordinates (0,0).
-  (define (distance-to-origin x y)
-    (sqrt (+ (expt x 2) (expt y 2))))
-
-
-; Exercise 2:
-; Add the following two lines to DrRacket's definitions area:
-;   (define prefix "hello")
-;   (define suffix "world")
-; Then use string primitives to create an expression that concatenates prefix
-; and suffix and adds "_" between them When you run this program, you will see
-; "hello_world" in the interactions area
-(define prefix "hello")
-(define suffix "world")
-(string-append prefix "_" suffix)
-
-
-; Exercise 3:
-; Add the following definitions for x and y to the
-; definitions area:
-;   (define str "helloworld")
-;   (define i 5)
-; Then create an expression using string primitives that adds "_" at position
-; i. In general this means the resulting string is longer than the original
-; one; here is the expected result is "hello_world"
-(define str "helloworld")
-(define i 5)
-(string-append (substring str 0 i) "_"(substring str i))
-
-
-; Exercise 4:
-; Use the same setup as in exercise 3 to create an expression that deletes the
-; ith position from str. Clearly this expression create a shorter string than
-; the given one. Which values for i are legitimate?
-(define str "helloworld")
-(define i 5)
-(string-append (substring str 0 i) (substring str (+ i 1)))
-; all positive Integer values less than the length of str are legitimate
-
-; Exercise 5:
-; Use the 2htdp/image library to create the image of a simple boat or tree.
-; Make sure you can easily change the scale of the entire image
-(require 2htdp/image)
-(define size 50)
-(define (draw-tree size)
-  (overlay/xy
-    (circle size "solid" "green")
-    (- size (/ (/ size 5) 2))
-    (* size 2)
-    (rectangle (/ size 5) (* size 2) "solid" "green")))
-
-
-; Exercise 6:
-; Add the following line to the definitions area:
-;   (define cat "paste-image-here")
-; Create and expression that counts the number of pixels in the image
-
-
-
-; Exercise 7:
-; Suppose you want to decide whether today is an appropriate day to go to the
-; mall. You go to the mall either if it is not sunny or if today is Friday
-; (because that is when stores post new sales items). First, add these two
-; lines to the definitions area of DrRacket:
-;   (define sunny #true)
-;   (define friday #false)
-; Now create an expression that computes whether or not sunny is false or
-; friday is true. So in this particular case, the answer is #false. (Why?)
-
-
-; Exercise 8:
-; Add the following line to the definitions area:
-;   (define cat "paste-image-here")
-; Create a conditional expression that computes whether the image is tall or
-; wide. An image should be labeled "tall" if its height is larger than or equal
-; to its width; otherwise it is "wide". See exercise 1 for how to create such
-; expressions in DrRacket; as you experiment, replace the cat with a rectangle
-; of your choice to ensure that you know the expected answer. Now try the
-; following modification. Create an expression that computes whether a picture
-; is "tall", "wide", or "square".
-
-
-; Exercise 9:
-; Add the following line to the definitions area of
-; DrRacket:
-;   (define in ...)
-; Then create and expression that converts the value of in to a positive
-; number. For a String, it determines how long the String is; for an Image, it
-; uses the area; for a Number, it decrements the number by 1, unless it is
-; already 0 or negative; for #true it uses 10 and for #false 20
-
-
-; Exercise 10:
-; Now relax, eat, sleep, and then tackle the next chapter
-
-
-
-(require 2htdp/image)
-(define in "soo")
-(if (number? in)
-
-    (if (> in 0)
-        (- in 1)
-        (abs in))
-
-    (if (string? in)
-
-        (string-length in)
-
-        (if (image? in)
-
-            (* (image-width in) (image-height in))
-
-            (if (= in #true)
-                10
-                20))))
-
-; Exercise 11: 
-;Define a functino that consumes two numbers, x and y, and that computes the
-; distance of point (x, y) to the origin
-
-(define (f x y) (sqrt (+ (* x x) (* y y))))
-
-; Exercise 12: Define the function cvolume, which accepts the length of a side
-; of an equalateral cube and computes its volume. If you have time, consider
-; defining csurface, too.
-
-; Exercise 13: Define the function string-first, which extracts the first
-; 1String from a non-empty string
-
-
-; Exercise 14:
-; Define the function string-last, which extracts the first 1String from a
-; non-empty string.
-
-
-; Exercise 15:
-; Define ==>. The function consumes two Boolean values, call them sunny and
-; friday. Its answer is #true if sunny is false or friday is true. Note
-; Logicians call this Boolean operation implication and they use the notation
-; sunny => friday for this purpose
-
-
-; Exercise 16:
-; Define the function image-area, which counts the number of pixels in a given
-; image. See exercise 6 for ideas
-
-; Exercise 17:
-; Define the function image-classify, which consumes an image and conditionally
-; produces "tall" if the image is taller than wide, "wide" if it is wider than
-; tall, or "square" if its width and height are the same. See exercise 8 for
-; ideas.
-
-; Exercise 18: Define the function string-join, which consumes two strings and
-; appends them with "_" in between. See exercise 2 for ideas.
-
-
-; Exercise 19: Define the function string-insert, which consumes a string plus
-; a number i and inserts "_" at the ith position of str. Assume i is a number
-; between 0 and the length of the given string (inclusive). See exercise 3 for
-; ideas. Ponder how string-insert copes with "".
-
-
-; Exercise 20:
-; Define the function string-delete, which consumes a string plus a number i
-; and deletes the ith position from str. Assume i is a number between 0
-; (inclusive) and the length of the given string (exclusive). See exercise 4
-; for ideas. Can string-delete deal with empty strings?
-
-; Exercise 21:
-; Use DrRacket's stepper to evaluate (ff (ff 1)) step-by-step. Also try 
-; (+ (ff 1) (ff 1)). Does DrRacket's stepper reuse the results of computations?
-
-
-
-; Exercise 22:
-; Use DrRacket's stepper on this programs fragment:
-;  (define (distance-to-origin x y)
-;    (sqrt (+ (sqr x) (sqr y))))
-; (distance-to-origin 3 4)
-
-; Exercise 23:
-; The first 1String in "hello world" is "h". How does the following function
-; compute this result?
-;   (define (string-first s)
-;     (substring s 0 1))
-; Use the stepper to confirm your ideas
-
-
-
-; Exercise 24:
-; (define (==> x y)
-;   (or (not x) y)
-
-
-
-; Exercise 25:
-; Take a look at this attempt to solve exercise 17
-;   (define (image-classify img)
-;     (cond
-;       [(>= (image-height img) (image-width img)) "tall"]
-;       [(= (image-height img) (image-width img)) "square"]
-;       [(<= (image-height img) (image-width img) "wide")]))
-
-
-
-; Exercise 26:
-; What do you expect as the value of this program
-; (define (string-insert s i)
-;   (string-append (substring s 0 i)
-;                  "-"
-;                  (substring s i)))
-; (string-insert "helloworld" 6)
-; Confirm your expectation with DrRacket and its stepper
-
-
-
-; Exercise 27:
-; Our solution to the sample problem contains several constants in the middle
-; of functions. As "One Programs, Many Definitions" already points out, it is
-; best to give names to such constants so that future readers understant where
-; these numbers come from. Collect all definitions in DrRacket's definitions
-; area and change them so that all magic numbers are refactored into constant
-; definitions.
-
-
-
-; Exercise 28:
-; Determine the potential profit for these ticket prices: $1, $2, $3, $4, and
-; $5. Which price maximizes the profit of the movie theater? Determine the best
-; ticket price to a dime.
-; 
-; Here is an alternate version of the same program, given as a single function
-; definition
-; (define (profit price)
-;   (- (* (+ 120
-;            (* (/ 15 0.1)
-;               (- 5.0 price)))
-;         price)
-;      (+ 180
-;         (* 0.04
-;            (+ 120
-;               (* (/ 15 0.1)
-;                  (- 5.0 price)))))))
-; Enter this definition into DrRacket and ensure that it produces the same
-; results as the original version for $1, $2, $3, $4, and $5.
-
-
-
-; Exercise 29:
-; After studying the costs of a show, the owner discovered several ways of
-; lowering the cost. As a result of these improvements, there is no longer a
-; fixed cost; a variable cost of $1.50 per attendee remains. Modify both
-; programs to reflect this change. When the programs are modified, test them
-; again with ticket prices of $3, $4, and $5 and compare the results.
-
-
-
-; Exercise 30:
-; Define constants for the price optimization program at the movie theater so
-; that the price sensitivity of attendance (15 people for every 10 cents)
-; becomes a computed constant.
-
-
-
-; Exercise 31:
-; Recall the letter program from Composing Functions. Here is how to launch the
-; program and have it write its output to the interactions area:
-; > (write-file
-;     'stdout
-;     (letter "Matthew" "Fisler" "Felleisen"))
-; Dear Matthew,
-; 
-; We have discovered that all people with the
-; last name Fisler have won our lottery. So, 
-; Matthew, hurry and pick up your prize.
-;
-; Sincerely, 
-; Felleisen
-; 'stdout
-;
-; Of course, programs are useful because you can launch them for many different
-; inputs. Run letter on three inputs of your choice.
-
-
-
-; Exercise 32:
-; Most people no longer use desktop computers just to run applications but also
-; employ cell phones, tablets, and their cars’ information control screen. Soon
-; people will use wearable computers in the form of intelligent glasses,
-; clothes, and sports gear. In the somewhat more distant future, people may
-; come with built-in bio computers that directly interact with body functions.
-; Think of ten different forms of events that software applications on such
-; computers will have to deal with.
-
-
-
-; Exercise 33:
-; Research the “year 2000” problem and what it meant for software developers.
-
-
-
-; Exercise 34:
-; Design the function string-first, which extracts the first character from a
-; non-empty string. Don’t worry about empty strings.
-
-
-
-; Exercise 35: Design the function string-last, which extracts the last
-; character from a non-empty string.
-
-
-
-; Exercise 36: Design the function image-area, which counts the number of
-; pixels in a given image.
-
-
-
-; Exercise 37: Design the function string-rest, which produces a string like
-; the given one with the first character removed.
-
-
-
-; Exercise 38: Design the function string-remove-last, which produces a string
-; like the given one with the last character removed.
-
-
-
-; Exercise 39:
-; We started the development of our car image with a
-; single plain definition:
-    (define WHEEL-RADIUS 5)
-; The definition of WHEEL-DISTANCE is based on the wheel’s radius. Hence,
-; changing WHEEL-RADIUS from 5 to 10 doubles the size of the car image. This
-; kind of program  organization is dubbed single point of control, and good
-; design employs this idea as much as possible. Develop your favorite image of
-; an automobile so that  WHEEL-RADIUS remains the single point of control.
-
-
-
-; Exercise 40: Formulate the examples as BSL tests, that is, using the
-; check-expect form. Introduce a mistake. Re-run the tests.
-
-
-
-; Exercise 41:
-; Finish the sample problem and get the program to run. That is, assuming that
-; you have solved exercise 39, define the constants BACKGROUND and Y-CAR. Then
-; assemble all the function definitions, including their tests. When your
-; program runs to your satisfaction, add a tree to the scenery. We used:
-;   (define tree
-;     (underlay/xy (circle 10 "solid" "green")
-;                  9 15
-;                  (rectangle 2 20 "solid" "brown")))
-; to create a tree-like shape. Also add a clause to the big-bang expression
-; that stops the animation when the car has disappeared on the right side.
-
-
-
-; Exercise 42:
-; Modify the interpretation of the sample data definition so that a state
-; denotes the x-coordinate of the right-most edge of the car. 
-
-
-
-; Exercise 43:
-; Design the functions tock and render. Then develop a big-bang expression so
-; that once again you get an animation of a car traveling from left to right
-; across the world’s canvas.
-;
-; How do you think this program relates to animate from Prologue: How to Program?
-;
-; Use the data definition to design a program that moves the car according to a
-; sine wave. (Don’t try to drive like that.)
-
-
-
-; Exercise 44:
-; Formulate the examples as BSL tests. Click RUN and watch them fail.
-
-
-
-; Exercise 45:
-; Design a “virtual cat” world program that continuously moves the cat from
-; left to right. Let’s call it cat-prog and let’s assume it consumes the
-; starting position of the cat. Furthermore, make the cat move three pixels per
-; clock tick. Whenever the cat disappears on the right, it reappears on the
-; left. You may wish to read up on the modulo function.
-
-
-
-; Exercise 46:
-; Improve the cat animation with a slightly different image:
-;   (define cat2 'insert-image-here')
-; Adjust the rendering function from exercise 45 so that it uses one cat image
-; or the other based on whether the x-coordinate is odd. Read up on odd? in the
-; HelpDesk, and use a cond expression to select cat images.
-
-
-
-; Exercise 47:
-; Design a world program that maintains and displays a “happiness gauge.” Let’s
-; call it gauge-prog, and let’s agree that the program consumes the maximum
-; level of happiness. The gauge display starts with the maximum score, and with
-; each clock tick, happiness decreases by -0.1; it never falls below 0, the
-; minimum happiness score. Every time the down arrow key is pressed, happiness
-; increases by 1/5; every time the up arrow is pressed, happiness jumps by 1/3.
-;
-; To show the level of happiness, we use a scene with a solid, red rectangle
-; with a black frame. For a happiness level of 0, the red bar should be gone;
-; for the maximum happiness level of 100, the bar should go all the way across
-; the scene.
-
-
-
-; Exercise 48:
-; Enter the definition of reward followed by (reward 18) into the definitions
-; area of DrRacket and use the stepper to find out how DrRacket evaluates
-; applications of the function.
-
-
-
-; Exercise 49:
-; A cond expression is really just an expression and may therefore show up in
-; the middle of another expression:
-;
-;   (- 200 (cond [(> y 200) 0] [else y]))
-;
-; Use the stepper to evaluate the expression for y as 100 and 210.
-;
-; Reformulate create-rocket-scene.v5 to use a nested expression; the resulting
-; function mentions place-image only once.
-
-
-
-; Exercise 50:
-; If you copy and paste the above function definition into the definitions area
-; of DrRacket and click RUN, DrRacket highlights two of the three cond lines.
-; This coloring tells you that your test cases do not cover the full
-; conditional. Add enough tests to make DrRacket happy.
-
-
-
-; Exercise 51:
-; Design a big-bang program that simulates a traffic light for a given
-; duration. The program renders the state of a traffic light as a solid circle
-; of the appropriate color, and it changes state on every clock tick. What is
-; the most appropriate initial state? Ask your engineering friends.
-
-
-
-; Exercise 52:
-; Which integers are contained in the four intervals above?
-
-
-
-; Exercise 53:
-; The design recipe for world programs demands that you translate information
-; into data and vice versa to ensure a complete understanding of the data
-; definition. It’s best to draw some world scenarios and to represent them with
-; data and, conversely, to pick some data examples and to draw pictures that
-; match them. Do so for the LR definition, including at least HEIGHT and 0 as
-; examples.
-
-
-
-; Exercise 54:
-; Why is (string=? "resting" x) incorrect as the first condition in show?
-; Conversely, formulate a completely accurate condition, that is, a Boolean
-; expression that evaluates to #true precisely when x belongs to the first
-; sub-class of LRCD.
-
-
-
-; Exercise 55:
-; Take another look at show. It contains three instances of an expression with
-; the approximate shape:
-;
-;   (place-image ROCKET 10 (- ... CENTER) BACKG)
-;
-; This expression appears three times in the function: twice to draw a resting
-; rocket and once to draw a flying rocket. Define an auxiliary function that
-; performs this work and thus shorten show. Why is this a good idea? You may
-; wish to reread Prologue: How to Program.
-
-
-
-; Exercise 56:
-; Define main2 so that you can launch the rocket and watch it lift off. Read up
-; on the on-tick clause to determine the length of one tick and how to change
-; it.
-;
-; If you watch the entire launch, you will notice that once the rocket reaches
-; the top something curious happens. Explain. Add a stop-when clause to main2
-; so that the simulation of the liftoff stops gracefully when the rocket is out
-; of sight.
-
-
-
-; Exercise 57:
-; Recall that the word “height” forced us to choose one of two possible
-; interpretations. Now that you have solved the exercises in this section,
-; solve them again using the first interpretation of the word. Compare and
-; contrast the solutions.
-
-
-
-; Exercise 58:
-; Introduce constant definitions that separate the intervals for low prices and
-; luxury prices from the others so that the legislators in Tax Land can easily
-; raise the taxes even more.
-
-
-
-; Exercise 59:
-; Finish the design of a world program that simulates the traffic light FSA.
-; Here is the main function:
-;   ; TrafficLight -> TrafficLight
-;   ; simulates a clock-based American traffic light
-;   (define (traffic-light-simulation initial-state)
-;     (big-bang initial-state
-;       [to-draw tl-render]
-;       [on-tick tl-next 1]))
-;
-; The function’s argument is the initial state for the big-bang expression, 
-; which tells DrRacket to redraw the state of the world with tl-render and to
-; handle clock ticks with tl-next. Also note that it informs the computer that
-; the clock should tick once per second.
-;
-; Complete the design of tl-render and tl-next. Start with copying
-; TrafficLight, tl-next, and tl-render into DrRacket’s definitions area.
-;
-; Here are some test cases for the design of the latter:
-;
-;   (check-expect (tl-render "red") "insert-image-here")
-;   (check-expect (tl-render "yellow") "insert-image-here")
-;
-; Your function may use these images directly. If you decide to create images
-; with the functions from the 2htdp/image library, design an auxiliary function
-; for creating the image of a one-color bulb. Then read up on the place-image
-; function, which can place bulbs into a background scene.
-
-
-
-; Exercise 60:
-; An alternative data representation for a traffic light program may use
-; numbers instead of strings:
-;
-;   ; An N-TrafficLight is one of:
-;   ; – 0 interpretation the traffic light shows red
-;   ; – 1 interpretation the traffic light shows green
-;   ; – 2 interpretation the traffic light shows yellow
-;
-; It greatly simplifies the definition of tl-next:
-;
-;   ; N-TrafficLight -> N-TrafficLight
-;   ; yields the next state, given current state cs
-;   (define (tl-next-numeric cs) (modulo (+ cs 1) 3))
-;
-; Reformulate tl-next’s tests for tl-next-numeric. Does the tl-next function
-; convey its intention more clearly than the tl-next-numeric function? If so,
-; why? If not, why not?
-
-
-
-; Exercise 61:
-; Figure 27 displays two different functions that switch the state of a traffic
-; light in a simulation program. Which of the two is properly designed using
-; the recipe for itemization? Which of the two continues to work if you change
-; the constants to the following
-;
-;   (define RED "red")
-;   (define GREEN "green")
-;   (define YELLOW "yellow")
-;
-; Does this help you answer the questions?
-
-
-
-; Exercise 62:
-; ; DoorState -> DoorState
-; ; simulates a door with an automatic door closer
-; (define (door-simulation initial-state)
-;   (big-bang initial-state
-;     [on-tick door-closer]
-;     [on-key door-action]
-;     [to-draw door-render]))
-;
-; During a door simulation the “open” state is barely visible. Modify
-; door-simulation so that the clock ticks once every three seconds. Rerun the
-; simulation.
-
-
-
-; Exercise 63:
-; Evaluate the following expressions:
-;
-;   (distance-to-0 (make-posn 3 4))
-;
-;   (distance-to-0 (make-posn 6 (* 2 4)))
-;
-;   (+ (distance-to-0 (make-posn 12 5)) 10)
-;
-; by hand. Show all steps. Assume that sqr performs its computation in a single
-; step. Check the results with DrRacket’s stepper.
-
-
-
-; Exercise 64:
-; Design the function manhattan-distance, which measures the Manhattan distance
-; of the given posn to the origin.
-
-
-
-;Exercise 65:
-; Take a look at the following structure type definitions:
-;
-;   (define-struct movie [title producer year])
-;
-;   (define-struct person [name hair eyes phone])
-;
-;   (define-struct pet [name number])
-;
-;   (define-struct CD [artist title price])
-;
-;   (define-struct sweater [material size producer])
-;
-; Write down the names of the functions (constructors, selectors, and
-; predicates) that each introduces.
-
-
-
-; Exercise 66:
-; Revisit the structure type definitions of exercise 65. Make sensible guesses
-; as to what kind of values go with which fields. Then create at least one
-; instance per structure type definition.
-
-
-
-; Exercise 67:
-; Here is another way to represent bouncing balls:
-;
-;   (define SPEED 3)
-;   (define-struct balld [location direction])
-;   (make-balld 10 "up")
-;
-; Interpret this code fragment and create other instances of balld.
-
-
-
-; Exercise 68:
-; An alternative to the nested data representation of balls uses four fields to
-; keep track of the four properties:
-;
-;   (define-struct ballf [x y deltax deltay])
-;
-; Programmers call this a flat representation. Create an instance of ballf that
-; has the same interpretation as ball1.
-
-
-
-; Exercise 69:
-; Draw box representations for the solution of exercise 65.
-
-
-
-; Exercise 70:
-; Spell out the laws for these structure type definitions:
-;
-;   (define-struct centry [name home office cell])
-;   (define-struct phone [area number])
-;
-; Use DrRacket’s stepper to confirm 101 as the value of this expression:
-;
-;   (phone-area
-;    (centry-office
-;     (make-centry "Shriram Fisler"
-;       (make-phone 207 "363-2421")
-;       (make-phone 101 "776-1099")
-;       (make-phone 208 "112-9981")))) ""
-
-
-
-; Exercise 71:
-; Place the following into DrRacket’s definitions area:
-;
-;   ; distances in terms of pixels:
-;   (define HEIGHT 200)
-;   (define MIDDLE (quotient HEIGHT 2))
-;   (define WIDTH  400)
-;   (define CENTER (quotient WIDTH 2))
-;     
-;   (define-struct game [left-player right-player ball])
-;     
-;   (define game0
-;     (make-game MIDDLE MIDDLE (make-posn CENTER CENTER)))
-;
-; Click RUN and evaluate the following expressions:
-;
-;   (game-ball game0)
-;   (posn? (game-ball game0))
-;   (game-left-player game0)
-;
-; Explain the results with step-by-step computations. Double-check your
-; computations with DrRacket’s stepper.
-
-
-
-; Exercise 72:
-; Formulate a data definition for the above phone structure type definition
-; that accommodates the given examples.
-;
-; Next formulate a data definition for phone numbers using this structure type
-; definition:
-;
-;   (define-struct phone# [area switch num])
-;
-; Historically, the first three digits make up the area code, the next three
-; the code for the phone switch (exchange) of your neighborhood, and the last
-; four the phone with respect to the neighborhood. Describe the content of the
-; three fields as precisely as possible with intervals.
-
-
-
-; Exercise 73:
-; Design the function posn-up-x, which consumes a Posn p and a Number n. It
-; produces a Posn like p with n in the x field.
-;
-; A neat observation is that we can define x+ using posn-up-x:
-;
-;   (define (x+ p)
-;     (posn-up-x p (+ (posn-x p) 3)))
-;
-; Note Functions such as posn-up-x are often called updaters or functional
-; setters. They are extremely useful when you write large programs.
-
-
-
-; Exercise 74:
-; Copy all relevant constant and function definitions to DrRacket’s definitions
-; area. Add the tests and make sure they pass. Then run the program and use the
-; mouse to place the red dot.
-
-
-
-; Exercise 75:
-; Enter these definitions and their test cases into the definitions area of
-; DrRacket and make sure they work. This is the first time that you have dealt
-; with a “wish,” and you need to make sure you understand how the two functions
-; work together.
-
-
-
-; Exercise 76:
-; Formulate data definitions for the following structure type definitions:
-;
-;   (define-struct movie [title producer year])
-;
-;   (define-struct person [name hair eyes phone])
-;
-;   (define-struct pet [name number])
-;
-;   (define-struct CD [artist title price])
-;
-;   (define-struct sweater [material size producer])
-;
-; Make sensible assumptions as to what kind of values go into each field.
-
-
-
-; Exercise 77:
-; Provide a structure type definition and a data definition for representing
-; points in time since midnight. A point in time consists of three numbers:
-; hours, minutes, and seconds.
-
-
-
-; Exercise 78:
-; Provide a structure type and a data definition for representing three-
-; words. A word consists of lowercase letters, represented with the 1Strings
-; "a" through "z" plus #false. Note This exercise is a part of the design of a
-; hangman game; see exercise 396.
-
-
-
-; Exercise 79:
-; Create examples for the following data definitions:
-;
-;       ; A Color is one of: 
-;       ; — "white"
-;       ; — "yellow"
-;       ; — "orange"
-;       ; — "green"
-;       ; — "red"
-;       ; — "blue"
-;       ; — "black"
-;
-;   Note DrRacket recognizes many more strings as colors. End
-;
-;       ; H is a Number between 0 and 100.
-;       ; interpretation represents a happiness value
-;
-;       (define-struct person [fstname lstname male?])
-;       ; A Person is a structure:
-;       ;   (make-person String String Boolean)
-;
-;   Is it a good idea to use a field name that looks like the name of a
-;   predicate?
-;
-;       (define-struct dog [owner name age happiness])
-;       ; A Dog is a structure:
-;       ;   (make-dog Person String PositiveInteger H)
-;
-;   Add an interpretation to this data definition, too.
-;
-;       ; A Weapon is one of: 
-;       ; — #false
-;       ; — Posn
-;       ; interpretation #false means the missile hasn't 
-;       ; been fired yet; a Posn means it is in flight
-;
-; The last definition is an unusual itemization, combining built-in data with a
-; structure type. The next chapter deals with such definitions in depth.
-
-
-; Exercise 80:
-; Create templates for functions that consume instances of the following
-; structure types:
-;
-;   (define-struct movie [title director year])
-;
-;   (define-struct pet [name number])
-;
-;   (define-struct CD [artist title price])
-;
-;   (define-struct sweater [material size color])
-;
-; No, you do not need data definitions for this task.
-
-
-; Exercise 81:
-; Design the function time->seconds, which consumes instances of time
-; structures (see exercise 77) and produces the number of seconds that have
-; passed since midnight. For example, if you are representing 12 hours, 30
-; minutes, and 2 seconds with one of these structures and if you then apply
-; time->seconds to this instance, the correct result is 45002.
-
-
-; Exercise 82:
-; Design the function compare-word. The function consumes two three-letter
-; words (see exercise 78). It produces a word that indicates where the given
-; ones agree and disagree. The function retains the content of the structure
-; fields if the two agree; otherwise it places #false in the field of the
-; resulting word. Hint The exercises mentions two tasks: the comparison of
-; words and the comparison of “letters.”
-
-
-; Exercise 83:
-; Design the function render, which consumes an Editor and produces an image.
-; 
-; The purpose of the function is to render the text within an empty scene of
-; image pixels. For the cursor, use a image red rectangle and for the strings,
-; black text of size 16.
-;
-; Develop the image for a sample string in DrRacket’s  interactions area. We
-; started with this expression:
-;
-;   (overlay/align "left" "center"
-;                  (text "hello world" 11 "black")
-;                  (empty-scene 200 20))
-;
-; You may wish to read up on beside, above, and such  functions. When you are
-; happy with the looks of the  image, use the expression as a test and as a
-; guide to  the design of render.
-
-
-; Exercise 84:
-; Design edit. The function consumes two inputs, an editor ed and a KeyEvent
-; ke, and it produces another editor. Its task is to add a single-character
-; KeyEvent ke to the end of the pre field of ed, unless ke denotes the
-; backspace ("\b") key. In that case, it deletes the character immediately to
-; the left of the cursor (if there are any). The function ignores the tab key
-; ("\t") and the return key ("\r").
-;
-; The function pays attention to only two KeyEvents longer than one letter:
-; "left" and "right". The left arrow moves the cursor one character to the left
-; (if any), and the right arrow moves it one character to the right (if any).
-; All other such KeyEvents are ignored.
-;
-; Develop a goodly number of examples for edit, paying attention to special
-; cases. When we solved this exercise, we created 20 examples and turned all
-; of them into tests.
-;
-; Hint Think of this function as consuming KeyEvents, a collection that is
-; specified as an enumeration. It uses auxiliary functions to deal with the
-; Editor structure. Keep a wish list handy; you will need to design additional
-; functions for most of these auxiliary functions, such as string-first,
-; string-rest, string-last, and  string-remove-last. If you haven’t done so,
-; solve the exercises in Functions.
-
-
-; Exercise 85:
-; Define the function run. Given the pre field of an editor, it launches an
-; interactive editor, using render and edit from the preceding two exercises
-; for the to-draw and on-key clauses, respectively.
-
-
-; Exercise 86:
-; Notice that if you type a lot, your editor program does not display all of
-; the text. Instead the text is cut off at the right margin. Modify your
-; function edit from exercise 84 so that it ignores a keystroke if adding it to
-; the end of the pre field would mean the rendered text is too wide for your
-; canvas.
-
-
-; Exercise 87:
-; Develop a data representation for an editor based on our first idea, using a
-; string and an index. Then solve the preceding exercises again. Retrace the
-; design recipe. Hint if you haven’t done so, solve the exercises in Functions.
-;
-; Note on Design Choices The exercise is a first study of making design
-; choices. It shows that the very first design choice concerns the data
-; representation. Making the right choice requires planning ahead and weighing
-; the complexity of each. Of course, getting good at this is a question of
-; gaining experience.
-
-
-; Exercise 88:
-; Define a structure type that keeps track of the cat’s x-coordinate and its
-; happiness. Then formulate a data definition for cats, dubbed VCat, including
-; an interpretation.
-
-
-; Exercise 89:
-; Design the happy-cat world program, which manages a walking cat and its
-; happiness level. Let’s assume that the cat starts out with perfect happiness.
-;
-; Hints (1) Reuse the functions from the world programs in Virtual Pet Worlds.
-; (2) Use structure type from the preceding exercise to represent the state of
-; the world.
-
-
-; Exercise 90:
-; Modify the happy-cat program from the preceding exercises so that it stops
-; whenever the cat’s happiness falls to 0.
-
-
-; Exercise 91:
-; Extend your structure type definition and data definition from exercise 88 to
-; include a direction field. Adjust your happy-cat program so that the cat
-; moves in the specified direction. The program should move the cat in the
-; current direction, and it should turn the cat around when it reaches either
-; end of the scene.
-
-
-; Exercise 92:
-; Design the cham program, which has the chameleon continuously walking across
-; the canvas from left to right. When it reaches the right end of the canvas,
-; it disappears and immediately reappears on the left. Like the cat, the
-; chameleon gets hungry from all the walking, and, as time passes by, this
-; hunger expresses itself as unhappiness.
-;
-; For managing the chameleon’s happiness gauge, you may reuse the happiness
-; gauge from the virtual cat. To make the chameleon happy, you feed it (down
-; arrow, two points only); petting isn’t allowed. Of course, like all
-; chameleons, ours can change color, too: "r" turns it red, "b" blue, and "g"
-; green. Add the chameleon world program to the virtual cat game and reuse
-; functions from the latter when possible.
-;
-; Start with a data definition, VCham, for representing chameleons.
-
-
-; Exercise 93:
-; Copy your solution to exercise 92 and modify the copy so that the chameleon
-; walks across a tricolor background. Our solution uses these colors:
-;
-;   (define BACKGROUND
-;     (beside (empty-scene WIDTH HEIGHT "green")
-;             (empty-scene WIDTH HEIGHT "white")
-;             (empty-scene WIDTH HEIGHT "red")))
-;
-; but you may use any colors. Observe how the chameleon changes colors to blend
-; in as it crosses the border between two colors.
-;
-; Note When you watch the animation carefully, you see the chameleon riding on
-; a white rectangle. If you know how to use image editing software, modify the
-; picture so that the white rectangle is invisible. Then the chameleon will
-; really blend in.
-
-
-; Exercise 94:
-; Draw some sketches of what the game scenery looks like  at various stages.
-; Use the sketches to determine the constant and the variable pieces of the
-; game. For the former, develop physical and graphical constants that describe
-; the dimensions of the world (canvas) and its objects. Also develop some
-; background scenery. Finally, create your initial scene from the constants for
-; the tank, the UFO, and the background.
-
-
-; Exercise 95:
-; Explain why the three instances are generated according to the first or
-; second clause of the data definition.
-
-
-; Exercise 96:
-; Sketch how each of the three game states could be rendered assuming a 200x200
-; image canvas.
-
-
-; Exercise 97:
-; Design the functions tank-render, ufo-render, and missile-render. Compare
-; this expression:
-;
-;   (tank-render
-;     (fired-tank s)
-;     (ufo-render (fired-ufo s)
-;                 (missile-render (fired-missile s)
-;                                 BACKGROUND)))
-;
-; with this one:
-;
-;   (ufo-render
-;     (fired-ufo s)
-;     (tank-render (fired-tank s)
-;                  (missile-render (fired-missile s)
-;                                  BACKGROUND)))
-;
-; When do the two expressions produce the same result?
-
-
-; Exercise 98:
-; Design the function si-game-over? for use as the  stop-when handler. The game
-; stops if the UFO lands or if the missile hits the UFO. For both conditions,
-; we recommend that you check for proximity of one object to another.
-;
-; The stop-when clause allows for an optional second sub-expression, namely a
-; function that renders the final state of the game. Design si-render-final and
-; use it as the second part for your stop-when clause in the main function of
-; exercise 100.
-
-
-; Exercise 99:
-; Design si-move. This function is called for every clock tick to determine to
-; which position the objects move now. Accordingly, it consumes an element of
-; SIGS and produces another one.
-;
-; Moving the tank and the missile (if any) is relatively straightforward. They
-; move in straight lines at a constant speed. Moving the UFO calls for small
-; random jumps to the left or the right. Since you have never dealt with
-; functions that create random numbers, the rest of this exercise is a longish
-; hint on how to deal with this issue.
-;
-; BSL comes with a function that creates random numbers. Introducing this
-; function illustrates why the signatures and purpose statements play such an
-; important role during the design. Here is the relevant material for the
-; function you need:
-;
-;   ; Number -> Number
-;   ; produces a number in the interval [0,n),
-;   ; possibly a different one each time it is called 
-;   (define (random n) ...)
-;
-; Since the signature and purpose statement precisely describe what a function
-; computes, you can now experiment with random in DrRacket’s interactions area.
-; Stop! Do so!
-; 
-; If random produces different numbers (almost) every time it is called,
-; testing functions that use random is difficult. To start with, separate
-; si-move and its proper functionality into two parts:
-;
-;   (define (si-move w)
-;     (si-move-proper w (random ...)))
-;    
-;   ; SIGS Number -> SIGS 
-;   ; moves the space-invader objects predictably by delta
-;   (define (si-move-proper w delta)
-;     w)
-;
-; With this definition you separate the creation of a random number from the
-; act of moving the game objects. While random may produce different results
-; every time it is called, si-move-proper can be tested on specific numeric
-; inputs and is thus guaranteed to return the same result when given the same
-; inputs. In short, most of the code remains testable.
-;
-; Instead of calling random directly, you may wish to design a function that
-; creates a random x-coordinate for the UFO. Consider using check-random from
-; BSL’s testing framework to test such a function.
-
-
-; Exercise 100:
-; Design the function si-control, which plays the role of the key-event
-; handler. As such, it consumes a game state and a KeyEvent and produces a new
-; game state. It reacts to three different keys:
-;
-;   pressing the left arrow ensures that the tank moves left;
-;
-;   pressing the right arrow ensures that the tank moves right; and
-;
-;   pressing the space bar fires the missile if it hasn’t been launched yet.
-;
-; Once you have this function, you can define the si-main  function, which uses
-; big-bang to spawn the game-playing  window. Enjoy!
-
-
-; Exercise 101:
-; Turn the examples in figure 35 into test cases.
-
-
-; Exercise 102:
-; Design all other functions that are needed to complete the game for this
-; second data definition.
-
-
-; Exercise 103:
-; Develop a data representation for the following four kinds of zoo animals:
-;
-;   spiders, whose relevant attributes are the number of remaining legs (we
-;   assume that spiders can lose legs in accidents) and the space they need in
-;   case of transport;
-;
-;   elephants, whose only attributes are the space they need in case of
-;   transport;
-;
-;   boa constrictors, whose attributes include length and girth; and
-;   armadillos, for which you must determine appropriate attributes, including
-;   one that determines the space needed for transport.
-;
-; Develop a template for functions that consume zoo animals.
-;
-; Design the fits? function, which consumes a zoo animal and a description of a
-; cage. It determines whether the cage’s volume is large enough for the animal.
-
-
-; Exercise 104:
-; Your home town manages a fleet of vehicles: automobiles, vans, buses, and
-; SUVs. Develop a data representation for vehicles. The representation of each
-; vehicle must describe the number of passengers that it can carry, its license
-; plate number, and its fuel consumption (miles per gallon). Develop a template
-; for functions that consume vehicles.
-
-
-; Exercise 105:
-; Some program contains the following data definition:
-;
-;   ; A Coordinate is one of: 
-;   ; – a NegativeNumber 
-;   ; interpretation on the y axis, distance from top
-;   ; – a PositiveNumber 
-;   ; interpretation on the x axis, distance from left
-;   ; – a Posn
-;   ; interpretation an ordinary Cartesian point
-;
-; Make up at least two data examples per clause in the data definition. For
-; each of the examples, explain its meaning with a sketch of a canvas.
-
-
-; Exercise 106:
-; In More Virtual Pets we discussed the creation of virtual pets that come with
-; happiness gauges. One of the virtual pets is a cat; the other one, a
-; chameleon. Each program is dedicated to a single pet, however.
-;
-; Design the cat-cham world program. Given both a location and an animal, it
-; walks the latter across the canvas, starting from the given location. Here is
-; the chosen data representation for animals:
-;
-;   ; A VAnimal is either
-;   ; – a VCat
-;   ; – a VCham
-;
-; where VCat and VCham are your data definitions from exercises 88 and 92.
-;
-; Given that VAnimal is the collection of world states, you need to design
-;
-;   a rendering function from VAnimal to Image;
-;
-;   a function for handling clock ticks, from VAnimal to VAnimal; and
-;
-;   a function for dealing with key events so that you can feed and pet and
-;   colorize your animal—as applicable.
-;
-; It remains impossible to change the color of a cat or to pet a chameleon.
-
-
-; Exercise 107:
-; Design the cham-and-cat program, which deals with both a virtual cat and a
-; virtual chameleon. You need a data definition for a “zoo” containing both
-; animals and functions for dealing with it.
-;
-; The problem statement leaves open how keys manipulate the two animals. Here
-; are two possible interpretations:
-;
-;   Each key event goes to both animals.
-;
-;   Each key event applies to only one of the two animals.
-;
-; For this alternative, you need a data representation that specifies a focus
-; animal, that is, the animal that can currently be manipulated. To switch
-; focus, have the key-handling function interpret "k" for “kitty” and "l" for
-; lizard. Once a player hits "k", the following keystrokes apply to the cat
-; only—until the player hits "l".
-;
-; Choose one of the alternatives and design the appropriatevprogram.
-
-
-; Exercise 108:
-; In its default state, a pedestrian crossing light shows an orange person
-; standing on a red background. When it is time to allow the pedestrian to
-; cross the street, the light receives a signal and switches to a green,
-; walking person. This phase lasts for 10 seconds. After that the light
-; displays the digits 9, 8, ..., 0 with odd numbers colored orange and even
-; numbers colored green. When the countdown reaches 0, the light switches back
-; to its default state.
-;
-; Design a world program that implements such a pedestrian traffic light. The
-; light switches from its default state when you press the space bar on your
-; keyboard. All other transitions must be reactions to clock ticks.
-
-
-; Exercise 109:
-; Design a world program that recognizes a pattern in a sequence of KeyEvents.
-; Initially the program shows a 100 by 100 white rectangle. Once your program
-; has encountered the first desired letter, it displays a yellow rectangle of
-; the same size. After encountering the final letter, the color of the
-; rectangle turns green. If any “bad” key event occurs, the program displays a
-; red rectangle.
-;
-; The specific sequences that your program looks for start with "a", followed
-; by an arbitrarily long mix of "b" and "c", and ended by a "d". Clearly,
-; "acbd" is one example of an acceptable string; two others are "ad" and
-; "abcbbbcd". Of course, "da", "aa", or "d" do not match.
-
-; Exercise 110:
-; A checked version of area-of-disk can also enforce that the arguments to the
-; function are positive numbers, not just arbitrary numbers. Modify
-; checked-area-of-disk in this way.
-
-
-; Exercise 111:
-; Take a look at these definitions:
-;
-;   (define-struct vec [x y])
-;   ; A vec is
-;   ;   (make-vec PositiveNumber PositiveNumber)
-;   ; interpretation represents a velocity vector
-;
-; Develop the function checked-make-vec, which is to be understood as a checked
-; version of the primitive operation make-vec. It ensures that the arguments to
-; make-vec are positive numbers. In other words, checked-make-vec enforces our
-; informal data definition.
-
-
-; Exercise 112:
-; Reformulate the predicate now using an or expression. 
-
-
-; Exercise 113:
-; Design predicates for the following data definitions from the preceding
-; section: SIGS, Coordinate (exercise 105), and VAnimal.
-
-
-; Exercise 114:
-; Use the predicates from exercise 113 to check the space invader world
-; program, the virtual pet program (exercise 106), and the editor program (A
-; Graphical Editor).
-
-
-; Exercise 115:
-; Revise light=? so that the error message specifies which of the two arguments
-; isn’t an element of TrafficLight.
-
+#reader(lib"read.ss""wxme")WXME0108 ## 
+#|
+   This file uses the GRacket editor format.
+   Open this file in DrRacket version 6.11 or later to read it.
+
+   Most likely, it was created by saving a program in DrRacket,
+   and it probably contains a program with non-text elements
+   (such as images or comment boxes).
+
+            http://racket-lang.org/
+|#
+ 33 7 #"wxtext\0"
+3 1 6 #"wxtab\0"
+1 1 8 #"wximage\0"
+2 0 8 #"wxmedia\0"
+4 1 34 #"(lib \"syntax-browser.ss\" \"mrlib\")\0"
+1 0 36 #"(lib \"cache-image-snip.ss\" \"mrlib\")\0"
+1 0 68
+(
+ #"((lib \"image-core.ss\" \"mrlib\") (lib \"image-core-wxme.rkt\" \"mr"
+ #"lib\"))\0"
+) 1 0 16 #"drscheme:number\0"
+3 0 44 #"(lib \"number-snip.ss\" \"drscheme\" \"private\")\0"
+1 0 36 #"(lib \"comment-snip.ss\" \"framework\")\0"
+1 0 93
+(
+ #"((lib \"collapsed-snipclass.ss\" \"framework\") (lib \"collapsed-sni"
+ #"pclass-wxme.ss\" \"framework\"))\0"
+) 0 0 43 #"(lib \"collapsed-snipclass.ss\" \"framework\")\0"
+0 0 19 #"drscheme:sexp-snip\0"
+0 0 29 #"drscheme:bindings-snipclass%\0"
+1 0 101
+(
+ #"((lib \"ellipsis-snip.rkt\" \"drracket\" \"private\") (lib \"ellipsi"
+ #"s-snip-wxme.rkt\" \"drracket\" \"private\"))\0"
+) 2 0 88
+(
+ #"((lib \"pict-snip.rkt\" \"drracket\" \"private\") (lib \"pict-snip.r"
+ #"kt\" \"drracket\" \"private\"))\0"
+) 0 0 55
+#"((lib \"snip.rkt\" \"pict\") (lib \"snip-wxme.rkt\" \"pict\"))\0"
+1 0 34 #"(lib \"bullet-snip.rkt\" \"browser\")\0"
+0 0 25 #"(lib \"matrix.ss\" \"htdp\")\0"
+1 0 22 #"drscheme:lambda-snip%\0"
+1 0 29 #"drclickable-string-snipclass\0"
+0 0 26 #"drracket:spacer-snipclass\0"
+0 0 57
+#"(lib \"hrule-snip.rkt\" \"macro-debugger\" \"syntax-browser\")\0"
+1 0 26 #"drscheme:pict-value-snip%\0"
+0 0 45 #"(lib \"image-snipr.ss\" \"slideshow\" \"private\")\0"
+1 0 38 #"(lib \"pict-snipclass.ss\" \"slideshow\")\0"
+2 0 55 #"(lib \"vertical-separator-snip.ss\" \"stepper\" \"private\")\0"
+1 0 18 #"drscheme:xml-snip\0"
+1 0 31 #"(lib \"xml-snipclass.ss\" \"xml\")\0"
+1 0 21 #"drscheme:scheme-snip\0"
+2 0 34 #"(lib \"scheme-snipclass.ss\" \"xml\")\0"
+1 0 10 #"text-box%\0"
+1 0 32 #"(lib \"text-snipclass.ss\" \"xml\")\0"
+1 0 1 6 #"wxloc\0"
+          0 0 68 0 1 #"\0"
+0 75 1 #"\0"
+0 12 90 -1 90 -1 3 -1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 255 255 255 1 -1 0 9
+#"Standard\0"
+0 75 10 #"Monospace\0"
+0 12 90 -1 90 -1 3 -1 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 255 255 255 1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 1 1 1 1 1 1 0 0 0 0 0 0 -1 -1 2 24
+#"framework:default-color\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1 1 1 150 0 150 0 0 0 -1 -1 2 15
+#"text:ports out\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 192 46 214 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 93 -1 -1 -1 0 0 0 0 0 0 0 0 0 1.0 1.0 1.0 255 0 0 0 0 0 -1
+-1 2 15 #"text:ports err\0"
+0 -1 1 #"\0"
+1 0 -1 -1 93 -1 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 0 0 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1 1 1 0 0 175 0 0 0 -1 -1 2 17
+#"text:ports value\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 57 89 216 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1.0 0 92 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1.0 1.0 1.0 34 139 34 0 0 0 -1
+-1 2 27 #"Matching Parenthesis Style\0"
+0 -1 1 #"\0"
+1.0 0 92 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1.0 1.0 1.0 34 139 34 0 0 0 -1
+-1 2 1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 102 102 255 0 0 0 -1 -1 2
+37 #"framework:syntax-color:scheme:symbol\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 102 102 255 0 0 0 -1 -1 2
+38 #"framework:syntax-color:scheme:keyword\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 102 102 255 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 249 148 40 0 0 0 -1 -1 2
+38 #"framework:syntax-color:scheme:comment\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 249 148 40 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 51 174 51 0 0 0 -1 -1 2 37
+#"framework:syntax-color:scheme:string\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 51 174 51 0 0 0 -1 -1 2 35
+#"framework:syntax-color:scheme:text\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 51 174 51 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 60 194 57 0 0 0 -1 -1 2 39
+#"framework:syntax-color:scheme:constant\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 60 194 57 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 151 69 43 0 0 0 -1 -1 2 49
+#"framework:syntax-color:scheme:hash-colon-keyword\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 151 69 43 0 0 0 -1 -1 2 42
+#"framework:syntax-color:scheme:parenthesis\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 151 69 43 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 0 0 0 0 0 -1 -1 2 36
+#"framework:syntax-color:scheme:error\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 0 0 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+36 #"framework:syntax-color:scheme:other\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+16 #"Misspelled Text\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 50 163 255 0 0 0 -1 -1 2
+38 #"drracket:check-syntax:lexically-bound\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 50 163 255 0 0 0 -1 -1 2 1
+#"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 192 203 0 0 0 -1 -1 2
+28 #"drracket:check-syntax:set!d\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 192 203 0 0 0 -1 -1 2
+37 #"drracket:check-syntax:unused-require\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 192 203 0 0 0 -1 -1 2
+36 #"drracket:check-syntax:free-variable\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 192 203 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 166 0 255 0 0 0 -1 -1 2 31
+#"drracket:check-syntax:imported\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 166 0 255 0 0 0 -1 -1 2 47
+#"drracket:check-syntax:my-obligation-style-pref\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 192 203 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 50 205 50 0 0 0 -1 -1 2 50
+#"drracket:check-syntax:their-obligation-style-pref\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 50 205 50 0 0 0 -1 -1 2 48
+#"drracket:check-syntax:unk-obligation-style-pref\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 240 230 140 0 0 0 -1 -1 2
+49 #"drracket:check-syntax:both-obligation-style-pref\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 240 230 140 0 0 0 -1 -1 2
+26 #"plt:htdp:test-coverage-on\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+1 #"\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 1 0 0 0 0 0 0 205 92 92 0 0 0 -1 -1 2 27
+#"plt:htdp:test-coverage-off\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 1 0 0 0 0 0 0 205 92 92 0 0 0 -1 -1 4 1
+#"\0"
+0 70 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 1.0 1.0 1.0 1.0 1.0 1.0 0 0 0 0 0 0
+-1 -1 4 4 #"XML\0"
+0 70 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 1.0 1.0 1.0 1.0 1.0 1.0 0 0 0 0 0 0
+-1 -1 2 37 #"plt:module-language:test-coverage-on\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0 0 0 1 1 1 255 255 255 0 0 0 -1 -1 2
+38 #"plt:module-language:test-coverage-off\0"
+0 -1 1 #"\0"
+1 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 1 0 0 0 0 0 0 205 92 92 0 0 0 -1 -1 4 1
+#"\0"
+0 71 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 1.0 1.0 1.0 1.0 1.0 1.0 0 0 0 0 0 0
+-1 -1 4 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 1.0 1.0 1.0 0 0 255 0 0 0 -1
+-1 4 1 #"\0"
+0 71 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 1 0 0 0 0 0 0 0 0 1.0 1.0 1.0 0 0 255 0 0 0 -1
+-1 4 1 #"\0"
+0 71 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 1.0 1.0 1.0 0 100 0 0 0 0 -1
+-1 0 1 #"\0"
+0 75 10 #"Monospace\0"
+0.0 12 90 -1 90 -1 3 -1 0 1 0 1 0 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 255 255 255
+0 0 0 -1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 192 46 214 0
+0 0 -1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 93 -1 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 255 0 0 0 0
+0 -1 -1 2 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 93 -1 -1 0 1 0 0 0 0 0.0 0.0 0.0 1.0 1.0 1.0 57 89 216 0
+0 0 -1 -1 17 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 25 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 45 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 47 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 4 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 15 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1 14 1 #"\0"
+0 -1 1 #"\0"
+1.0 0 -1 -1 -1 -1 -1 -1 0 0 0 0 1 0 0.0 0.0 0.0 0.0 0.0 0.0 0 0 0 255
+255 255 -1 -1           0 2684 0 4 3 85
+(
+ #";; The first three lines of this file were inserted by DrRacket. The"
+ #"y record metadata"
+) 0 0 4 29 1 #"\n"
+0 0 4 3 85
+(
+ #";; about the language level of this file in a form that our tools ca"
+ #"n easily process."
+) 0 0 4 29 1 #"\n"
+0 0 4 3 178
+(
+ #"#reader(lib \"htdp-beginner-reader.ss\" \"lang\")((modname part-one)"
+ #" (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constr"
+ #"uctor repeating-decimal #f #t none #f () #f)))"
+) 0 0 4 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 1:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Add the following definitions for x and y to DrRacket's definition"
+ #"s area:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (define x 3)"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (define y 4)"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Now imagine that x and y are coordinates of a Cartesian point. Wri"
+ #"te down an"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; expression that computes the distance of this point to the origin,"
+ #" that is, a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; point with the coordinates (0,0)."
+0 0 25 29 1 #"\n"
+0 0 25 3 3 #"  ("
+0 0 15 3 6 #"define"
+0 0 25 3 2 #" ("
+0 0 14 3 18 #"distance-to-origin"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"x"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 4 #"sqrt"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"+"
+0 0 25 3 2 #" ("
+0 0 14 3 4 #"expt"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"x"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"2"
+0 0 25 3 3 #") ("
+0 0 14 3 4 #"expt"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"2"
+0 0 25 3 4 #"))))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 2:"
+0 0 25 29 1 #"\n"
+0 0 17 3 61
+#"; Add the following two lines to DrRacket's definitions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   (define prefix \"hello\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   (define suffix \"world\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Then use string primitives to create an expression that concatenat"
+ #"es prefix"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; and suffix and adds \"_\" between them When you run this program, "
+ #"you will see"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 40 #"; \"hello_world\" in the interactions area"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 6 #"prefix"
+0 0 25 3 1 #" "
+0 0 19 3 7 #"\"hello\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 6 #"suffix"
+0 0 25 3 1 #" "
+0 0 19 3 7 #"\"world\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 14 3 13 #"string-append"
+0 0 25 3 1 #" "
+0 0 14 3 6 #"prefix"
+0 0 25 3 1 #" "
+0 0 19 3 3 #"\"_\""
+0 0 25 3 1 #" "
+0 0 14 3 6 #"suffix"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 3:"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #"; Add the following definitions for x and y to the"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #"; definitions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";   (define str \"helloworld\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (define i 5)"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Then create an expression using string primitives that adds \"_\" "
+ #"at position"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; i. In general this means the resulting string is longer than the o"
+ #"riginal"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; one; here is the expected result is \"hello_world\""
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 3 #"str"
+0 0 25 3 1 #" "
+0 0 19 3 12 #"\"helloworld\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"i"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"5"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 14 3 13 #"string-append"
+0 0 25 3 2 #" ("
+0 0 14 3 9 #"substring"
+0 0 25 3 1 #" "
+0 0 14 3 3 #"str"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"0"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"i"
+0 0 25 3 2 #") "
+0 0 19 3 3 #"\"_\""
+0 0 25 3 1 #"("
+0 0 14 3 9 #"substring"
+0 0 25 3 1 #" "
+0 0 14 3 3 #"str"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"i"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 4:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Use the same setup as in exercise 3 to create an expression that d"
+ #"eletes the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; ith position from str. Clearly this expression create a shorter st"
+ #"ring than"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; the given one. Which values for i are legitimate?"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"str2"
+0 0 25 3 1 #" "
+0 0 19 3 12 #"\"helloworld\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"j"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"5"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 14 3 13 #"string-append"
+0 0 25 3 2 #" ("
+0 0 14 3 9 #"substring"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"str2"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"0"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"j"
+0 0 25 3 3 #") ("
+0 0 14 3 9 #"substring"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"str2"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"+"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"j"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"1"
+0 0 25 3 3 #")))"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; all positive Integer values less than the length of str are legiti"
+ #"mate"
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 5:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Use the 2htdp/image library to create the image of a simple boat o"
+ #"r tree."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 63
+#"; Make sure you can easily change the scale of the entire image"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 7 #"require"
+0 0 25 3 1 #" "
+0 0 14 3 11 #"2htdp/image"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 22 3 2 #"50"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 2 #" ("
+0 0 14 3 9 #"draw-tree"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 3 #"  ("
+0 0 14 3 10 #"overlay/xy"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 6 #"circle"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 19 3 7 #"\"solid\""
+0 0 25 3 1 #" "
+0 0 19 3 7 #"\"green\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 1 #"-"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"/"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"/"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"5"
+0 0 25 3 2 #") "
+0 0 22 3 1 #"2"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 1 #"*"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"2"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 9 #"rectangle"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"/"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"5"
+0 0 25 3 3 #") ("
+0 0 14 3 1 #"*"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"size"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"2"
+0 0 25 3 2 #") "
+0 0 19 3 7 #"\"solid\""
+0 0 25 3 1 #" "
+0 0 19 3 7 #"\"brown\""
+0 0 25 3 3 #")))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 6:"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; Add the following line to the definitions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";   (define cat \"paste-image-here\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; Create and expression that counts the number of pixels in the imag"
+ #"e"
+) 0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 3 #"cat"
+0 0 25 3 1 #" "
+0 2          61 22 1 #"\0"
+2 -1.0 -1.0 0.0 0.0 0          25 500
+(
+ #"\211PNG\r\n\32\n\0\0\0\rIHDR\0\0\0K\0\0\0u\b"
+ #"\6\0\0\0\6>\0347\0\0 \0IDATx\234\355\275wt]\325\231"
+ #"\377\375\331\347\234\333t\213z\265\212e"
+ #"\2717\3340`\2031\330t0\241\305\4H\310$$k\230$\277\204!dh"
+ #"a\22 \2047o\312\220L\230!$0!\224P\22\260\3\16\230\342\202\1c"
+ #"\ew\313U\262%\253\267\253\333\3339"
+ #"g\277\177\234{\257%l\311R\362\263"
+ #"\207\254\365>k\201\227\244s\317\331\373"
+ #"{\367~\366S\276\317s\204\224Rr\232EJI(\24\242\245\245\205W^y"
+ #"\205\25+V \204@Q\24jjj"
+ #"\370\332\327\276\306\314\2313\311\315\315\305"
+ #"\351t\"\2048\335C<\241\210\323\rV0\30\344\366\333o\347\365W_\246\320"
+ #"\245Q\350\266\341sj\b@\2I\303\244'\234\302\37K\241+v\246\314\230\305"
+ #"\265\327^\313\262e\313\30;v,\252"
+ #"\252\236\316\341\16\222\323\nV<\36\347"
+ #"\3143\317dL\252\235\313\247\25\223\353"
+ #"\324\320\24\2012`\345H$\206)\211"
+ #"\245L\302\t\203\326@\234\275\235\21\266"
+ #"\267\206(\0357\205\a\37|\220K/"
+ #"\275\24\233\315v\272\206\235\225\323\6\226"
+ #"\224\222{\356\271\207\367_z\202\177YX\205\4\fs\350G\v\1\n\2E\1"
+ #"E\bB\t\235\372\216\b\253\367\365\""
+ #"\v\252x\346\231g\230;w\356i\335\242\247\r\254H$\302\230\322\"\356[R"
+ #"M\205\317\201>\fP'\22!\300\246\bR\6lj\16\360\362\366\16\276\376\235"
+ #"\357\361\203\37\374\340\264mM\355\264<\5hmm\245\320)(\365\330\207]Q"
+ #"C\211\224\2204$\28w\\\36\23"
+ #"Kr\370\355\357\376\203}\373\366\361"
+ #"\374\363\317\237\226m\251\234\362'\244\305f\263\221\320M"
+ #"t\323\332V\307\377g\255\236\223m*\t$t\223\202"
+) 500
+(
+ #"\34\e\3379\277\206\346Mos\333m"
+ #"\267a\232\346)\237\303i\333\206\272\256"
+ #"3}\332T\352\264~\26\214\315\315*vE\1U\21hB\240(\2\273\252`"
+ #"S\255\277I$\303\215NU\4\221\244"
+ #"\301\217\3379\314]\17\376\277|\343\e\3378\245s8\255\247acc#\v\27"
+ #".\304g\4\231X\342\246 \307\206SS,\260\24\201\252\bl\252\300\251)\344"
+ #"\2724\362\\6\34\2322\354\266\265\251"
+ #"\202\255-!\36\377\260\225\306#\315\224"
+ #"\225\225\235\262\361\237v;+\24\n\361"
+ #"\374\363\317\363\373\337\377\236}\365\2731"
+ #"\0221l\212@S\0056U\301\241)\270\355*^\207J\271\317\301\214\n\17\265"
+ #"\59(\202\23\36\nB@R7\371\355\306V&\234w\25\317<\363\314);"
+ #"!O;X\0311M\223T*E$\22!\26\213\21\215F\211D\"\364\367\367"
+ #"\323\330\330\310\336\275{y\357\275\367\330"
+ #"\267{\a3\313=\\6\265\210\361Ent\303\344D\3\336\324\34\340\351M\355"
+ #"\34m\353\240\260\260\360\224\214\371\177\r"
+ #"\254\221\210i\232\364\366\366\362\362\313/"
+ #"s\367]wr\331\304<\256\234V\214\224r\20`\212\200f\177\234g\267\264s"
+ #"\327\217\177\311W\276\362\225S2\236\317"
+ #"4X\3\245\275\275\235\245K\2272Y\353\345\2723JH\31\307\206\255\bAO"
+ #"$\311[\373z\20c\317d\325\252U"
+ #"\247d+\2366\323\341\357\225\362\362r"
+ #"\326\257_\317\272\226$\273\332\302\330\324"
+ #"\201`H4EP\352u\360\361G\37\22\217\307O\311\30\376a\300\2(,,"
+ #"\344\277\376\373\tV\356\351\36\244\354%"
+ #"\326\352\312ujhF\234\266\266\266S"
+ #"\362\374\177(\260\0\226-[F\237\351"
+ #"\242\331\37GS\6:\340\240*\340\261\253ttt\234\222g\377\303\201e"
+ #"\267\333Yz\361%4\365\305\263\321\nA\306)\27\270\354\352\377\277\2622"
+) 500
+(
+ #"\"\204 ??\237\270npL\207\v"
+ #"\22\272\345\356\250\n\304b\261S\362\354"
+ #"\1778\260t]\347\3157\337\244*\317\211\231>\310%\222P\\G\"\211\247L"
+ #"JKKO\311\263\377\341\300z\366\331gQ\2\255L(v\243\247\243\20\261\224"
+ #"I8i %\204\23\6\225\225\225\247\344\331\377P`\255_\277\236o\375\363m"
+ #"\334<\267\2\273*\220X\333\262+\234\304\224\222`\\'&5\306\215\ewJ"
+ #"\236\377\17\1\226\224\222W^y\205\253"
+ #".Y\302\355\v\253\30_\224\203nJ\24\1\301\270No$\211\246\n\32{c"
+ #"\\r\371\2258\235\316S2\216\317<X\246i\362\363\237\377\234o~\345f\356"
+ #"\274`,\263\307\370H\32&\2+\30\330\354\217!%D\223&;\332B<\360"
+ #"\300\3\247\314\221>m\221\322\277E\22"
+ #"\211\4\267\337~;\e^\177\221\357-\251\245\334k\267\200\22`\232p\2707F"
+ #"4ebW\5\e\32\373\271\350\212\3171e\312\224S6\236\317\254o\330\323\323"
+ #"\303\345\227_\216\326}\220/\317\257\300"
+ #"mW\321MK\241\233\22\16\367\305\350"
+ #"\213\246ph\202\275\235\0216\266\3534\36>Bnn\356)\e\323gre5"
+ #"44p\366Y\3639\257B\343s\v+\21\b\v(a\31\237\207{c\370c"
+ #")\34\252BS_\234w\17\364\261q\363'\247\24(\370\f\352\254\335\273w3"
+ #"\373\214\31\\=\301\305\r\263,{\311"
+ #"\224\26P\272!i\350\211f\201j\356\217\263jo\17\257\377\365-f\315\232u"
+ #"\312\307\366\231\332\206\215\215\215\314\2329"
+ #"\235/\316.\342\274\332|\22\206e\225[\321PIco\224PB\307\256*\34"
+ #"\356\213\363\346\336n^{\375\257\\t\321E\247%\177\370\231\1+\20\b0y"
+ #"\322$\256\250\325X:\2610\353\276\bae"
+ #"s\32zbD\222\6\16U\260\277;\312\333\373"
+) 500
+(
+ #"{Y\375\356\32\26-Zt\332\306\370\231\320Y\246ir\323M71\267\320d"
+ #"\311\247\200J\31\222\306\236(\221\244u"
+ #"\352\355\356\b\363\376\2210\37~\274\2319s\346\234\326q\236\24,)%--"
+ #"-\370\375~<\36\17\305\305\305\270\335"
+ #"n\24\345\377\236\272{\371\345\2279\264e-\377va-)\343X\376/s\352"
+ #"\205\223&vM\260\253-\314\346\16\235"
+ #"O\266mg\362\344\311\177\363\363\244\224"
+ #"$\22\t\372\372\372\360\373\3758\34\16"
+ #"\252\252\252p8\34\303~n\330m("
+ #"\245\344\256\273\356\342\17O\374\212\"\217"
+ #"\235x\312\240;\234\242n\312t\226/"
+ #"_\316\365\327_\317\270q\343\376.\340"
+ #"\242\321(\2655\325\3346\333\307\2642"
+ #"o\26\254L\\\275#\224\300\256*\354"
+ #"\355\214\260\341h\214\255\333\2663~\374\370Q?GJIoo/\253W\257\346"
+ #"\271\347\236c\343\206\365\270D\n\257C"
+ #"#\246\e\330\v*\331\271k\327\260\326"
+ #"\377\260`\305b1J\n\362\271\377\242j\312}N\302\t\35\200\366`\202m-"
+ #"!\266\265\6\0313q&\17<\360\0\227\\r\311\337\224B\177\342\211'x\372"
+ #"\307\377\306\267\316\253\316F?\25\1\201"
+ #"\270\301\301\356\b\252\"h\v$X\271"
+ #"\247\207M\237lc\372\364\351\243\272\277"
+ #"\224\222\335\273w\363\223\237\374\204\25/"
+ #"\377\221\231\25\36\346V\371\250-\314A"
+ #"\25\340\266\253\250\212\340\221w\32y\356"
+ #"\215u\314\2337o\310{\r\273\r\223\311$v\305D \370\361\333\215\364DR"
+ #"\224\373\354\234;.\237\353g\225r\303"
+ #"\254R\266\267vq\367\327\276\300\277z"
+ #"\313y\374\361\307Y\262d\311\210O&"
+ #"\3030\370\371\317\177\3065\343\v\30\370"
+ #"\21CB[\300\212\243G\222\6\253\367"
+ #"\367\362\374\213/\217\32\250\246\246&\276\373\335\357\362\301\352"
+ #"\277p\341\204\2\36\275j\2\36\207\312\266\226\20\317lj\343"
+) 500
+(
+ #"h\177\34\217C\345_\27\327P\230c"
+ #"\247\257\257o\330\373\r\273\177\204\20h"
+ #"\252\302\201\356\bM\3768\347\216\313\303iSyvK;w\377\345\0\0377\5"
+ #"8\253&\227{\226\326reE\222\257~\376*n\274\361F\372\373\373G4\231"
+ #"C\207\16\21\355:\312\204\342\34t\343\330\252\n\305u\302\t\3M\21lj\n"
+ #"p\315\215_\344\352\253\257\36!D\326"
+ #"\227\360\353_\377\232\31\223\306\243\34\332"
+ #"\300\17/\253\343\352\351%\34\352\211r"
+ #"\337\e\207x\362\243\26\20\222\363\352\362"
+ #"\350\216$\331\323\21F\0\2326\274\n"
+ #"\37\366\257\16\207\3\247\307G\312\220\330"
+ #"U\301\204\342\34f\216\361r\356\270<>9\32\344\351M\255lj\16\360O\363"
+ #"\307pNm\36\223K\335\254\330\365\36"
+ #"S\247N\341\275\367\326\234T\t\177\360"
+ #"\301\aL)u\223\357\262\221\314$O%\364\305R\330TA{0I\237\360\361"
+ #"\313_\376r\304\2535\32\215\262|\371"
+ #"r\0326\257\341\276\213j\251+\312\241"
+ #"/\232\342\261\365Ml>\32dN\245\217\353\316(%\327\251\2222%k\17\371"
+ #"\21\bB\t\203\222\222\222\277\35,\233\315FQY%6\265\v\4\364DRT"
+ #"\250\nN\233\302\371\343\363\231R\346\346/\273\273yhu\3\377gQ5\343\n"
+ #"s\270y^9\225\207\374\314\2369\203"
+ #"O\266\357`\352\324\251'\274\267\224\222"
+ #"\325\253WcJX\271\247\213\326@\202"
+ #"x\312 \2324\323!\27\205\336H\212"
+ #"\272\2513ijj\242\242\242\2\217\307"
+ #"\203\252\252C\2\27\217\307\271\370\342\213"
+ #"qt\355\345\273\27\216\305cWi\362\307xl]3q\335\344\226y\345\214\311"
+ #"u`\230\22\335\204\376\230NB7\311"
+ #"\317\321\350\211$O\n\326I\267\341\302s\317%\2324(t\333h\366\307"
+ #"P\24\213+\2252$En;\267\314\253\240\320m\347\247k\232h\362\307\221"
+) 500
+(
+ #"\22.\230P\300\227\347\227q\356\202\263"
+ #"\351\356\356\36\4P__\37\253V\255"
+ #"\342\226[n\341\265W\377\314\226\346\0"
+ #"k\17\371\351\t'1$\24\344\330\230"
+ #"Y\341\245\256\320\305\214\n\17Z\317!>\267\370Lj+\212\2318a\2_\372"
+ #"\322\227X\265j\25~\277\237\201g\223a\30\\s\3155h\35\365\334:\277\2"
+ #"\247\246\320\26H\362\3235M\330T\301"
+ #"\227\316\254\240\302\347 eHL\t\212\2-\3768^\207\206MU\260y\v\311"
+ #"\317\317\37\26\254\223Z\360\257\276\372*"
+ #"\277\270\353\253\24\346\330\370\270)\300?"
+ #"\2355&\e\373\6K\307\230\22\376\264"
+ #"\243\223X\312\344\201K\306\341\324\24l"
+ #"\252\302\37\267u`\216=\213?\376\361"
+ #"\217l\331\262\205\207\37~\230M\e\326"
+ #"0\276(\207\31\345\36\306\25\346P\220"
+ #"c\303\343P\261\253\312\t\311Y\326\27"
+ #"c\22I\32\364FR\34\351\213\261\243"
+ #"-\304\241\356(\363\26\236\317\375\367\337"
+ #"\317\302\205\vy\371\345\227\371\341w\276"
+ #"\306\335K\307aS\5\272!\371\361;"
+ #"\215\304u\223\345\263\313\260\251\312\240q"
+ #"\253\212\340\371O\332\31_\224\303\244\222"
+ #"\34\332\212\317\344\225W^\31v\273\237"
+ #"\24\254\356\356n\246\326\216\341\253gW"
+ #"\362\330\272&n\234S\306\230<\347 "
+ #"\32\220\"\0041\335\340\311\17[X2"
+ #"\241\220\345\263\313\320M\223X\312\344\373"
+ #"\253\16\21W\234\224;\r\316\37\237\317"
+ #"\214r/\371.\rE\21\230\246\304\224\26\ak\270A\b\322\34\3234\207\3134"
+ #"%}\321\24{:\302\254=\344'\356*\242\273\273\233\357,(cz\271\a\220"
+ #"\274Q\337\303\237vt\362\265\5\225\370"
+ #"\34\32\206\34<\336\336H\222\247?n"
+ #"\343\356\245\265\274\275\277\227\273~\376\24"
+ #"\327\\s\315pP\234\334\202/**b\322\254\371$\215\26"
+ #"\316\30\343\345\303#\1>?k\260\341fJ\211\307\246r\321\244"
+) 500
+(
+ #"B\336\332\333\313\371\343\363)r\333\311"
+ #"\261\253\374\363\302*\222\206\311\344\0227vUA7\245eO\215\202*)\261V"
+ #"\230)\217}.\317e\343\374\272\2\316"
+ #"\31\233\307\236\2160\335\245yL(\311A7M\202\t\203\327\367ts\376\370|"
+ #"\362\\\332 ^\4X\351\262\217\233\2"
+ #"\324\25\271(v\333\250\357\214\260x\361"
+ #"\342\223\216\343\244\246\267\20\202;\356\270"
+ #"\203\365\r~.\235RDcO\224\206\336\330\240l0X\334\251\t\305\356\254["
+ #"\242\251\2\303\224L,\316az\231'\35\0066\am\205\277GL)\263\341\345"
+ #"Yc\274\\<\251\b\1\250\212\302\376"
+ #"\316\b\272)\231V\346\311\232$\31\321"
+ #"\24AK\177\202\335\355a\256\231Y\302"
+ #"\326\226\20\213/\276\234\274\274\274\223>"
+ #"sD~\312\225W^I\207\356\6\340\242I\205\254\252\357&\2262>\305_\a"
+ #"\273*\310\317\261\321\26Ld\177\237YI\247*\264!\261\16\233\344\200pN{"
+ #"0\201\327\251\341\264\253\203\236k9\346"
+ #"&\253\352\273\231_\235K]a\16\177\335\333\303#\217<2\"\323dD`9"
+ #"\34\16\36~\344\21V\354\352\342\232\231"
+ #"%\344:5^\335\331\205aJ\324\364\n\313D\b\372\242\226\225\377\277%RB"
+ #"\231\317A(\256\223H\231Y\317@\21"
+ #"\2\1\274\276\247\aS\302\255\363+x\357`\37g,X<\342\270\375\210=\340"
+ #"\233o\276\31\245t\2\0374\366\363\275"
+ #"\vk\t&\f\376\264\243\223P\\\307\256Z\304\331m-AtC2\263\302\213"
+ #"n\234z\366\360\211D7M\246\224\272qh\n\233\232\3\330\24\5\273\252\20K"
+ #"\31\254\330\325\315\321\3768w]8\226"
+ #"\236H\212\225\365\275<\361\304\23#6xG\25\374;z\364(\323&\215\347\256"
+ #"\305\325\370\234\32\277\336\320L[ \301\370\242\34R"
+ #"\246\344`w\224[\317,\347\202\t\5\307)\325\323"
+) 500
+(
+ #")6Ua\343\221~~\363Q\vc\v\\\270\354\n\r=1\n\\\32\267/"
+ #"\254\242\330k\347\241\267\32\371\321\257~"
+ #"\313M7\3354\342\373\216:R\372\322K/\361\317_\276\205;/\30Ku\276"
+ #"\223\367\e\375lo\r\241\b8\257.\237Y\25\336QWO\234\n\321\24A}"
+ #"g\204\265\a\373H\30&\323\313=\234"
+ #"_\227\217)\341\227\353\233Y\260\354f"
+ #"\36\177\374\361Q\205\243G\25)\325u\235\365\353\327\2232M~\362\336an_"
+ #"X\305E\223\nY<\376\230\345\373\277"
+ #"\271\242\6\212nJ\246\226\272\231V\346FJ\320T\301Q\177\234\307?8JK"
+ #"\177\234y\311$\206a\234\324y\36("
+ #"#\326Y\272\256s\375\365\327\263q\345"
+ #"\37\270|j\21\301\270N0\256\2232"
+ #"\344\240\377>K\242\233\326\230t\323\252"
+ #"4k\t$8\334\e\343\322\311E|"
+ #"\360\372\213\\\177\375\365\350\272>\342\373"
+ #"\215\b,\3234\371\372\327\277N\373\266"
+ #"\265\334\276\260\212\315\315A\316\252\311e"
+ #"Am\336\2400\360gYR\206dn\245\217\263kr\331\334\34\344\242I\5\354"
+ #"\371`t\245,'\5KJ\311\275\367"
+ #"\336\313\307\177}\231\1779\267\212\365\r~z\302)n\236[\376wO\340t\213"
+ #"\20p\323\334r\242)\203=\35\21n;g\f[\336\372\23\367\336{/#Q"
+ #"\335'\5\353\205\27^\340\205\337<\306"
+ #"7\317\255\"\2324\370\363\316N\256\235"
+ #"YB\361\b\253\273\4\226\262\265\247\253"
+ #"'\34\232u\224\253\312\310\25k\366^"
+ #"b\360\275\354\332\261:\237\221\210aJ\212=v>7\243\204\315M\1|\16\215"
+ #"o\234[\305\v\277y\214\27^x\341\344\317\37\3564<t\350\20gL\233\314"
+ #"\335Kj\231Z\346\346\231\315ml9\32\344\341\313\307\243*b\330\"$"
+ #"\260\352j\22\272Is_\214\206\356\20\275\341\4\252\"(\361:\231P\352"
+) 500
+(
+ #"\245\"\3275d\231\311\240Ab\231\3"
+ #"\221\224\301\341\3560Gz\"\370\243I\0346\2052\237\213\211e^J<\216\223"
+ #"\26|\2Y\n\300\375o\34b^\265\217/\235YA}G\204G\337=\314\216"
+ #"=\373\206M\206\f\tV<\36g\352"
+ #"\324\251\\P\222\344\222\311\205t\207S"
+ #"\334\373\306A\226\317.\343\202\361\5Y"
+ #"\367\342D\242\b\201\20\260\351\210\237\327"
+ #"v\264\21\22n\252\307M\240\274\242\34]78\332\334L{S\3\325n\311\265"
+ #"s*\231\\j\261\370N4\20U\21"
+ #"\244\f\311\332\3\335\374\265\276\23\303\225Om\335DJJK\210Ec45\35"
+ #"\241\273\3450S\213\354\\7\247\222\312<\327I\365\250]Sx\357@\37/m"
+ #"\357\340\221+&P\354\261\361\326\276^"
+ #"\326t\331\251\257\257\0372\303s\302m"
+ #"(\245\344\301\a\37\244\34?\27N("
+ #"\300\224\260\345h\20\233*8\263:\227\3240\nQI\373_O~\320\3043\273"
+ #"B\334\374\255{\370x\363\26\266n\331"
+ #"\304\233o\274\316;o\375\225\235\333\267"
+ #"\362\356\272\r\314\276\342&~\266\256\205\25;;P\24q\\8KU\4\301x"
+ #"\212\237\275s\220\325\355\32\337{\350g"
+ #"l\335\266\235\315\37\177\304\252\277\254d"
+ #"\315\273o\263s\3736^[\265\232\374\231\27\362\3037\17\361Ac\0376ux"
+ #"\355\2222L\346W\373\260)\202-G\203\230\22.\234P@9~\36|\360\301"
+ #"!\365\327\tWVCC\3s\247O\346\337/\255\243\330c\3074%\17\276\325"
+ #"\310\244\322\34n\231WAR?1XV\334I\360\237k\e\351\315\251\344\217\317"
+ #"?\307\274ys\207\35\370\237\376\364g"
+ #"\376\351+_\345\222\32\e\327\314*\37"
+ #"\2247\214\353\222G\336\334O\305\314\205<\367\314\3770v\354\330a\357"
+ #"\365\213\307\36\343\356\357}\217\257\317"
+ #"/aA\355\360\253\337\256)<\273\271"
+) 500
+(
+ #"\215\375\335Q\36\270d\34\212\20t\207"
+ #"\223\374\360\315\6>\331\275\217\272\272\272"
+ #"\343>s\334W`\232&\267\336z+\313\246\27S\346\2632\264\355\241\4m\301"
+ #"8g\325\344a\16[\373\247\360\327=\235\34JxX\361\332\237O\n\24\300u"
+ #"\327]\313\37\236\371=+\367\a\331\335"
+ #"\26\314\226\231h\212\302\363\233\232qVNa\305\237_9)P\0w|\373\333"
+ #"\374\350\221\37\363\333\217Zh\r\306Q\207Q\374\246)9kl\36m\2018\355"
+ #"\351(I\231\317\301\262\351\305\334z\353"
+ #"\255'4'\216\3\353\375\367\337\247m"
+ #"\337\326\264\177g\242*\202=\355\21\362"
+ #"\\6*\323\301\376\23\211\"\2407\232d\345\256.\36\371\321CL\e\"Qq"
+ #"\"\271\372\352e|\371+_\345\217[ZH\31V\35NCO\204\217Z\342\374"
+ #"\327\177\376\212\242\242\242\21\337\353_\357"
+ #"\370\16\363\27-\341\325\255-\f\227("
+ #"7LI\205\317\201\307\241Q\337\21I"
+ #"\353F\223\v&\24\320\266o+\357\277"
+ #"\377\376\361s\34\370\203i\232\334y\347"
+ #"\235\\:\271\b\247\246Z\341^)\251\357\f3\2618\a\327\247\342C\3ES"
+ #"\24\2666\371)\36;\236/\336r\363\210'\227\221;\276\375-\272Sv\232\372"
+ #"\242\3305\205\367\17vq\316\242\305,"
+ #"^|\376\250\356\243(\nw\335\371\257"
+ #"\354\350\260\230\201CY(\22p\332\24"
+ #"\252\362\234\324w\204\255\262<\tNM"
+ #"\345\322\311E\334y\347\235\307\255\256A"
+ #"`m\336\274\231\356\306=\314\255\362\221"
+ #"2\315,\307\274\265?\316\370\342\234\223"
+ #"\16tG\213\237%K\226\222\2233\374"
+ #"\265\353\327\257\347\271\347\236\243\241\241!"
+ #"\373\273\211\23'2q\332\f\352\333\2\30\246\244\276#\314UW^\231\375{\""
+ #"\221\340\2157\336\340\245\227^\242\247\247g\330\373/\\"
+ #"p\16\271%ch\354\16\17k\317\t`L\236\203\226\376"
+) 500
+(
+ #"8\261\2245\337\224i2\267\312GW\343\0366o\336<\350\372,X\231\23p"
+ #"\351\304B\334vkU\t!\b\304tB\t\203\352|\327\260\372J7%}\221"
+ #"\24\223'M\32\362\232L#\214\v.\270\200[n\271\205\5\v\26\260v\355Z"
+ #"k \212Bmm-\335\2418\261\224A\324\20L\234`\331<\261X\214\eo"
+ #"\274\221+\257\274\222\345\313\227\263x\361"
+ #"b\16\37><\344s\362\362\362()+\243;\24\37\326`5LI\261\333N"
+ #" \256\23\210\351\ba\331\216n\273\312"
+ #"y\343\362\217;\31\263`\365\365\365\361"
+ #"\341\332w\2305\306\233u\210\25\1\376"
+ #"X\nM\261\312\323\206\263\367\244\264\362"
+ #"qv\373\320Q\322#G\216\360\37\377"
+ #"\361\37\331\345\335\325\325\305O~\362\223"
+ #"\354\337\35\16G\326\351\225Rd\211&"
+ #"k\327\256\345\265\327^\313^\267g\317"
+ #"\36\236|\362\311!\237#\204@U\265"
+ #"\343\342\357\237\26\23k+\n\4\376\330"
+ #"\261-\233\211X\254}w\365 \376C\26\254\25+V0\2554\207B\267=\233"
+ #"TP\204\240/\232\302\236.\362\36\316"
+ #"\177\322T\201\333\256\320\322\3222\3445\211D\202T*5\350w\3\213\222Z["
+ #"[\311s\331\310\261\253\330\204I{\272\24.\32\215\36w\257H$2\344sb"
+ #"\261\30\375\376>\362\334\366a\275\fS"
+ #"\312\264\353\5}\221Tv\25\232RR"
+ #"\344\261S\235\347`\305\212\25\331\353\25"
+ #"\260\24\373\177\376\352W\234U\223\307\240"
+ #"\f\236\200h\322\260\302\306\232\30>\267'\4\23K}\254[\277~HP\353\352"
+ #"\352\270\356\272\353\262?\253\252\312m\267"
+ #"\335\6XT\356\372=\273\30_\352\303\246*T\347\331y\367\2755\0,^\274"
+ #"x\20\3016??\237[n\271e\310\261\354\333\267\237\216\243M\214-\364"
+ #"\f\312\27\16\36\257E\350Ed\214_}P\222WS\4SJ\334\374\352"
+) 500
+(
+ #"W\277\312\356\4\r\240\277\277\237\303\373"
+ #"\367p\333\25\343\2173\r\342\272\211]"
+ #"S\262-\233\206\22\303\224\234Y[\300"
+ #"\303\357l\346\203\17?\344\334\205\v\217"
+ #"\273\306f\263\361\273\337\375\216E\213\26"
+ #"q\350\320!.\275\364R.\271\344\22\0^|\351eR\376.&\225NA7"
+ #"%\v\306\27\363\207\327\377\302\321\226\26"
+ #"\252*+Y\265j\25O=\365\24\241P\210\345\313\2273{\366\354!\307\362\344"
+ #"SOQ\352\320\251\310u\16i\352dSs\246\304\246\n\2q\375\330\4\323\377"
+ #"V\344:xk\323.\372\373\373)((\260\300\332\271s'5\5N|N\355"
+ #"\370\233\313\f\340\303\303e\230\222\261\205"
+ #"n\316(\321\370\356\367\356f\315;\253"
+ #"q\271\\\307]\347\361x\216\353\354\321"
+ #"\334\334\314C\17?\302\25\323\212\361:"
+ #"4R\272\311\234\252<V\356\330\313="
+ #"\367\336\317\263\317\374\17\345\345\345\334w"
+ #"\337}C>?#\37~\364\21O\375\366w|\353\2341\250\n\230\306PW\n"
+ #"\342)3[,\225\30\220\323\264~\an\207J\211\307\316\316\235;Y\274x1"
+ #"\212\224\222\225+W2\271\304}\\\342\24,\5\230\320\315\21\305{LSr\363"
+ #"\374j\16~\362\1_\377\347\177\31Q\221dkk+\327}\376F\212\364\36\226"
+ #"N)!\225\246\36i\212\340\253\v\307"
+ #"\362\247\347\177\317\277\377\340\207'\275\17"
+ #"\300\216\35;X~\323-,\34\2431kL\336\260\221[\211$\2344@\222."
+ #"\305\23\203\0160\1\250B0&\327\301\312\225+\221RZ`\255[\267\216\332\2"
+ #"\327\361\331b\tN-\235r\227\362\244MuL))t\333\270si\35o\276"
+ #"\374\f\227\\v\5\37m\334x\302kS\251\24\177~\3655\26_\270\224\320\241"
+ #"O\370\346\342Z4\345\230^\324MI]\221\233o"
+ #"-\252\341\247?\372\0017,\377\2{\352\353Ox"
+) 500
+(
+ #"\257H$\302\177?\361\e\226\\t1\325f7_\234_\215)\207\217<\350\246"
+ #"$\2324\254\346fR\242*\326\356\310\314Q`\215\245\304kg\335\272uH)"
+ #"\321R\251\24M\215\207(\\Tv\234i \221x\235\32I\335$\2264\3619"
+ #"\265\223\256\260\224!\31[\340\342\201\313"
+ #"&\362\374\246\217\271x\311\5\314\236\277"
+ #"\200E\347\235GMM5\272\256s\340\340A\326\254YK\303\356m,\256\313\345"
+ #"s\27M8a\317\231\244a2\273\322"
+ #"\307\375\227\214\347\331\367\376\314\2027W"
+ #"q\316\271\213Xp\3169T\216\31C8\22aO}=k\336{\227\316\303\373"
+ #"X6\275\224\213\247\324\0\303S)\24a\25q&u\223\244.\321\r\211\313\246"
+ #"bH9\350D4M\211\327\241\321x\340 \251T\n-\20\b\240\352q\274N"
+ #"\355\270\225eJ(v\333I\32\222@"
+ #"\\'\327\245\r\257\345\a\0\226\357\262"
+ #"\361\315\305u4\366D\331t\370\23^\371\317u\4\23V\312?\317\2512mL"
+ #"._\274\264\216\212\\')\323\34R\21'\rIu\276\213\177\273d\"\373:"
+ #"\302l\332\267\216?|\370W\302I\3"
+ #"\233\"(\310\261\261\260:\237\271WN"
+ #"\246\320c'\245\237\270\375\312`\21\364"
+ #"Eu$\20M\31\350\246\304\347P\255\371\v\201H\263zL\t9v\0053\21"
+ #"#\20\b\240\355\336\275\233\374\34\e96\365\4`Y+\313\241)t\205\223\214"
+ #"-p2\244\276\374\224\30i\36\321\270\242\34\306\227\324Xl;CfC\303\212"
+ #"\"0\6p\24\206\223L$uZ\271\227\31\25\276\254\341*\204\25\215\315\24B"
+ #"\r\25:\32\f\223\265b\3\361\24\252\"\350\217\351\330TA\216]E \262\213"
+ #"\3012\262%\16U\301\353P\331\275{7\312\266m\333\360:\324\23"
+ #":\234R\202\307\241R\342\265s\250;:\242X\267\25\2>v]"
+) 500
+(
+ #"f\22F\272\362T\f\374\335(\0315\272)\263L\234\314x3\244\220\201_\264"
+ #"\5\340\20\343\23\2\1774EB7Q\200\216`\202\\\247\206\313\246\36cL\v"
+ #"\320M\353\v\27B\340\262\251l\333\266"
+ #"\re\337\276}84\205\241p\320\24\301\324R\17\373:#\244\322\5\334Bd"
+ #"\310e\307\272\254e~\27\327M\266\265"
+ #"\204N\b\204\344\344\2738{\377\223\\7\324}\fS\262\255%D\"]\304)"
+ #"\6\214Q\21\26\0\335\221$B\bt\t-\375\t*\363\234\351\304G\332l "
+ #"C\217J'IT\301\276}\373P\266n\335\212\32364\251\3250%\323\312\334"
+ #"\264\207\22tG\222\3305\205\204.\211$\r\2\351\372d\1774E,e\242\b"
+ #"\301\321\3768O~\324\202a\310\21gp\204\0\273\252\240)\2CJ\222\272u"
+ #"Be29#\315\260\253\212\265\35\177\363Q\vG\375\t4\305\262\245\372c)"
+ #"z\"I\202q\203\243\3768\301\270\216"
+ #"\246\b\"\t\235\376x\212\252|\347\247"
+ #"\262D\"k.\t\254\261m\335\272\25"
+ #"\355\300\201\3\234[\351<\3417\251\b\221\316\3068pj\nOmlES\4"
+ #"m\301\4\361\3241>T\346\332\\\227uZ\n\1\207z\242\324\26\272\322\r["
+ #"\5)\323<\241\237\226\241*mh\354c[K\220\336H\212\204a\342P\25\n"
+ #"\3356fW\3728\253&\27\233:t6)\243\267\302I\235\243\375qTE\360"
+ #"\354\2266\24\305\332r\251\1&\201nH\24\305b\16*iW\307cWq\331"
+ #"Tl\252\222\rk\17\234\237\252\b\16"
+ #"\348\2008\363\3143\245\267\277\201\333"
+ #"\316\251\314*\310L\352\251+\234\344\235"
+ #"\3\275|\334\24 \30\327I\32&\v"
+ #"k\3638\243\302\207\317\251f\333\317I\254\243\2707\222d}\203\237"
+ #"\326@\2\247\246\240(\202\361E9\314\257\3661\263\302\213\323\246\f"
+) 500
+(
+ #"\232\260H\377\357\311\217Z\331\320\350\37"
+ #"r\305\234;.\237\257\2353\6>\305=\25\200.%\373:#lj\n\260\247"
+ #"#LB7I\350\222\212\\\a\vk\363(\361\330\361:5TEp\244/F"
+ #"0\246\2230L\272B\t\266\266\204\262"
+ #"s\230^\356\341\352\351%\324\24\270\320"
+ #"\r\223\275]\21\"\t\3\233*x\347@/\2161S\320\346\314\231\303\356\325\a"
+ #"\263\366S\246\6y\365\376\36\376\274\263"
+ #"\213\374\34\215kg\226\220\237c\343\261uM\214+\314a~\265\365M\17T\252"
+ #"B\200\313\246\22N\30\330\3250\337<\257\232C=Q67\axq[\a\252"
+ #"\"8\253&w\220U\235\231\300\207\207"
+ #"\207\6\n\340\303\303~.\235\\\310\330"
+ #"\2\327\240\34\243\"\4\35\2018\377\263"
+ #"\251\215\312<\a\327\235Q\312\344\0227\377\375\301QfTx\271\356\214Rb)"
+ #"\3\201\240+\234 \327\251\222\347\262\272"
+ #"\356z\35*;\332\302,\233^L\312"
+ #"\220\354\357\212\360\320\352F\226N,\340"
+ #"\342\311V\31\237\20\231\26\306\222s\346\314A\233<y2[V\35\333\"\232\""
+ #"\370\244%\310\237vtr\335\31e\234_\227o\255\b\340\214\n/k\16\366Q"
+ #"\223\357\242\266\320\205*\6\177\323\2120"
+ #"q\333U\242)\203\2\267\215\363|y\234;.\217P\334\260\224\353\247l)!"
+ #" \2300N\312\3055%\204\22\306q\272\313DR\225\347\344\321+'\340uj"
+ #"hi\37/\246\233\270\35*I\303:\205\303\t\235#}q\f\t\"=\321\215"
+ #"G\2T\345;\251\314s\342\262)\\3\243\204\35m!\376\260\245\235\270n2"
+ #"\243\334\3\34\343\374O\236<\331ZY"
+ #"\377\25\327\311|\341\31\"\355\203\227\217\247\304cG7%\t\335DS\5\227M"
+ #")\342\241\325\215\354\351\baS\5U\371N\224"
+ #"\264\335$\245U\224dS\5]\241$/n\353@"
+) 500
+(
+ #"\301\332\316\205n\e\245^;\245^\a9\366c[\3210\241\330cu\224\214\17"
+ #"c#\271l\n%\36;\3M\262L)pg(Ag8Iw8I\"m"
+ #"\242t\206\222\0\331\350gs\177\334\252"
+ #"\263\306Z\315G\373\3434\367\307\271aV)\246\224\226\215%\4s\253|\214/"
+ #"v\323\330\23\265NS,/&\2262\2303g\16\332\224)S\360Gu\242I"
+ #"\235\234t89\307n\5\373\6n\31\335\220\324\25\3470\257:\227\365\r~\312"
+ #"s\35\226\362\367\330\331\336\31\342\375\6"
+ #"?\215\275\261\264-$Y\337\340\247\302"
+ #"\347 \241\233\204\22z\272dW\341\233\347U[\205Mi\16|\271\327\301\331c"
+ #"\363X{h\350\212\254\205\265\371\224z"
+ #"\355\3J\354\254\310\346O\327\34\301\37"
+ #"M\341\262Y\335'\2356\225\216`\202"
+ #"\224)Y\261\253\213\225\273\273\311w\331"
+ #"\250+rQW\224\203\333\256\220J\217mbq\16\345^\a\206\264\274\r\211D"
+ #"7\3001 A\233)9\16'\f\246L\231\202\346\363\371\220\216\34B\t\3O"
+ #"\232\\o\31\337'\330\e\22\256\236^"
+ #"\314\203o\205\330\331\32\346Ho\234\255"
+ #"-A\302\t\203\231\25\36n\232[\306"
+ #"\370\"7\177\335\333\303\241\236(\367,"
+ #"\255\305\224\226\315\322\37\323\351\b&\254"
+ #"\0252@\327\231R\262|v)\235\241${;\303\307=r\366\30ov\5d"
+ #"\207!%96\225\345\263\312(t\333(r\333\261\253\326\311\375\357o6p\366"
+ #"\330\\\226L(d\303a?\215=16\36\351g\343\221~\346U\347\2222\254"
+ #"\311_5\255\30SJ\334v5\233sP\4\364\307S\304u#M\330\25\304\222"
+ #"&\232\323\215\317\347C\263\333\355\324\324"
+ #"\326\321\23\351\263\212\200\206\374~\255"
+ #"-Z[\340\342\374\272|\336\334\327\203\313\2460\243"
+ #"\302\313\3315\271\314\251\364\341\320\254\222\217\213'\25\260"
+) 500
+(
+ #"\276\241\217\367\16\366q\361\344BTE"
+ #"\301\353pP\223\357\314n\353c`\201"
+ #"\307\241q\307\371\325\274\261\267\207\217\16"
+ #"\367\23L\373\241K'\26\262tb\1\2522\270\224Db\255\376\263jr1%"
+ #"i\3264\274\265\257\227\216`\202/\235YNw$\311\330\264n='\221\313\301"
+ #"\356(\e\233\2D\222\6\363\253s)"
+ #"\310\261\21O\231\224x\355\331\222\32S\202?\232\"c\377[:U\247\266n<"
+ #"v\273\335\n\376-Y\262\204\303\253\177"
+ #"\317\3541^\206\263\2615E\260\2655"
+ #"\310\246\346\0\36\207\212MQ\230W\345"
+ #"C\21\202\335\355a\306\268\3619m"
+ #"\224\347:\371\302\234r^\336\336A\271"
+ #"\317\332\256-\375qR\246\304\353P\231Si\361\f2O2L\211\323\246\360\371"
+ #"Ye\\6\271\210H\322\300\343P\3618\324\354v\375\264lk\r\321\25J\242"
+ #"\273)\300\16\0\0\20\205IDAT\bA\231\317\216\0^\336\336\311\205\23\n"
+ #"\b'\f\342\31Z\267\1.\273\312\22427\333\333B8m\n\273\332Cx\34"
+ #"*\347\214\315#\317e\313Z\352\241\270"
+ #"A0\256\17\260\35\2413\224d\311\r"
+ #"K\254\371\v!\270\342\212+\370\326\37"
+ #"\36\37\226\372\243*V\27\241\307\3265s\361\244B&\227\272yzS\e\257\357"
+ #"\351f\331\364\22\244\224\34\354\211Q\356"
+ #"3\250\3609\31W\344BJ\370\321\333"
+ #"\215\270l\n\305\36{6\3154\265\324"
+ #"\203\335\251\16\262\271L\t\246a\235b\271.-Kq<\221H\t\e\32\375\264"
+ #"\364'P\5t\205\223\304Rf\332\342\267X7\231\3525%\35k_\271\273\e"
+ #"U\21\\\177F)\a\273\243\274s\240\227q\205.\246\225y\262\316|\246\265T"
+ #"\306\2227LIk\177\234+\256\270\2!\204E\f\351\357\357g\334\230"
+ #"R\36\272\254\16\237S=\341Q\256\b\350\213\3524\371c\314\255\364\21M"
+) 500
+(
+ #"\31lj\n\360\322\366NJ\275v.\233R\204\"\254\22\224]\355!65\a"
+ #"\231V\346&\307\256\262\361H\200\253\246"
+ #"\25s\331\224\242lO\231L\201\23\34\363\337T\305\"g4\373\343T\347;\263"
+ #"\204\271\23]\253\245\233P\257\336\337\313"
+ #"\312\335]\214+\262Z\n\357\357\2122"
+ #"\241(\207\363\307\347g\3\227o\356\355\241#\224\344\3723J\263^F0n0"
+ #"\261$\207\n\237\323\212\232&\f\366w\35\313\30\tauNza['G\333"
+ #"\273\310\313\313\263\3002M\223\5\v\26"
+ #"p\216\263\303\242\24\r\0216\311\270\a)Cf\227\350\366\266\20+vuQ\352"
+ #"u\260db\1\353\e\3744\365\305\270pB!s\252\274\24\273\355\354j\17\363"
+ #"\332\256.4Ep\366\330\\\316\250\360\246\v\241,3\"\246\233t\4\23l="
+ #"\32\344\303#\375\350\246\345\27.\30\233\307\234*\37e>\a.MA\bA4"
+ #"iy\n;\332B|t$@(\241\263\2606\237\251\245n\204\200\266@\202\325"
+ #"\373{qh\n\227L.dCc?\35\241\4\327\314,\241\310mG7$v"
+ #"MaZ\331\261\302+\200C\335Q\372\343z6\232\241)\202\3\335Q\272=\343"
+ #"\370\360\303\17Q\24\345\30\345\350\331g"
+ #"\237\345\327\367\177\223o-\252\31\25\251"
+ #"\366H_\214\206\336\30o\356\355!\2324P\25\270ff)En\eI\335\32"
+ #"\2107\235\b\331\327\31a{k\220\336"
+ #"\250\216C\25\3305\305\352\261`X\261"
+ #"\2562\237\235\v'\0240\243\334\313\356"
+ #"\366\20\357\35\352\243#\230\314:\324\bH\244Lb)\3\257ScJ\251\233\311"
+ #"%\356\254n\313L2\256\233\374yg\27}\321\24\271N\215+\246\26\221\237c"
+ #"\313vI\32_\224C\236\313J\32+\2\272#)\216\364\306\6\31"
+ #"\275\252\"XU\337\303\375?\373\357l\332-\v\226\337\357gle"
+) 500
+(
+ #"9\17,\255\241\32474[f\240d"
+ #"\f\303&\177\214\217\216\364\363\356\201>"
+ #"\334\16\225\213'\26R[h\305\364MI\232\n`y\357\231&\206\301\270N\\"
+ #"\22785A\236\313FU\276\223\302\34\e\232zl\345F\223\6\355\301$\207z"
+ #"\242\364\307t\253T\317n\271,\336\364"
+ #"\313B\214\1[4\0232:\334\e\343\335\203}\204\22:\363\252r9\277.?"
+ #"\er\251\314sP\341sXJ\35\313"
+ #"\225\331\327\25\316\276\305 s\237P\302"
+ #"\340\245\35\3354\265vd+\\\263\214\371\274\274<\226\\r9\353\16l`\371"
+ #"\354\221\365T\227\22\34\232\240\314\353`"
+ #"kK\210yU>\354\232\302\353\365=L-u3\277\306\207\317i)k\231\266"
+ #"\2672\337~\241\333n\275\314\3+\26\326\31J\320\21J\244\231;\fj\234_"
+ #"\221\353`L\256\305\25\223\34\243\ndVS&\372\32\214\353lj\nR\337\31"
+ #"fnU.\271N\2155\a\373\230^\346\301\353T)\363\332)O\3\225\271W"
+ #"K\177\234\204~,\230\b\240\244\17\263"
+ #"\245\227^1\250\264n\20\363o\333\266m,9\367,\276s\276U\34>R6"
+ #"\262!%\233\232\203Y\303\260\331\37\347"
+ #"\375\6?\261\224\301\231\325\271L.q\343\262+ie=\f\370\234<\3507P"
+ #"2:4\2264\331\327\25aSs\200\34\233\312yu\371Y\233\356`w\2241"
+ #"y\16j\362]T\3459\a}\266#\230\244\271?>\b(\213I#yqk"
+ #"\aoo\370xP2w\20X\246i\262h\321\"rz\366\261lz\361I\311"
+ #" \3\305\256*\204\22:\r=Q\22\206\3040Mv\266\205\331\326\22D\21\202"
+ #"\231\25^&\224\344\220\233~!\221e\4\216.\254lM\362XD3\20\3279"
+ #"\330\25eg[\bSJfU\3728\243\3023Hq\253BP\342\265S\341sd\355\272L"
+) 500
+(
+ #"c\305\203=\261\254\317\230\21M\21\354"
+ #"j\17\23-\232\314\372\365\353\a\265\216"
+ #"9\216S\272q\343F\256Z\272\210/\314)gR\211{HS\342\304\23\261|"
+ #"\251f\177\234\376\270\216M\261N\257\372"
+ #"\316\b\273\333\303DS\6\25>\a\23"
+ #"\212\335\224\373\2548\223-\23\230\37\30"
+ #"\253\32\260\30421/\322\333.\30\327i\17&9\330\35\241-\230\300eS\231"
+ #"Q\356aJ\251\e\267]\265\308X[YU\4UyN\212<\266A\246G"
+ #"4ip\260;:((\230y\214nJ^\334\336\311_\336^\307\331g\237="
+ #"h~\307\201e\232&\27_|1\361\306OX8.\217\261\371.<\216\343\323"
+ #"dC\211\20\326@;\202\t\332C\226\221gS\254\320I[ \301\376\316\b-"
+ #"\201\4I\303\304c\327(\310\261Q\220"
+ #"\223y_\205\365j\6U\261\354\265\224a\5\362\372c)\372b:\376H\212P"
+ #"\322j6V\231\353`R\251\233\n\237\303\3129\312c\205\351RJ<\16\215\352"
+ #"|'\36\373\261/[\21\269\357PO\364\230\205?@l\252\340\343\246\0\216"
+ #"\332\271\254^\275\372\270\206D'd+7773\251\256\226\317\317.\243\324k"
+ #"\247\266\300\205\3071\362\25\226\31X8"
+ #"i\320\32H\20\214Y\f\25-M\337"
+ #"\216\353&}\321\24\355\301\4\335\341\24"
+ #"\201X\212p\302\0304\341L\342B\25\2\217C%\327e\243\330m\243<\327\221"
+ #"}Q\210\304\242\fd\22!RJl\252b\205\203<v\224\1\205\r\31\240\32"
+ #"z\243D\223\346q\331\254L$\343\305\255\35\354o8Luu\365\361\v\341D"
+ #"`I)\371\321\217~\3043\277\3741\227O)BU\4\265\205\256Q\35108"
+ #"\266\312\374\261\24]\241d\266\245\257\222\6A\b\v\25\323\264*\267"
+ #"t\303\242\t\230&\3318\231\246\212l\236\21y\254\n?3\214\314"
+) 500
+(
+ #"\311iS\24\n\3346J<v\\6e\3208\25!\b't\32{c\304\365"
+ #"\343\201\312\200\371F}\17_\372?\367p\337}\367\2350\2013d\205E2\231"
+ #"d\366\354\331\24'\333\231S\351\303\224"
+ #"P\235\347\2448\275\377G\243\232\255("
+ #"\251\345\301\367FR\204\22z\332\357\263"
+ #"\362r\331\234\312\0=5P\177\r|"
+ #"\226\314\376\316\362\341\\6\205\\\247\215"
+ #"B\267\rW:\242+\a\1\5\376\250"
+ #"\316\21\177,\233\344\375\264\330T\253x"
+ #"\240\333^\316\266m\333\206d/\16[\273s\364\350Q&O\30\317US\v\30"
+ #"\223k\265&)\361\332\31\223\353DU\6\17j\320M\205E\254\310|\203\231-"
+ #"\2\326\213\207\22\272iy\370\t\235h"
+ #"\322\310\32\214\303\363(D\326Tp\331\24\334v\215\\\247fE?\322I]\231"
+ #"\16\263d\326\235\224V%~{01"
+ #"\244Y\242)\202\326@\202\277\324\367\261"
+ #"\357\340!\252\252\252\206\36\301\311\312~"
+ #"W\256\\\311?}\341z\256\231Y\202\327a\31\230\36\207JU\236\23\257C\35"
+ #"\244c\264tJ*\222\324\t&\fBq\35=M\256\360:T+\313\222v\266"
+ #"\323\323\311FV\223\272IB7I\2312\335I\304\272g\346\215O\331J0U"
+ #"d+\302\fSf\t\302\241\204\225\v\364:5|\16\r!\340\250?No4"
+ #"9d&=\303\370{ug\27O\277\360\n\313\226-\e\16\212\223\203%\245\344"
+ #"\321G\37\345W\217\376\220e\323\213q"
+ #"\331\24t\323\352\272Q\342qP\346\265"
+ #"tD\322\220\354j\v\263\2519\300\376"
+ #"\256\b\321t\337\a!\310\352\240\352|'s\253|\234Y\235K~\216-K\342"
+ #"8\226\201\368\251\23\257\5\233j\361\\77\a\370\344h\220f\177<\333\210"
+ #"'\243\317\\6\225R\257\235\261\5.\306\25\272\262"
+ #"\247\353@\311(\374\225\273\273\371\326\335\377\316\335w"
+) 500
+(
+ #"\337}\322z\351\21\25\224K)\271\343"
+ #"\216;X\361\207\337p\305\324\"l\352"
+ #"\261\243\332\353P\211$\r\336\334\327K"
+ #"k\177\234)\245n\346T\372\250\314sf[\304\305RV\323\235\35m!\266\267"
+ #"\2060%\\1\265\210\v'\24X+m\4fI\346\272\367\16\364\361\306\336\36"
+ #"\24au\n9\243\302\233\326W\226\215"
+ #"\25I\32\264\364\307\331\326\32\242\276#"
+ #"\214\327\251\261\2606/k\321[@Y\325\24o\324\367p\365\27\277\316/~\361"
+ #"\213\21\25\226\217\270\372\3360\f\276\374"
+ #"\345/\363\376\e\177\342\322)\26W\336"
+ #"\224\260\2719\300\307M\1\316\31\233\307"
+ #"\262\351\305\214\311\265\\\212\214\23\r\203"
+ #"y\21\241\270\316\272\6?+\367t3\241(\207\333\316\36\223\215J\f\t\224b"
+ #"}\356\311\215-4\364\304\270jZ1\347\327\345giR\31g\335\2\202\354\266"
+ #"k\r\304y}O\17\37\35\3613\277&/\35\325\265\262Po\356\355\345\374\253"
+ #"n\340\251\247\236\32\361\373\21G\325\252"
+ #"\3000\f\276\373\335\357\362\307\247\376\213"
+ #"\313\247\24\261\2755\304\376\256\b_9k\f\vj\363\262T\240a\37(\254\f"
+ #"\312\21\177\234_\254=\202\313\246r\327"
+ #"\205c\217\353D\224\5J\b\202\t\235\237\274w\4\1|\343\334**\363\234V"
+ #"'\267\223\214<\223m~\277\301\317\357"
+ #">nez\271\2073*\274\254\332\333"
+ #"\303\215_\271\235\237\376\364\247\243z\221"
+ #"\344\250\373:H)y\354\261\307x\340"
+ #"\336\177\3030\f\3568\277\206\31\345\236"
+ #"a\363~'\22\233\252\260\2773\314\257?8\312\230<'w,\252I\23I2"
+ #"\303\21Y\372\365\317\327\36!\2340\270"
+ #"{im6\322:\332g\275\275\277\207"
+ #"\347?\351\300a\327x\360\221\377\207"
+ #"o\177\373\333\243n1\3747\265\v\216\305b\224\227\227q"
+ #"\3434\37\213\307\27\f\312\326\214\370\301i\37mSs\200"
+) 500
+(
+ #"\27>\351\340\312i\305\\<\271\220x\312\314\206_L)y\367@/\e\217\4"
+ #"\370\367K\353\262I\337\321\212U\374\220"
+ #"\344\215\372\36>nO\321\321\321qB&\365I\3573\332\17H)y\372\351\247"
+ #"\231\340\263:\204\f\a\324p_\234\224"
+ #"V\244\242\314\353\340\334q\371\274^\337"
+ #"\315\246\246\0\r=Q\32z\2424\371c\354\353\214\260\346`\0377\314.\243|"
+ #"\4\357q\35\212\327%\22184\313\341.\266\353<\375\364\323#b_\177ZF"
+ #"\rV2\231\344\201\373\357\345\312i\305\303^'%D\22\303\223*U\305\332j"
+ #"\223Js\310\261\251\354\351\214\240\252\""
+ #"K\177\334\333\31\246\310m\347\234\232\334"
+ #"\223\322)\5\20K\232'\6TZ\367"
+ #"\323\24\301\274*\37\337\277\357^\222\311"
+ #"\344\311\246z\234\214\32\254]\273v\221"
+ #"\257\246,F\213q\214\3279Pl\252\240\276#\314/\3265\rr1>}m"
+ #"\306Q\266\253\n\23\213sh\354\211b"
+ #"\244\303\273\206!9\324\23cr\251\373"
+ #"8\252\22p\334\373\2475U\360\314\226"
+ #"6\336\332\337k\305\353\aHF\321\203"
+ #"E\325v\230qv\355\3325\332\251\217\36\254\25+V0\243\334cQ+\261\322"
+ #"E[[\202\237j\232h5\315\21\200#=Q\201\265\322\266\267\204\216#Y\231"
+ #"\246\244\246\300E \246\23\210\353\250\212"
+ #"U\36\22\214\353T\3469\217\313\37*B\260\2573Bg(\221\5,\363b\265"
+ #"\235\255\241\343\328\356\351\b\323\35NfSh\325\371\316A\5L#\225Q\201"
+ #"%\245\244\276\276\236r\237\3)\255S"
+ #"f]C\37\317}\322\221\265\304\301\262"
+ #"\261\232\373c\214-pe\251\222\252\""
+ #"\350\211\244x\374\203\243\364D\223\250\302"
+ #"\n\237\30\351\26\5>\247j\201\237\262\242\2\321t\261\244SS\262\\\251"
+ #"4\266\350\206\311o?neog\4m\200_X[\350\2427\232\"\232"
+) 500
+(
+ #":FOR\205\340\235\3}<\277\265"
+ #"=\353\23\24\344\330\250\257\257\37\265\336"
+ #"\32\365\312\352\354\354\304\343\324\220HR\246dSS\200\371\325>rljv\5"
+ #"\245\fI\177L\317\26\244g\0,r\333\260k\n\255\201\4\212b\235x\211l"
+ #"\22C\301\246)\304S\6\232j\375kO\23\203C\t}\0\377@\320\37\327\t"
+ #"\305u\353\25Xi\35eJI\211\307N4i5\206\315\3062\204\365\336\351}"
+ #"\235Q\372\242V\371\236\323\246\320\331\331"
+ #"9\332\251\217\276y\276\252Zu\207\212\20\4bI\272#)\246\227{\aU\271"
+ #"\352\246\3040$.\233\222\335r\246\264R\367>\207Jg\310ZYV\304Af"
+ #"c\352RZ]\36\17tG\361GSY=\325\27MQ\344\266\302&\212\200\336"
+ #"\250U0Z\220c\e\224\251\311\350\252T\232[\5V\n\276\2560\a\233j\265"
+ #"\333\314s\345`J\376\246\16\343\243\6"
+ #"\253\274\274\234\376\346F\2537iz\253"
+ #"\270\355*\331\263j@0/\223'\314\210\242X\234\362h\322\0a\201 \323I"
+ #"\305\244nb\240\360\353\247\237'//\217\376\376~\276t\363M\244\21443:"
+ #"\246\223\237cC\b\210\245\254&\325V\r\344\261\373ki\306q2]G\230\211"
+ #"\2059mV\223\331\204.\263\366\335\337\362>\261QmC!\4\313\226-cG"
+ #"[\b\211\314\6\333,\336\34611I\277\315\362Sw\27X\315'R\246\305-"
+ #"\260Jm-\245\333\21J0c\326l\256\275\366Z\226,Y\302\265\327^\313\214"
+ #"Y\263\351\b%P\205\240%\20'iX\364\361\244n\242(\3428\352x\346'"
+ #"\371\251\303\246+\234$\2324ph\326"
+ #"J?\352\217\263x\361\342Q[\360\243\326Y\313\226-\243!\b\0374\366S\352"
+ #"uP\354\266\261\2573rl\340\222t\303DA8a0\260\326Ab%Z5\305Jn"
+) 490
+(
+ #"J\231\t\271\350l<\22\340\341\207\37"
+ #"\316N@\b\301\303\17?\314\306#\1"
+ #"\3741\35\303\2244\373\343\30\246\304\241"
+ #"Z\21\206\201U\\`e\226\3144\321-\223\5\327\r\311\216\326\20 )\365\332"
+ #"\331\323\21\246-\n7\334p\303h\247"
+ #">z\260<\36\17o\277\273\206\377\371"
+ #"\244\213\27\267u0&\327\311\a\207\373\323,ek\271{\34\32\271.\e}\321"
+ #"\24N\233\25\264s\246\203u\31\262X0nQ'w\266\205yug\27\367\374"
+ #"\360\21\226,Y2\350YK\226,\341"
+ #"\236\37>\302\253;\273\330\325\36\246\245"
+ #"?\316\201\356(\271\351\256\266\341\204\201"
+ #"\323\246\342\320\24rl\n\301\270\365s"
+ #"\256K\303\236\16D6\367\307\370\344h"
+ #"\20\237Sc\313\321\0\357\36\n\260\341"
+ #"\303\217\360\371|\243\6\353o~\225LWW\27\217>\372(\317?\367,\235]"
+ #"\335L(\316\241\314\353\310\276\222}w{\30E\300\354J\237Up)!\222\246"
+ #")e\270Z\241\224d\341\242\vx\350"
+ #"\241\207\2307o\336\t\267\205\224\222-"
+ #"[\266\360\375\357\177\237\17\326\257\301\255"
+ #"\201\317\251\321\324\27gj\231\233R\257"
+ #"\245\370m\252Bco\214f\177\214\263k\362\220XM\370\333\203\tZ\3q\362"
+ #"\363\v\370\322\255\267r\367\335w\237\264"
+ #"\225\371\377u\2602\222H$\350\350\350"
+ #"`\303\206\r\274\361\306\e\364\364\364\320"
+ #"\337\337O{{;mmmh\232\206\317\347#77\227\334\334\\\362\363\363Y"
+ #"\272t)K\227.e\322\244Ix<\236\21\351\16)%\341p\230\375\373\367\363"
+ #"\316;\357\360\316;\357\340\367\373\t\4"
+ #"\2\4\2\1\202\301 \272\256\343\363\371(//\307\343\361PSS\303UW]"
+ #"\305\202\5\v\250\252\252\302n\267\377]/3\372\377\0\374"
+ #"\263?\262eq\307\245\0\0\0\0IEND\256B`\202"
+) 0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 2 #" ("
+0 0 14 3 12 #"count-pixels"
+0 0 25 3 1 #" "
+0 0 14 3 5 #"image"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 3 #"  ("
+0 0 14 3 1 #"*"
+0 0 25 3 2 #" ("
+0 0 14 3 11 #"image-width"
+0 0 25 3 1 #" "
+0 0 14 3 5 #"image"
+0 0 25 3 3 #") ("
+0 0 14 3 12 #"image-height"
+0 0 25 3 1 #" "
+0 0 14 3 5 #"image"
+0 0 25 3 3 #")))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 7:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Suppose you want to decide whether today is an appropriate day to "
+ #"go to the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; mall. You go to the mall either if it is not sunny or if today is "
+ #"Friday"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; (because that is when stores post new sales items). Here is how yo"
+ #"u could go"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 7 #"; about"
+0 0 17 3 1 #" "
+0 0 17 3 2 #"it"
+0 0 17 3 1 #" "
+0 0 17 3 5 #"using"
+0 0 17 3 1 #" "
+0 0 17 3 4 #"your"
+0 0 17 3 1 #" "
+0 0 17 3 3 #"new"
+0 0 17 3 10 #" knowledge"
+0 0 17 3 1 #" "
+0 0 17 3 36 #"about Booleans. First, add these two"
+0 0 25 29 1 #"\n"
+0 0 17 3 44 #"; lines to the definitions area of DrRacket:"
+0 0 25 29 1 #"\n"
+0 0 17 3 24 #";   (define sunny #true)"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #";   (define friday #false)"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Now create an expression that computes whether or not sunny is fal"
+ #"se or"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; friday is true. So in this particular case, the answer is #false. "
+ #"(Why?)"
+) 0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 5 #"sunny"
+0 0 25 3 1 #" "
+0 0 22 3 5 #"#true"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 6 #"friday"
+0 0 25 3 1 #" "
+0 0 22 3 6 #"#false"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 14 3 2 #"or"
+0 0 25 3 2 #" ("
+0 0 14 3 3 #"not"
+0 0 25 3 2 #" ("
+0 0 14 3 3 #"and"
+0 0 25 3 1 #" "
+0 0 14 3 5 #"sunny"
+0 0 25 3 1 #" "
+0 0 22 3 5 #"#true"
+0 0 25 3 4 #")) ("
+0 0 14 3 3 #"and"
+0 0 25 3 1 #" "
+0 0 14 3 6 #"friday"
+0 0 25 3 1 #" "
+0 0 22 3 5 #"#true"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 8:"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; Add the following line to the definitions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";   (define cat \"paste-image-here\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Create a conditional expression that computes whether the image is"
+ #" tall or"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; wide. An image should be labeled \"tall\" if its height is larger "
+ #"than or equal"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; to its width; otherwise it is \"wide\". See exercise 1 for how to "
+ #"create such"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; expressions in DrRacket; as you experiment, replace the cat with a"
+ #" rectangle"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; of your choice to ensure that you know the expected answer. Now tr"
+ #"y the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; following modification. Create an expression that computes whether"
+ #" a picture"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 33 #"; is \"tall\", \"wide\", or \"square\"."
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"cat2"
+0 0 25 3 1 #" "
+0 2          61 22 1 #"\0"
+2 -1.0 -1.0 0.0 0.0 0          25 500
+(
+ #"\211PNG\r\n\32\n\0\0\0\rIHDR\0\0\0K\0\0\0u\b"
+ #"\6\0\0\0\6>\0347\0\0 \0IDATx\234\355\275wt]\325\231"
+ #"\377\375\331\347\234\333t\213z\265\212e"
+ #"\2717\3340`\2031\330t0\241\305\4H\310$$k\230$\277\204!dh"
+ #"a\22 \2047o\312\220L\230!$0!\224P\22\260\3\16\230\342\202\1c"
+ #"\ew\313U\262%\253\267\253\333\3339"
+ #"g\277\177\234{\257%l\311R\362\263"
+ #"\207\254\365>k\201\227\244s\317\331\373"
+ #"{\367~\366S\276\317s\204\224Rr\232EJI(\24\242\245\245\205W^y"
+ #"\205\25+V \204@Q\24jjj"
+ #"\370\332\327\276\306\314\2313\311\315\315\305"
+ #"\351t\"\2048\335C<\241\210\323\rV0\30\344\366\333o\347\365W_\246\320"
+ #"\245Q\350\266\341sj\b@\2I\303\244'\234\302\37K\241+v\246\314\230\305"
+ #"\265\327^\313\262e\313\30;v,\252"
+ #"\252\236\316\341\16\222\323\nV<\36\347"
+ #"\3143\317dL\252\235\313\247\25\223\353"
+ #"\324\320\24\2012`\345H$\206)\211"
+ #"\245L\302\t\203\326@\234\275\235\21\266"
+ #"\267\206(\0357\205\a\37|\220K/"
+ #"\275\24\233\315v\272\206\235\225\323\6\226"
+ #"\224\222{\356\271\207\367_z\202\177YX\205\4\fs\350G\v\1\n\2E\1"
+ #"E\bB\t\235\372\216\b\253\367\365\""
+ #"\v\252x\346\231g\230;w\356i\335\242\247\r\254H$\302\230\322\"\356[R"
+ #"M\205\317\201>\fP'\22!\300\246\bR\6lj\16\360\362\366\16\276\376\235"
+ #"\357\361\203\37\374\340\264mM\355\264<\5hmm\245\320)(\365\330\207]Q"
+ #"C\211\224\2204$\28w\\\36\23"
+ #"Kr\370\355\357\376\203}\373\366\361"
+ #"\374\363\317\237\226m\251\234\362'\244\305f\263\221\320M"
+ #"t\323\332V\307\377g\255\236\223m*\t$t\223\202"
+) 500
+(
+ #"\34\e\3379\277\206\346Mos\333m"
+ #"\267a\232\346)\237\303i\333\206\272\256"
+ #"3}\332T\352\264~\26\214\315\315*vE\1U\21hB\240(\2\273\252`"
+ #"S\255\277I$\303\215NU\4\221\244"
+ #"\301\217\3379\314]\17\376\277|\343\e\3378\245s8\255\247acc#\v\27"
+ #".\304g\4\231X\342\246 \307\206SS,\260\24\201\252\bl\252\300\251)\344"
+ #"\2724\362\\6\34\2322\354\266\265\251"
+ #"\202\255-!\36\377\260\225\306#\315\224"
+ #"\225\225\235\262\361\237v;+\24\n\361"
+ #"\374\363\317\363\373\337\377\236}\365\2731"
+ #"\0221l\212@S\0056U\301\241)\270\355*^\207J\271\317\301\214\n\17\265"
+ #"\59(\202\23\36\nB@R7\371\355\306V&\234w\25\317<\363\314);"
+ #"!O;X\0311M\223T*E$\22!\26\213\21\215F\211D\"\364\367\367"
+ #"\323\330\330\310\336\275{y\357\275\367\330"
+ #"\267{\a3\313=\\6\265\210\361Ent\303\344D\3\336\324\34\340\351M\355"
+ #"\34m\353\240\260\260\360\224\214\371\177\r"
+ #"\254\221\210i\232\364\366\366\362\362\313/"
+ #"s\367]wr\331\304<\256\234V\214\224r\20`\212\200f\177\234g\267\264s"
+ #"\327\217\177\311W\276\362\225S2\236\317"
+ #"4X\3\245\275\275\235\245K\2272Y\353\345\2723JH\31\307\206\255\bAO"
+ #"$\311[\373z\20c\317d\325\252U"
+ #"\247d+\2366\323\341\357\225\362\362r"
+ #"\326\257_\317\272\226$\273\332\302\330\324"
+ #"\201`H4EP\352u\360\361G\37\22\217\307O\311\30\376a\300\2(,,"
+ #"\344\277\376\373\tV\356\351\36\244\354%"
+ #"\326\352\312ujhF\234\266\266\266S"
+ #"\362\374\177(\260\0\226-[F\237\351"
+ #"\242\331\37GS\6:\340\240*\340\261\253ttt\234\222g\377\303\201e"
+ #"\267\333Yz\361%4\365\305\263\321\nA\306)\27\270\354\352\377\277\2622"
+) 500
+(
+ #"\"\204 ??\237\270npL\207\v"
+ #"\22\272\345\356\250\n\304b\261S\362\354"
+ #"\1778\260t]\347\3157\337\244*\317\211\231>\310%\222P\\G\"\211\247L"
+ #"JKKO\311\263\377\341\300z\366\331gQ\2\255L(v\243\247\243\20\261\224"
+ #"I8i %\204\23\6\225\225\225\247\344\331\377P`\255_\277\236o\375\363m"
+ #"\334<\267\2\273*\220X\333\262+\234\304\224\222`\\'&5\306\215\ewJ"
+ #"\236\377\17\1\226\224\222W^y\205\253"
+ #".Y\302\355\v\253\30_\224\203nJ\24\1\301\270No$\211\246\n\32{c"
+ #"\\r\371\2258\235\316S2\216\317<X\246i\362\363\237\377\234o~\345f\356"
+ #"\274`,\263\307\370H\32&\2+\30\330\354\217!%D\223&;\332B<\360"
+ #"\300\3\247\314\221>m\221\322\277E\22"
+ #"\211\4\267\337~;\e^\177\221\357-\251\245\334k\267\200\22`\232p\2707F"
+ #"4ebW\5\e\32\373\271\350\212\3171e\312\224S6\236\317\254o\330\323\323"
+ #"\303\345\227_\216\326}\220/\317\257\300"
+ #"mW\321MK\241\233\22\16\367\305\350"
+ #"\213\246ph\202\275\235\0216\266\3534\36>Bnn\356)\e\323gre5"
+ #"44p\366Y\3639\257B\343s\v+\21\b\v(a\31\237\207{c\370c"
+ #")\34\252BS_\234w\17\364\261q\363'\247\24(\370\f\352\254\335\273w3"
+ #"\373\214\31\\=\301\305\r\263,{\311"
+ #"\224\26P\272!i\350\211f\201j\356\217\263jo\17\257\377\365-f\315\232u"
+ #"\312\307\366\231\332\206\215\215\215\314\2329"
+ #"\235/\316.\342\274\332|\22\206e\225[\321PIco\224PB\307\256*\34"
+ #"\356\213\363\346\336n^{\375\257\\t\321E\247%\177\370\231\1+\20\b0y"
+ #"\322$\256\250\325X:\2610\353\276\bae"
+ #"s\32zbD\222\6\16U\260\277;\312\333\373"
+) 500
+(
+ #"{Y\375\356\32\26-Zt\332\306\370\231\320Y\246ir\323M71\267\320d"
+ #"\311\247\200J\31\222\306\236(\221\244u"
+ #"\352\355\356\b\363\376\2210\37~\274\2319s\346\234\326q\236\24,)%--"
+ #"-\370\375~<\36\17\305\305\305\270\335"
+ #"n\24\345\377\236\272{\371\345\2279\264e-\377va-)\343X\376/s\352"
+ #"\205\223&vM\260\253-\314\346\16\235"
+ #"O\266mg\362\344\311\177\363\363\244\224"
+ #"$\22\t\372\372\372\360\373\3758\34\16"
+ #"\252\252\252p8\34\303~n\330m("
+ #"\245\344\256\273\356\342\17O\374\212\"\217"
+ #"\235x\312\240;\234\242n\312t\226/"
+ #"_\316\365\327_\317\270q\343\376.\340"
+ #"\242\321(\2655\325\3346\333\307\2642"
+ #"o\26\254L\\\275#\224\300\256*\354"
+ #"\355\214\260\341h\214\255\333\2663~\374\370Q?GJIoo/\253W\257\346"
+ #"\271\347\236c\343\206\365\270D\n\257C"
+ #"#\246\e\330\v*\331\271k\327\260\326"
+ #"\377\260`\305b1J\n\362\271\377\242j\312}N\302\t\35\200\366`\202m-"
+ #"!\266\265\6\0313q&\17<\360\0\227\\r\311\337\224B\177\342\211'x\372"
+ #"\307\377\306\267\316\253\316F?\25\1\201"
+ #"\270\301\301\356\b\252\"h\v$X\271"
+ #"\247\207M\237lc\372\364\351\243\272\277"
+ #"\224\222\335\273w\363\223\237\374\204\25/"
+ #"\377\221\231\25\36\346V\371\250-\314A"
+ #"\25\340\266\253\250\212\340\221w\32y\356"
+ #"\215u\314\2337o\310{\r\273\r\223\311$v\305D \370\361\333\215\364DR"
+ #"\224\373\354\234;.\237\353g\225r\303"
+ #"\254R\266\267vq\367\327\276\300\277z"
+ #"\313y\374\361\307Y\262d\311\210O&"
+ #"\3030\370\371\317\177\3065\343\v\30\370"
+ #"\21CB[\300\212\243G\222\6\253\367"
+ #"\367\362\374\213/\217\32\250\246\246&\276\373\335\357\362\301\352"
+ #"\277p\341\204\2\36\275j\2\36\207\312\266\226\20\317lj\343"
+) 500
+(
+ #"h\177\34\217C\345_\27\327P\230c"
+ #"\247\257\257o\330\373\r\273\177\204\20h"
+ #"\252\302\201\356\bM\3768\347\216\313\303iSyvK;w\377\345\0\0377\5"
+ #"8\253&\227{\226\326reE\222\257~\376*n\274\361F\372\373\373G4\231"
+ #"C\207\16\21\355:\312\204\342\34t\343\330\252\n\305u\302\t\3M\21lj\n"
+ #"p\315\215_\344\352\253\257\36!D\326"
+ #"\227\360\353_\377\232\31\223\306\243\34\332"
+ #"\300\17/\253\343\352\351%\34\352\211r"
+ #"\337\e\207x\362\243\26\20\222\363\352\362"
+ #"\350\216$\331\323\21F\0\2326\274\n"
+ #"\37\366\257\16\207\3\247\307G\312\220\330"
+ #"U\301\204\342\34f\216\361r\356\270<>9\32\344\351M\255lj\16\360O\363"
+ #"\307pNm\36\223K\335\254\330\365\36"
+ #"S\247N\341\275\367\326\234T\t\177\360"
+ #"\301\aL)u\223\357\262\221\314$O%\364\305R\330TA{0I\237\360\361"
+ #"\313_\376r\304\2535\32\215\262|\371"
+ #"r\0326\257\341\276\213j\251+\312\241"
+ #"/\232\342\261\365Ml>\32dN\245\217\353\316(%\327\251\2222%k\17\371"
+ #"\21\bB\t\203\222\222\222\277\35,\233\315FQY%6\265\v\4\364DRT"
+ #"\250\nN\233\302\371\343\363\231R\346\346/\273\273yhu\3\377gQ5\343\n"
+ #"s\270y^9\225\207\374\314\2369\203"
+ #"O\266\357`\352\324\251'\274\267\224\222"
+ #"\325\253WcJX\271\247\213\326@\202"
+ #"x\312 \2324\323!\27\205\336H\212"
+ #"\272\2513ijj\242\242\242\2\217\307"
+ #"\203\252\252C\2\27\217\307\271\370\342\213"
+ #"qt\355\345\273\27\216\305cWi\362\307xl]3q\335\344\226y\345\214\311"
+ #"u`\230\22\335\204\376\230NB7\311"
+ #"\317\321\350\211$O\n\326I\267\341\302s\317%\2324(t\333h\366\307"
+ #"P\24\213+\2252$En;\267\314\253\240\320m\347\247k\232h\362\307\221"
+) 500
+(
+ #"\22.\230P\300\227\347\227q\356\202\263"
+ #"\351\356\356\36\4P__\37\253V\255"
+ #"\342\226[n\341\265W\377\314\226\346\0"
+ #"k\17\371\351\t'1$\24\344\330\230"
+ #"Y\341\245\256\320\305\214\n\17Z\317!>\267\370Lj+\212\2318a\2_\372"
+ #"\322\227X\265j\25~\277\237\201g\223a\30\\s\3155h\35\365\334:\277\2"
+ #"\247\246\320\26H\362\3235M\330T\301"
+ #"\227\316\254\240\302\347 eHL\t\212\2-\3768^\207\206MU\260y\v\311"
+ #"\317\317\37\26\254\223Z\360\257\276\372*"
+ #"\277\270\353\253\24\346\330\370\270)\300?"
+ #"\2355&\e\373\6K\307\230\22\376\264"
+ #"\243\223X\312\344\201K\306\341\324\24l"
+ #"\252\302\37\267u`\216=\213?\376\361"
+ #"\217l\331\262\205\207\37~\230M\e\326"
+ #"0\276(\207\31\345\36\306\25\346P\220"
+ #"c\303\343P\261\253\312\t\311Y\326\27"
+ #"c\22I\32\364FR\34\351\213\261\243"
+ #"-\304\241\356(\363\26\236\317\375\367\337"
+ #"\317\302\205\vy\371\345\227\371\341w\276"
+ #"\306\335K\307aS\5\272!\371\361;"
+ #"\215\304u\223\345\263\313\260\251\312\240q"
+ #"\253\212\340\371O\332\31_\224\303\244\222"
+ #"\34\332\212\317\344\225W^\31v\273\237"
+ #"\24\254\356\356n\246\326\216\341\253gW"
+ #"\362\330\272&n\234S\306\230<\347 "
+ #"\32\220\"\0041\335\340\311\17[X2"
+ #"\241\220\345\263\313\320M\223X\312\344\373"
+ #"\253\16\21W\234\224;\r\316\37\237\317"
+ #"\214r/\371.\rE\21\230\246\304\224\26\ak\270A\b\322\34\3234\207\3134"
+ #"%}\321\24{:\302\254=\344'\356*\242\273\273\233\357,(cz\271\a\220"
+ #"\274Q\337\303\237vt\362\265\5\225\370"
+ #"\34\32\206\34<\336\336H\222\247?n"
+ #"\343\356\245\265\274\275\277\227\273~\376\24"
+ #"\327\\s\315pP\234\334\202/**b\322\254\371$\215\26"
+ #"\316\30\343\345\303#\1>?k\260\341fJ\211\307\246r\321\244"
+) 500
+(
+ #"B\336\332\333\313\371\343\363)r\333\311"
+ #"\261\253\374\363\302*\222\206\311\344\0227vUA7\245eO\215\202*)\261V"
+ #"\230)\217}.\317e\343\374\272\2\316"
+ #"\31\233\307\236\2160\335\245yL(\311A7M\202\t\203\327\367ts\376\370|"
+ #"\362\\\332 ^\4X\351\262\217\233\2"
+ #"\324\25\271(v\333\250\357\214\260x\361"
+ #"\342\223\216\343\244\246\267\20\202;\356\270"
+ #"\203\365\r~.\235RDcO\224\206\336\330\240l0X\334\251\t\305\356\254["
+ #"\242\251\2\303\224L,\316az\231'\35\0066\am\205\277GL)\263\341\345"
+ #"Yc\274\\<\251\b\1\250\212\302\376"
+ #"\316\b\272)\231V\346\311\232$\31\321"
+ #"\24AK\177\202\335\355a\256\231Y\302"
+ #"\326\226\20\213/\276\234\274\274\274\223>"
+ #"sD~\312\225W^I\207\356\6\340\242I\205\254\252\357&\2262>\305_\a"
+ #"\273*\310\317\261\321\26Ld\177\237YI\247*\264!\261\16\233\344\200pN{"
+ #"0\201\327\251\341\264\253\203\236k9\346"
+ #"&\253\352\273\231_\235K]a\16\177\335\333\303#\217<2\"\323dD`9"
+ #"\34\16\36~\344\21V\354\352\342\232\231"
+ #"%\344:5^\335\331\205aJ\324\364\n\313D\b\372\242\226\225\377\277%RB"
+ #"\231\317A(\256\223H\231Y\317@\21"
+ #"\2\1\274\276\247\aS\302\255\363+x\357`\37g,X<\342\270\375\210=\340"
+ #"\233o\276\31\245t\2\0374\366\363\275"
+ #"\vk\t&\f\376\264\243\223P\\\307\256Z\304\331m-AtC2\263\302\213"
+ #"n\234z\366\360\211D7M\246\224\272qh\n\233\232\3\330\24\5\273\252\20K"
+ #"\31\254\330\325\315\321\3768w]8\226"
+ #"\236H\212\225\365\275<\361\304\23#6xG\25\374;z\364(\323&\215\347\256"
+ #"\305\325\370\234\32\277\336\320L[ \301\370\242\34R"
+ #"\246\344`w\224[\317,\347\202\t\5\307)\325\323"
+) 500
+(
+ #")6Ua\343\221~~\363Q\vc\v\\\270\354\n\r=1\n\\\32\267/"
+ #"\254\242\330k\347\241\267\32\371\321\257~"
+ #"\313M7\3354\342\373\216:R\372\322K/\361\317_\276\205;/\30Ku\276"
+ #"\223\367\e\375lo\r\241\b8\257.\237Y\25\336QWO\234\n\321\24A}"
+ #"g\204\265\a\373H\30&\323\313=\234"
+ #"_\227\217)\341\227\353\233Y\260\354f"
+ #"\36\177\374\361Q\205\243G\25)\325u\235\365\353\327\2232M~\362\336an_"
+ #"X\305E\223\nY<\376\230\345\373\277"
+ #"\271\242\6\212nJ\246\226\272\231V\346FJ\320T\301Q\177\234\307?8JK"
+ #"\177\234y\311$\206a\234\324y\36("
+ #"#\326Y\272\256s\375\365\327\263q\345"
+ #"\37\270|j\21\301\270N0\256\2232"
+ #"\344\240\377>K\242\233\326\230t\323\252"
+ #"4k\t$8\334\e\343\322\311E|"
+ #"\360\372\213\\\177\375\365\350\272>\342\373"
+ #"\215\b,\3234\371\372\327\277N\373\266"
+ #"\265\334\276\260\212\315\315A\316\252\311e"
+ #"Am\336\2400\360gYR\206dn\245\217\263kr\331\334\34\344\242I\5\354"
+ #"\371`t\245,'\5KJ\311\275\367"
+ #"\336\313\307\177}\231\1779\267\212\365\r~z\302)n\236[\376wO\340t\213"
+ #"\20p\323\334r\242)\203=\35\21n;g\f[\336\372\23\367\336{/#Q"
+ #"\335'\5\353\205\27^\340\205\337<\306"
+ #"7\317\255\"\2324\370\363\316N\256\235"
+ #"YB\361\b\253\273\4\226\262\265\247\253"
+ #"'\34\232u\224\253\312\310\25k\366^"
+ #"b\360\275\354\332\261:\237\221\210aJ\212=v>7\243\204\315M\1|\16\215"
+ #"o\234[\305\v\277y\214\27^x\341\344\317\37\3564<t\350\20gL\233\314"
+ #"\335Kj\231Z\346\346\231\315ml9\32\344\341\313\307\243*b\330\"$"
+ #"\260\352j\22\272Is_\214\206\356\20\275\341\4\252\"(\361:\231P\352"
+) 500
+(
+ #"\245\"\3275d\231\311\240Ab\231\3"
+ #"\221\224\301\341\3560Gz\"\370\243I\0346\2052\237\213\211e^J<\216\223"
+ #"\26|\2Y\n\300\375o\34b^\265\217/\235YA}G\204G\337=\314\216"
+ #"=\373\206M\206\f\tV<\36g\352"
+ #"\324\251\\P\222\344\222\311\205t\207S"
+ #"\334\373\306A\226\317.\343\202\361\5Y"
+ #"\367\342D\242\b\201\20\260\351\210\237\327"
+ #"v\264\21\22n\252\307M\240\274\242\34]78\332\334L{S\3\325n\311\265"
+ #"s*\231\\j\261\370N4\20U\21"
+ #"\244\f\311\332\3\335\374\265\276\23\303\225Om\335DJJK\210Ec45\35"
+ #"\241\273\3450S\213\354\\7\247\222\312<\327I\365\250]Sx\357@\37/m"
+ #"\357\340\221+&P\354\261\361\326\276^"
+ #"\326t\331\251\257\257\0372\303s\302m"
+ #"(\245\344\301\a\37\244\34?\27N("
+ #"\300\224\260\345h\20\233*8\263:\227\3240\nQI\373_O~\320\3043\273"
+ #"B\334\374\255{\370x\363\26\266n\331"
+ #"\304\233o\274\316;o\375\225\235\333\267"
+ #"\362\356\272\r\314\276\342&~\266\256\205\25;;P\24q\\8KU\4\301x"
+ #"\212\237\275s\220\325\355\32\337{\350g"
+ #"l\335\266\235\315\37\177\304\252\277\254d"
+ #"\315\273o\263s\3736^[\265\232\374\231\27\362\3037\17\361Ac\0376ux"
+ #"\355\2222L\346W\373\260)\202-G\203\230\22.\234P@9~\36|\360\301"
+ #"!\365\327\tWVCC\3s\247O\346\337/\255\243\330c\3074%\17\276\325"
+ #"\310\244\322\34n\231WAR?1XV\334I\360\237k\e\351\315\251\344\217\317"
+ #"?\307\274ys\207\35\370\237\376\364g"
+ #"\376\351+_\345\222\32\e\327\314*\37"
+ #"\2247\214\353\222G\336\334O\305\314\205<\367\314\3770v\354\330a\357"
+ #"\365\213\307\36\343\356\357}\217\257\317"
+ #"/aA\355\360\253\337\256)<\273\271"
+) 500
+(
+ #"\215\375\335Q\36\270d\34\212\20t\207"
+ #"\223\374\360\315\6>\331\275\217\272\272\272"
+ #"\343>s\334W`\232&\267\336z+\313\246\27S\346\2632\264\355\241\4m\301"
+ #"8g\325\344a\16[\373\247\360\327=\235\34JxX\361\332\237O\n\24\300u"
+ #"\327]\313\37\236\371=+\367\a\331\335"
+ #"\26\314\226\231h\212\302\363\233\232qVNa\305\237_9)P\0w|\373\333"
+ #"\374\350\221\37\363\333\217Zh\r\306Q\207Q\374\246)9kl\36m\2018\355"
+ #"\351(I\231\317\301\262\351\305\334z\353"
+ #"\255'4'\216\3\353\375\367\337\247m"
+ #"\337\326\264\177g\242*\202=\355\21\362"
+ #"\\6*\323\301\376\23\211\"\2407\232d\345\256.\36\371\321CL\e\"Qq"
+ #"\"\271\372\352e|\371+_\345\217[ZH\31V\35NCO\204\217Z\342\374"
+ #"\327\177\376\212\242\242\242\21\337\353_\357"
+ #"\370\16\363\27-\341\325\255-\f\227("
+ #"7LI\205\317\201\307\241Q\337\21I"
+ #"\353F\223\v&\24\320\266o+\357\277"
+ #"\377\376\361s\34\370\203i\232\334y\347"
+ #"\235\\:\271\b\247\246Z\341^)\251\357\f3\2618\a\327\247\342C\3ES"
+ #"\24\2666\371)\36;\236/\336r\363\210'\227\221;\276\375-\272Sv\232\372"
+ #"\242\3305\205\367\17vq\316\242\305,"
+ #"^|\376\250\356\243(\nw\335\371\257"
+ #"\354\350\260\230\201CY(\22p\332\24"
+ #"\252\362\234\324w\204\255\262<\tNM"
+ #"\345\322\311E\334y\347\235\307\255\256A"
+ #"`m\336\274\231\356\306=\314\255\362\221"
+ #"2\315,\307\274\265?\316\370\342\234\223"
+ #"\16tG\213\237%K\226\222\2233\374"
+ #"\265\353\327\257\347\271\347\236\243\241\241!"
+ #"\373\273\211\23'2q\332\f\352\333\2\30\246\244\276#\314UW^\231\375{\""
+ #"\221\340\2157\336\340\245\227^\242\247\247g\330\373/\\"
+ #"p\16\271%ch\354\16\17k\317\t`L\236\203\226\376"
+) 500
+(
+ #"8\261\2245\337\224i2\267\312GW\343\0366o\336<\350\372,X\231\23p"
+ #"\351\304B\334vkU\t!\b\304tB\t\203\352|\327\260\372J7%}\221"
+ #"\24\223'M\32\362\232L#\214\v.\270\200[n\271\205\5\v\26\260v\355Z"
+ #"k \212Bmm-\335\2418\261\224A\324\20L\234`\331<\261X\214\eo"
+ #"\274\221+\257\274\222\345\313\227\263x\361"
+ #"b\16\37><\344s\362\362\362()+\243;\24\37\326`5LI\261\333N"
+ #" \256\23\210\351\ba\331\216n\273\312"
+ #"y\343\362\217;\31\263`\365\365\365\361"
+ #"\341\332w\2305\306\233u\210\25\1\376"
+ #"X\nM\261\312\323\206\263\367\244\264\362"
+ #"qv\373\320Q\322#G\216\360\37\377"
+ #"\361\37\331\345\335\325\325\305O~\362\223"
+ #"\354\337\35\16G\326\351\225Rd\211&"
+ #"k\327\256\345\265\327^\313^\267g\317"
+ #"\36\236|\362\311!\237#\204@U\265"
+ #"\343\342\357\237\26\23k+\n\4\376\330"
+ #"\261-\233\211X\254}w\365 \376C\26\254\25+V0\2554\207B\267=\233"
+ #"TP\204\240/\232\302\236.\362\36\316"
+ #"\177\322T\201\333\256\320\322\3222\3445\211D\202T*5\350w\3\213\222Z["
+ #"[\311s\331\310\261\253\330\204I{\272\24.\32\215\36w\257H$2\344sb"
+ #"\261\30\375\376>\362\334\366a\275\fS"
+ #"\312\264\353\5}\221Tv\25\232RR"
+ #"\344\261S\235\347`\305\212\25\331\353\25"
+ #"\260\24\373\177\376\352W\234U\223\307\240"
+ #"\f\236\200h\322\260\302\306\232\30>\267'\4\23K}\254[\277~HP\353\352"
+ #"\352\270\356\272\353\262?\253\252\312m\267"
+ #"\335\6XT\356\372=\273\30_\352\303\246*T\347\331y\367\2755\0,^\274"
+ #"x\20\3016??\237[n\271e\310\261\354\333\267\237\216\243M\214-\364"
+ #"\f\312\27\16\36\257E\350Ed\214_}P\222WS\4SJ\334\374\352"
+) 500
+(
+ #"W\277\312\356\4\r\240\277\277\237\303\373"
+ #"\367p\333\25\343\2173\r\342\272\211]"
+ #"S\262-\233\206\22\303\224\234Y[\300"
+ #"\303\357l\346\203\17?\344\334\205\v\217"
+ #"\273\306f\263\361\273\337\375\216E\213\26"
+ #"q\350\320!.\275\364R.\271\344\22\0^|\351eR\376.&\225NA7"
+ #"%\v\306\27\363\207\327\377\302\321\226\26"
+ #"\252*+Y\265j\25O=\365\24\241P\210\345\313\2273{\366\354!\307\362\344"
+ #"SOQ\352\320\251\310u\16i\352dSs\246\304\246\n\2q\375\330\4\323\377"
+ #"V\344:xk\323.\372\373\373)((\260\300\332\271s'5\5N|N\355"
+ #"\370\233\313\f\340\303\303e\230\222\261\205"
+ #"n\316(\321\370\356\367\356f\315;\253"
+ #"q\271\\\307]\347\361x\216\353\354\321"
+ #"\334\334\314C\17?\302\25\323\212\361:"
+ #"4R\272\311\234\252<V\356\330\313="
+ #"\367\336\317\263\317\374\17\345\345\345\334w"
+ #"\337}C>?#\37~\364\21O\375\366w|\353\2341\250\n\230\306PW\n"
+ #"\342)3[,\225\30\220\323\264~\an\207J\211\307\316\316\235;Y\274x1"
+ #"\212\224\222\225+W2\271\304}\\\342\24,\5\230\320\315\21\305{LSr\363"
+ #"\374j\16~\362\1_\377\347\177\31Q\221dkk+\327}\376F\212\364\36\226"
+ #"N)!\225\246\36i\212\340\253\v\307"
+ #"\362\247\347\177\317\277\377\340\207'\275\17"
+ #"\300\216\35;X~\323-,\34\2431kL\336\260\221[\211$\2344@\222."
+ #"\305\23\203\0160\1\250B0&\327\301\312\225+\221RZ`\255[\267\216\332\2"
+ #"\327\361\331b\tN-\235r\227\362\244MuL))t\333\270si\35o\276"
+ #"\374\f\227\\v\5\37m\334x\302kS\251\24\177~\3655\26_\270\224\320\241"
+ #"O\370\346\342Z4\345\230^\324MI]\221\233o"
+ #"-\252\341\247?\372\0017,\377\2{\352\353Ox"
+) 500
+(
+ #"\257H$\302\177?\361\e\226\\t1\325f7_\234_\215)\207\217<\350\246"
+ #"$\2324\254\346fR\242*\326\356\310\314Q`\215\245\304kg\335\272uH)"
+ #"\321R\251\24M\215\207(\\Tv\234i \221x\235\32I\335$\2264\3619"
+ #"\265\223\256\260\224!\31[\340\342\201\313"
+ #"&\362\374\246\217\271x\311\5\314\236\277"
+ #"\200E\347\235GMM5\272\256s\340\340A\326\254YK\303\356m,\256\313\345"
+ #"s\27M8a\317\231\244a2\273\322"
+ #"\307\375\227\214\347\331\367\376\314\2027W"
+ #"q\316\271\213Xp\3169T\216\31C8\22aO}=k\336{\227\316\303\373"
+ #"X6\275\224\213\247\324\0\303S)\24a\25q&u\223\244.\321\r\211\313\246"
+ #"bH9\350D4M\211\327\241\321x\340 \251T\n-\20\b\240\352q\274N"
+ #"\355\270\225eJ(v\333I\32\222@"
+ #"\\'\327\245\r\257\345\a\0\226\357\262"
+ #"\361\315\305u4\366D\331t\370\23^\371\317u\4\23V\312?\317\2512mL"
+ #"._\274\264\216\212\\')\323\34R\21'\rIu\276\213\177\273d\"\373:"
+ #"\302l\332\267\216?|\370W\302I\3"
+ #"\233\"(\310\261\261\260:\237\271WN"
+ #"\246\320c'\245\237\270\375\312`\21\364"
+ #"Eu$\20M\31\350\246\304\347P\255\371\v\201H\263zL\t9v\0053\21"
+ #"#\20\b\240\355\336\275\233\374\34\e96\365\4`Y+\313\241)t\205\223\214"
+ #"-p2\244\276\374\224\30i\36\321\270\242\34\306\227\324Xl;CfC\303\212"
+ #"\"0\6p\24\206\223L$uZ\271\227\31\25\276\254\341*\204\25\215\315\24B"
+ #"\r\25:\32\f\223\265b\3\361\24\252\"\350\217\351\330TA\216]E \262\213"
+ #"\3012\262%\16U\301\353P\331\275{7\312\266m\333\360:\324\23"
+ #":\234R\202\307\241R\342\265s\250;:\242X\267\25\2>v]"
+) 500
+(
+ #"f\22F\272\362T\f\374\335(\0315\272)\263L\234\314x3\244\220\201_\264"
+ #"\5\340\20\343\23\2\1774EB7Q\200\216`\202\\\247\206\313\246\36cL\v"
+ #"\320M\353\v\27B\340\262\251l\333\266"
+ #"\re\337\276}84\205\241p\320\24\301\324R\17\373:#\244\322\5\334Bd"
+ #"\310e\307\272\254e~\27\327M\266\265"
+ #"\204N\b\204\344\344\2738{\377\223\\7\324}\fS\262\255%D\"]\304)"
+ #"\6\214Q\21\26\0\335\221$B\bt\t-\375\t*\363\234\351\304G\332l "
+ #"C\217J'IT\301\276}\373P\266n\335\212\32364\251\3250%\323\312\334"
+ #"\264\207\22tG\222\3305\205\204.\211$\r\2\351\372d\1774E,e\242\b"
+ #"\301\321\3768O~\324\202a\310\21gp\204\0\273\252\240)\2CJ\222\272u"
+ #"Be29#\315\260\253\212\265\35\177\363Q\vG\375\t4\305\262\245\372c)"
+ #"z\"I\202q\203\243\3768\301\270\216"
+ #"\246\b\"\t\235\376x\212\252|\347\247"
+ #"\262D\"k.\t\254\261m\335\272\25"
+ #"\355\300\201\3\234[\351<\3417\251\b\221\316\3068pj\nOmlES\4"
+ #"m\301\4\361\3241>T\346\332\\\227uZ\n\1\207z\242\324\26\272\322\r["
+ #"\5)\323<\241\237\226\241*mh\354c[K\220\336H\212\204a\342P\25\n"
+ #"\3356fW\3728\253&\27\233:t6)\243\267\302I\235\243\375qTE\360"
+ #"\354\2266\24\305\332r\251\1&\201nH\24\305b\16*iW\307cWq\331"
+ #"Tl\252\222\rk\17\234\237\252\b\16"
+ #"\348\2008\363\3143\245\267\277\201\333"
+ #"\316\251\314*\310L\352\251+\234\344\235"
+ #"\3\275|\334\24 \30\327I\32&\v"
+ #"k\3638\243\302\207\317\251f\333\317I\254\243\2707\222d}\203\237"
+ #"\326@\2\247\246\240(\202\361E9\314\257\3661\263\302\213\323\246\f"
+) 500
+(
+ #"\232\260H\377\357\311\217Z\331\320\350\37"
+ #"r\305\234;.\237\257\2353\6>\305=\25\200.%\373:#lj\n\260\247"
+ #"#LB7I\350\222\212\\\a\vk\363(\361\330\361:5TEp\244/F"
+ #"0\246\2230L\272B\t\266\266\204\262"
+ #"s\230^\356\341\352\351%\324\24\270\320"
+ #"\r\223\275]\21\"\t\3\233*x\347@/\2161S\320\346\314\231\303\356\325\a"
+ #"\263\366S\246\6y\365\376\36\376\274\263"
+ #"\213\374\34\215kg\226\220\237c\343\261uM\214+\314a~\265\365M\17T\252"
+ #"B\200\313\246\22N\30\330\3250\337<\257\232C=Q67\axq[\a\252"
+ #"\"8\253&w\220U\235\231\300\207\207"
+ #"\207\6\n\340\303\303~.\235\\\310\330"
+ #"\2\327\240\34\243\"\4\35\2018\377\263"
+ #"\251\215\312<\a\327\235Q\312\344\0227\377\375\301QfTx\271\356\214Rb)"
+ #"\3\201\240+\234 \327\251\222\347\262\272"
+ #"\356z\35*;\332\302,\233^L\312"
+ #"\220\354\357\212\360\320\352F\226N,\340"
+ #"\342\311V\31\237\20\231\26\306\222s\346\314A\233<y2[V\35\333\"\232\""
+ #"\370\244%\310\237vtr\335\31e\234_\227o\255\b\340\214\n/k\16\366Q"
+ #"\223\357\242\266\320\205*\6\177\323\2120"
+ #"q\333U\242)\203\2\267\215\363|y\234;.\217P\334\260\224\353\247l)!"
+ #" \2300N\312\3055%\204\22\306q\272\313DR\225\347\344\321+'\340uj"
+ #"hi\37/\246\233\270\35*I\303:\205\303\t\235#}q\f\t\"=\321\215"
+ #"G\2T\345;\251\314s\342\262)\\3\243\204\35m!\376\260\245\235\270n2"
+ #"\243\334\3\34\343\374O\236<\331ZY"
+ #"\377\25\327\311|\341\31\"\355\203\227\217\247\304cG7%\t\335DS\5\227M"
+ #")\342\241\325\215\354\351\baS\5U\371N\224"
+ #"\264\335$\245U\224dS\5]\241$/n\353@"
+) 500
+(
+ #"\301\332\316\205n\e\245^;\245^\a9\366c[\3210\241\330cu\224\214\17"
+ #"c#\271l\n%\36;\3M\262L)pg(Ag8Iw8I\"m"
+ #"\242t\206\222\0\331\350gs\177\334\252"
+ #"\263\306Z\315G\373\3434\367\307\271aV)\246\224\226\215%\4s\253|\214/"
+ #"v\323\330\23\265NS,/&\2262\2303g\16\332\224)S\360Gu\242I"
+ #"\235\234t89\307n\5\373\6n\31\335\220\324\25\3470\257:\227\365\r~\312"
+ #"s\35\226\362\367\330\331\336\31\342\375\6"
+ #"?\215\275\261\264-$Y\337\340\247\302"
+ #"\347 \241\233\204\22z\272dW\341\233\347U[\205Mi\16|\271\327\301\331c"
+ #"\363X{h\350\212\254\205\265\371\224z"
+ #"\355\3J\354\254\310\346O\327\34\301\37"
+ #"M\341\262Y\335'\2356\225\216`\202"
+ #"\224)Y\261\253\213\225\273\273\311w\331"
+ #"\250+rQW\224\203\333\256\220J\217mbq\16\345^\a\206\264\274\r\211D"
+ #"7\3001 A\233)9\16'\f\246L\231\202\346\363\371\220\216\34B\t\3O"
+ #"\232\\o\31\337'\330\e\22\256\236^"
+ #"\314\203o\205\330\331\32\346Ho\234\255"
+ #"-A\302\t\203\231\25\36n\232[\306"
+ #"\370\"7\177\335\333\303\241\236(\367,"
+ #"\255\305\224\226\315\322\37\323\351\b&\254"
+ #"\0252@\327\231R\262|v)\235\241${;\303\307=r\366\30ov\5d"
+ #"\207!%96\225\345\263\312(t\333(r\333\261\253\326\311\375\357o6p\366"
+ #"\330\\\226L(d\303a?\215=16\36\351g\343\221~\346U\347\2222\254"
+ #"\311_5\255\30SJ\334v5\233sP\4\364\307S\304u#M\330\25\304\222"
+ #"&\232\323\215\317\347C\263\333\355\324\324"
+ #"\326\321\23\351\263\212\200\206\374~\255"
+ #"-Z[\340\342\374\272|\336\334\327\203\313\2460\243"
+ #"\302\313\3315\271\314\251\364\341\320\254\222\217\213'\25\260"
+) 500
+(
+ #"\276\241\217\367\16\366q\361\344BTE"
+ #"\301\353pP\223\357\314n\353c`\201"
+ #"\307\241q\307\371\325\274\261\267\207\217\16"
+ #"\367\23L\373\241K'\26\262tb\1\2522\270\224Db\255\376\263jr1%"
+ #"i\3264\274\265\257\227\216`\202/\235YNw$\311\330\264n='\221\313\301"
+ #"\356(\e\233\2D\222\6\363\253s)"
+ #"\310\261\21O\231\224x\355\331\222\32S\202?\232\"c\377[:U\247\266n<"
+ #"v\273\335\n\376-Y\262\204\303\253\177"
+ #"\317\3541^\206\263\2615E\260\2655"
+ #"\310\246\346\0\36\207\212MQ\230W\345"
+ #"C\21\202\335\355a\306\268\3619m"
+ #"\224\347:\371\302\234r^\336\336A\271"
+ #"\317\332\256-\375qR\246\304\353P\231Si\361\f2O2L\211\323\246\360\371"
+ #"Ye\\6\271\210H\322\300\343P\3618\324\354v\375\264lk\r\321\25J\242"
+ #"\273)\300\16\0\0\20\205IDAT\bA\231\317\216\0^\336\336\311\205\23\n"
+ #"\b'\f\342\31Z\267\1.\273\312\22427\333\333B8m\n\273\332Cx\34"
+ #"*\347\214\315#\317e\313Z\352\241\270"
+ #"A0\256\17\260\35\2413\224d\311\r"
+ #"K\254\371\v!\270\342\212+\370\326\37"
+ #"\36\37\226\372\243*V\27\241\307\3265s\361\244B&\227\272yzS\e\257\357"
+ #"\351f\331\364\22\244\224\34\354\211Q\356"
+ #"3\250\3609\31W\344BJ\370\321\333"
+ #"\215\270l\n\305\36{6\3154\265\324"
+ #"\203\335\251\16\262\271L\t\246a\235b\271.-Kq<\221H\t\e\32\375\264"
+ #"\364'P\5t\205\223\304Rf\332\342\267X7\231\3525%\35k_\271\273\e"
+ #"U\21\\\177F)\a\273\243\274s\240\227q\205.\246\225y\262\316|\246\265T"
+ #"\306\2227LIk\177\234+\256\270\2!\204E\f\351\357\357g\334\230"
+ #"R\36\272\254\16\237S=\341Q\256\b\350\213\3524\371c\314\255\364\21M"
+) 500
+(
+ #"\31lj\n\360\322\366NJ\275v.\233R\204\"\254\22\224]\355!65\a"
+ #"\231V\346&\307\256\262\361H\200\253\246"
+ #"\25s\331\224\242lO\231L\201\23\34\363\337T\305\"g4\373\343T\347;\263"
+ #"\204\271\23]\253\245\233P\257\336\337\313"
+ #"\312\335]\214+\262Z\n\357\357\2122"
+ #"\241(\207\363\307\347g\3\227o\356\355\241#\224\344\3723J\263^F0n0"
+ #"\261$\207\n\237\323\212\232&\f\366w\35\313\30\tauNza['G\333"
+ #"\273\310\313\313\263\3002M\223\5\v\26"
+ #"p\216\263\303\242\24\r\0216\311\270\a)Cf\227\350\366\266\20+vuQ\352"
+ #"u\260db\1\353\e\3744\365\305\270pB!s\252\274\24\273\355\354j\17\363"
+ #"\332\256.4Ep\366\330\\\316\250\360\246\v\241,3\"\246\233t\4\23l="
+ #"\32\344\303#\375\350\246\345\27.\30\233\307\234*\37e>\a.MA\bA4"
+ #"iy\n;\332B|t$@(\241\263\2606\237\251\245n\204\200\266@\202\325"
+ #"\373{qh\n\227L.dCc?\35\241\4\327\314,\241\310mG7$v"
+ #"MaZ\331\261\302+\200C\335Q\372\343z6\232\241)\202\3\335Q\272=\343"
+ #"\370\360\303\17Q\24\345\30\345\350\331g"
+ #"\237\345\327\367\177\223o-\252\31\25\251"
+ #"\366H_\214\206\336\30o\356\355!\2324P\25\270ff)En\eI\335\32"
+ #"\2107\235\b\331\327\31a{k\220\336"
+ #"\250\216C\25\3305\305\352\261`X\261"
+ #"\2562\237\235\v'\0240\243\334\313\356"
+ #"\366\20\357\35\352\243#\230\314:\324\bH\244Lb)\3\257ScJ\251\233\311"
+ #"%\356\254n\313L2\256\233\374yg\27}\321\24\271N\215+\246\26\221\237c"
+ #"\313vI\32_\224C\236\313J\32+\2\272#)\216\364\306\6\31"
+ #"\275\252\"XU\337\303\375?\373\357l\332-\v\226\337\357gle"
+) 500
+(
+ #"9\17,\255\241\32474[f\240d"
+ #"\f\303&\177\214\217\216\364\363\356\201>"
+ #"\334\16\225\213'\26R[h\305\364MI\232\n`y\357\231&\206\301\270N\\"
+ #"\22785A\236\313FU\276\223\302\34\e\232zl\345F\223\6\355\301$\207z"
+ #"\242\364\307t\253T\317n\271,\336\364"
+ #"\313B\214\1[4\0232:\334\e\343\335\203}\204\22:\363\252r9\277.?"
+ #"\er\251\314sP\341sXJ\35\313"
+ #"\225\331\327\25\316\276\305 s\237P\302"
+ #"\340\245\35\3354\265vd+\\\263\214\371\274\274<\226\\r9\353\16l`\371"
+ #"\354\221\365T\227\22\34\232\240\314\353`"
+ #"kK\210yU>\354\232\302\353\365=L-u3\277\306\207\317i)k\231\266"
+ #"\2672\337~\241\333n\275\314\3+\26\326\31J\320\21J\244\231;\fj\234_"
+ #"\221\353`L\256\305\25\223\34\243\ndVS&\372\32\214\353lj\nR\337\31"
+ #"fnU.\271N\2155\a\373\230^\346\301\353T)\363\332)O\3\225\271W"
+ #"K\177\234\204~,\230\b\240\244\17\263"
+ #"\245\227^1\250\264n\20\363o\333\266m,9\367,\276s\276U\34>R6"
+ #"\262!%\233\232\203Y\303\260\331\37\347"
+ #"\375\6?\261\224\301\231\325\271L.q\343\262+ie=\f\370\234<\3507P"
+ #"2:4\2264\331\327\25aSs\200\34\233\312yu\371Y\233\356`w\2241"
+ #"y\16j\362]T\3459\a}\266#\230\244\271?>\b(\213I#yqk"
+ #"\aoo\370xP2w\20X\246i\262h\321\"rz\366\261lz\361I\311"
+ #" \3\305\256*\204\22:\r=Q\22\206\3040Mv\266\205\331\326\22D\21\202"
+ #"\231\25^&\224\344\220\233~!\221e\4\216.\254lM\362XD3\20\3279"
+ #"\330\25eg[\bSJfU\3728\243\3023Hq\253BP\342\265S\341sd\355\272L"
+) 500
+(
+ #"c\305\203=\261\254\317\230\21M\21\354"
+ #"j\17\23-\232\314\372\365\353\a\265\216"
+ #"9\216S\272q\343F\256Z\272\210/\314)gR\211{HS\342\304\23\261|"
+ #"\251f\177\234\376\270\216M\261N\257\372"
+ #"\316\b\273\333\303DS\6\25>\a\23"
+ #"\212\335\224\373\2548\223-\23\230\37\30"
+ #"\253\32\260\30421/\322\333.\30\327i\17&9\330\35\241-\230\300eS\231"
+ #"Q\356aJ\251\e\267]\265\308X[YU\4UyN\212<\266A\246G"
+ #"4ip\260;:((\230y\214nJ^\334\336\311_\336^\307\331g\237="
+ #"h~\307\201e\232&\27_|1\361\306OX8.\217\261\371.<\216\343\323"
+ #"dC\211\20\326@;\202\t\332C\226\221gS\254\320I[ \301\376\316\b-"
+ #"\201\4I\303\304c\327(\310\261Q\220"
+ #"\223y_\205\365j\6U\261\354\265\224a\5\362\372c)\372b:\376H\212P"
+ #"\322j6V\231\353`R\251\233\n\237\303\3129\312c\205\351RJ<\16\215\352"
+ #"|'\36\373\261/[\21\269\357PO\364\230\205?@l\252\340\343\246\0\216"
+ #"\332\271\254^\275\372\270\206D'd+7773\251\256\226\317\317.\243\324k"
+ #"\247\266\300\205\3071\362\25\226\31X8"
+ #"i\320\32H\20\214Y\f\25-M\337"
+ #"\216\353&}\321\24\355\301\4\335\341\24"
+ #"\201X\212p\302\0304\341L\342B\25\2\217C%\327e\243\330m\243<\327\221"
+ #"}Q\210\304\242\fd\22!RJl\252b\205\203<v\224\1\205\r\31\240\32"
+ #"z\243D\223\346q\331\254L$\343\305\255\35\354o8Luu\365\361\v\341D"
+ #"`I)\371\321\217~\3043\277\3741\227O)BU\4\265\205\256Q\35108"
+ #"\266\312\374\261\24]\241d\266\245\257\222\6A\b\v\25\323\264*\267"
+ #"t\303\242\t\230&\3318\231\246\212l\236\21y\254\n?3\214\314"
+) 500
+(
+ #"\311iS\24\n\3346J<v\\6e\3208\25!\b't\32{c\304\365"
+ #"\343\201\312\200\371F}\17_\372?\367p\337}\367\2350\2013d\205E2\231"
+ #"d\366\354\331\24'\333\231S\351\303\224"
+ #"P\235\347\2448\275\377G\243\232\255("
+ #"\251\345\301\367FR\204\22z\332\357\263"
+ #"\362r\331\234\312\0=5P\177\r|"
+ #"\226\314\376\316\362\341\\6\205\\\247\215"
+ #"B\267\rW:\242+\a\1\5\376\250"
+ #"\316\21\177,\233\344\375\264\330T\253x"
+ #"\240\333^\316\266m\333\206d/\16[\273s\364\350Q&O\30\317US\v\30"
+ #"\223k\265&)\361\332\31\223\353DU\6\17j\320M\205E\254\310|\203\231-"
+ #"\2\326\213\207\22\272iy\370\t\235h"
+ #"\322\310\32\214\303\363(D\326Tp\331\24\334v\215\\\247fE?\322I]\231"
+ #"\16\263d\326\235\224V%~{01"
+ #"\244Y\242)\202\326@\202\277\324\367\261"
+ #"\357\340!\252\252\252\206\36\301\311\312~"
+ #"W\256\\\311?}\341z\256\231Y\202\327a\31\230\36\207JU\236\23\257C\35"
+ #"\244c\264tJ*\222\324\t&\fBq\35=M\256\360:T+\313\222v\266"
+ #"\323\323\311FV\223\272IB7I\2312\335I\304\272g\346\215O\331J0U"
+ #"d+\302\fSf\t\302\241\204\225\v\364:5|\16\r!\340\250?No4"
+ #"9d&=\303\370{ug\27O\277\360\n\313\226-\e\16\212\223\203%\245\344"
+ #"\321G\37\345W\217\376\220e\323\213q"
+ #"\331\24t\323\352\272Q\342qP\346\265"
+ #"tD\322\220\354j\v\263\2519\300\376"
+ #"\256\b\321t\337\a!\310\352\240\352|'s\253|\234Y\235K~\216-K\342"
+ #"8\226\201\368\251\23\257\5\233j\361\\77\a\370\344h\220f\177<\333\210"
+ #"'\243\317\\6\225R\257\235\261\5.\306\25\272\262"
+ #"\247\353@\311(\374\225\273\273\371\326\335\377\316\335w"
+) 500
+(
+ #"\337}\322z\351\21\25\224K)\271\343"
+ #"\216;X\361\207\337p\305\324\"l\352"
+ #"\261\243\332\353P\211$\r\336\334\327K"
+ #"k\177\234)\245n\346T\372\250\314sf[\304\305RV\323\235\35m!\266\267"
+ #"\2060%\\1\265\210\v'\24X+m\4fI\346\272\367\16\364\361\306\336\36"
+ #"\24au\n9\243\302\233\326W\226\215"
+ #"\25I\32\264\364\307\331\326\32\242\276#"
+ #"\214\327\251\261\2606/k\321[@Y\325\24o\324\367p\365\27\277\316/~\361"
+ #"\213\21\25\226\217\270\372\3360\f\276\374"
+ #"\345/\363\376\e\177\342\322)\26W\336"
+ #"\224\260\2719\300\307M\1\316\31\233\307"
+ #"\262\351\305\214\311\265\\\212\214\23\r\203"
+ #"y\21\241\270\316\272\6?+\367t3\241(\207\333\316\36\223\215J\f\t\224b"
+ #"}\356\311\215-4\364\304\270jZ1\347\327\345giR\31g\335\2\202\354\266"
+ #"k\r\304y}O\17\37\35\3613\277&/\35\325\265\262Po\356\355\345\374\253"
+ #"n\340\251\247\236\32\361\373\21G\325\252"
+ #"\3000\f\276\373\335\357\362\307\247\376\213"
+ #"\313\247\24\261\2755\304\376\256\b_9k\f\vj\363\262T\240a\37(\254\f"
+ #"\312\21\177\234_\254=\202\313\246r\327"
+ #"\205c\217\353D\224\5J\b\202\t\235\237\274w\4\1|\343\334**\363\234V"
+ #"'\267\223\214<\223m~\277\301\317\357"
+ #">nez\271\2073*\274\254\332\333"
+ #"\303\215_\271\235\237\376\364\247\243z\221"
+ #"\344\250\373:H)y\354\261\307x\340"
+ #"\336\177\3030\f\3568\277\206\31\345\236"
+ #"a\363~'\22\233\252\260\2773\314\257?8\312\230<'w,\252I\23I2"
+ #"\303\21Y\372\365\317\327\36!\2340\270"
+ #"{im6\322:\332g\275\275\277\207"
+ #"\347?\351\300a\327x\360\221\377\207"
+ #"o\177\373\333\243n1\3747\265\v\216\305b\224\227\227q"
+ #"\3434\37\213\307\27\f\312\326\214\370\301i\37mSs\200"
+) 500
+(
+ #"\27>\351\340\312i\305\\<\271\220x\312\314\206_L)y\367@/\e\217\4"
+ #"\370\367K\353\262I\337\321\212U\374\220"
+ #"\344\215\372\36>nO\321\321\321qB&\365I\3573\332\17H)y\372\351\247"
+ #"\231\340\263:\204\f\a\324p_\234\224"
+ #"V\244\242\314\353\340\334q\371\274^\337"
+ #"\315\246\246\0\r=Q\32z\2424\371c\354\353\214\260\346`\0377\314.\243|"
+ #"\4\357q\35\212\327%\22184\313\341.\266\353<\375\364\323#b_\177ZF"
+ #"\rV2\231\344\201\373\357\345\312i\305\303^'%D\22\303\223*U\305\332j"
+ #"\223Js\310\261\251\354\351\214\240\252\""
+ #"K\177\334\333\31\246\310m\347\234\232\334"
+ #"\223\322)\5\20K\232'\6TZ\367"
+ #"\323\24\301\274*\37\337\277\357^\222\311"
+ #"\344\311\246z\234\214\32\254]\273v\221"
+ #"\257\246,F\213q\214\3279Pl\252\240\276#\314/\3265\rr1>}m"
+ #"\306Q\266\253\n\23\213sh\354\211b"
+ #"\244\303\273\206!9\324\23cr\251\373"
+ #"8\252\22p\334\373\2475U\360\314\226"
+ #"6\336\332\337k\305\353\aHF\321\203"
+ #"E\325v\230qv\355\3325\332\251\217\36\254\25+V0\243\334cQ+\261\322"
+ #"E[[\202\237j\232h5\315\21\200#=Q\201\265\322\266\267\204\216#Y\231"
+ #"\246\244\246\300E \246\23\210\353\250\212"
+ #"U\36\22\214\353T\3469\217\313\37*B\260\2573Bg(\221\5,\363b\265"
+ #"\235\255\241\343\328\356\351\b\323\35NfSh\325\371\316A\5L#\225Q\201"
+ #"%\245\244\276\276\236r\237\3)\255S"
+ #"f]C\37\317}\322\221\265\304\301\262"
+ #"\261\232\373c\214-pe\251\222\252\""
+ #"\350\211\244x\374\203\243\364D\223\250\302"
+ #"\n\237\30\351\26\5>\247j\201\237\262\242\2\321t\261\244SS\262\\\251"
+ #"4\266\350\206\311o?neog\4m\200_X[\350\2427\232\"\232"
+) 500
+(
+ #":FOR\205\340\235\3}<\277\265"
+ #"=\353\23\24\344\330\250\257\257\37\265\336"
+ #"\32\365\312\352\354\354\304\343\324\220HR\246dSS\200\371\325>rljv\5"
+ #"\245\fI\177L\317\26\244g\0,r\333\260k\n\255\201\4\212b\235x\211l"
+ #"\22C\301\246)\304S\6\232j\375kO\23\203C\t}\0\377@\320\37\327\t"
+ #"\305u\353\25Xi\35eJI\211\307N4i5\206\315\3062\204\365\336\351}"
+ #"\235Q\372\242V\371\236\323\246\320\331\331"
+ #"9\332\251\217\276y\276\252Zu\207\212\20\4bI\272#)\246\227{\aU\271"
+ #"\352\246\3040$.\233\222\335r\246\264R\367>\207Jg\310ZYV\304Af"
+ #"c\352RZ]\36\17tG\361GSY=\325\27MQ\344\266\302&\212\200\336"
+ #"\250U0Z\220c\e\224\251\311\350\252T\232[\5V\n\276\2560\a\233j\265"
+ #"\333\314s\345`J\376\246\16\343\243\6"
+ #"\253\274\274\234\376\346F\2537iz\253"
+ #"\270\355*\331\263j@0/\223'\314\210\242X\234\362h\322\0a\201 \323I"
+ #"\305\244nb\240\360\353\247\237'//\217\376\376~\276t\363M\244\21443:"
+ #"\246\223\237cC\b\210\245\254&\325V\r\344\261\373ki\306q2]G\230\211"
+ #"\2059mV\223\331\204.\263\366\335\337\362>\261QmC!\4\313\226-cG"
+ #"[\b\211\314\6\333,\336\34611I\277\315\362Sw\27X\315'R\246\305-"
+ #"\260Jm-\245\333\21J0c\326l\256\275\366Z\226,Y\302\265\327^\313\214"
+ #"Y\263\351\b%P\205\240%\20'iX\364\361\244n\242(\3428\352x\346'"
+ #"\371\251\303\246+\234$\2324ph\326"
+ #"J?\352\217\263x\361\342Q[\360\243\326Y\313\226-\243!\b\0374\366S\352"
+ #"uP\354\266\261\2573rl\340\222t\303DA8a0\260\326Ab%Z5\305Jn"
+) 490
+(
+ #"J\231\t\271\350l<\22\340\341\207\37"
+ #"\316N@\b\301\303\17?\314\306#\1"
+ #"\3741\35\303\2244\373\343\30\246\304\241"
+ #"Z\21\206\201U\\`e\226\3144\321-\223\5\327\r\311\216\326\20 )\365\332"
+ #"\331\323\21\246-\n7\334p\303h\247"
+ #">z\260<\36\17o\277\273\206\377\371"
+ #"\244\213\27\267u0&\327\311\a\207\373\323,ek\271{\34\32\271.\e}\321"
+ #"\24N\233\25\264s\246\203u\31\262X0nQ'w\266\205yug\27\367\374"
+ #"\360\21\226,Y2\350YK\226,\341"
+ #"\236\37>\302\253;\273\330\325\36\246\245"
+ #"?\316\201\356(\271\351\256\266\341\204\201"
+ #"\323\246\342\320\24rl\n\301\270\365s"
+ #"\256K\303\236\16D6\367\307\370\344h"
+ #"\20\237Sc\313\321\0\357\36\n\260\341"
+ #"\303\217\360\371|\243\6\353o~\225LWW\27\217>\372(\317?\367,\235]"
+ #"\335L(\316\241\314\353\310\276\222}w{\30E\300\354J\237Up)!\222\246"
+ #")e\270Z\241\224d\341\242\vx\350"
+ #"\241\207\2307o\336\t\267\205\224\222-"
+ #"[\266\360\375\357\177\237\17\326\257\301\255"
+ #"\201\317\251\321\324\27gj\231\233R\257"
+ #"\245\370m\252Bco\214f\177\214\263k\362\220XM\370\333\203\tZ\3q\362"
+ #"\363\v\370\322\255\267r\367\335w\237\264"
+ #"\225\371\377u\2602\222H$\350\350\350"
+ #"`\303\206\r\274\361\306\e\364\364\364\320"
+ #"\337\337O{{;mmmh\232\206\317\347#77\227\334\334\\\362\363\363Y"
+ #"\272t)K\227.e\322\244Ix<\236\21\351\16)%\341p\230\375\373\367\363"
+ #"\316;\357\360\316;\357\340\367\373\t\4"
+ #"\2\4\2\1\202\301 \272\256\343\363\371(//\307\343\361PSS\303UW]"
+ #"\305\202\5\v\250\252\252\302n\267\377]/3\372\377\0\374"
+ #"\263?\262eq\307\245\0\0\0\0IEND\256B`\202"
+) 0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #">"
+0 0 25 3 2 #" ("
+0 0 14 3 11 #"image-width"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"cat2"
+0 0 25 3 3 #") ("
+0 0 14 3 12 #"image-height"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"cat2"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 3 4 #"    "
+0 0 19 3 6 #"\"wide\""
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"="
+0 0 25 3 2 #" ("
+0 0 14 3 11 #"image-width"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"cat2"
+0 0 25 3 3 #") ("
+0 0 14 3 12 #"image-height"
+0 0 25 3 1 #" "
+0 0 14 3 4 #"cat2"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 3 8 #"        "
+0 0 19 3 8 #"\"square\""
+0 0 25 29 1 #"\n"
+0 0 25 3 8 #"        "
+0 0 19 3 6 #"\"tall\""
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Exercise 9:"
+0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; Add the following line to the definitions area of"
+0 0 25 29 1 #"\n"
+0 0 17 3 11 #"; DrRacket:"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #";   (define in ...)"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; Then create and expression that converts the value of in to a posi"
+ #"tive"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; number. For a String, it determines how long the String is; for an"
+ #" Image, it"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; uses the area; for a Number, it decrements the number by 1, unless"
+ #" it is"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 63
+#"; already 0 or negative; for #true it uses 10 and for #false 20"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 7 #"require"
+0 0 25 3 1 #" "
+0 0 14 3 11 #"2htdp/image"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"a"
+0 0 25 3 1 #" "
+0 0 19 3 5 #"\"soo\""
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"b"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"1"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"c"
+0 0 25 3 1 #" "
+0 2          61 22 1 #"\0"
+2 -1.0 -1.0 0.0 0.0 0          25 500
+(
+ #"\211PNG\r\n\32\n\0\0\0\rIHDR\0\0\0K\0\0\0u\b"
+ #"\6\0\0\0\6>\0347\0\0 \0IDATx\234\355\275wt]\325\231"
+ #"\377\375\331\347\234\333t\213z\265\212e"
+ #"\2717\3340`\2031\330t0\241\305\4H\310$$k\230$\277\204!dh"
+ #"a\22 \2047o\312\220L\230!$0!\224P\22\260\3\16\230\342\202\1c"
+ #"\ew\313U\262%\253\267\253\333\3339"
+ #"g\277\177\234{\257%l\311R\362\263"
+ #"\207\254\365>k\201\227\244s\317\331\373"
+ #"{\367~\366S\276\317s\204\224Rr\232EJI(\24\242\245\245\205W^y"
+ #"\205\25+V \204@Q\24jjj"
+ #"\370\332\327\276\306\314\2313\311\315\315\305"
+ #"\351t\"\2048\335C<\241\210\323\rV0\30\344\366\333o\347\365W_\246\320"
+ #"\245Q\350\266\341sj\b@\2I\303\244'\234\302\37K\241+v\246\314\230\305"
+ #"\265\327^\313\262e\313\30;v,\252"
+ #"\252\236\316\341\16\222\323\nV<\36\347"
+ #"\3143\317dL\252\235\313\247\25\223\353"
+ #"\324\320\24\2012`\345H$\206)\211"
+ #"\245L\302\t\203\326@\234\275\235\21\266"
+ #"\267\206(\0357\205\a\37|\220K/"
+ #"\275\24\233\315v\272\206\235\225\323\6\226"
+ #"\224\222{\356\271\207\367_z\202\177YX\205\4\fs\350G\v\1\n\2E\1"
+ #"E\bB\t\235\372\216\b\253\367\365\""
+ #"\v\252x\346\231g\230;w\356i\335\242\247\r\254H$\302\230\322\"\356[R"
+ #"M\205\317\201>\fP'\22!\300\246\bR\6lj\16\360\362\366\16\276\376\235"
+ #"\357\361\203\37\374\340\264mM\355\264<\5hmm\245\320)(\365\330\207]Q"
+ #"C\211\224\2204$\28w\\\36\23"
+ #"Kr\370\355\357\376\203}\373\366\361"
+ #"\374\363\317\237\226m\251\234\362'\244\305f\263\221\320M"
+ #"t\323\332V\307\377g\255\236\223m*\t$t\223\202"
+) 500
+(
+ #"\34\e\3379\277\206\346Mos\333m"
+ #"\267a\232\346)\237\303i\333\206\272\256"
+ #"3}\332T\352\264~\26\214\315\315*vE\1U\21hB\240(\2\273\252`"
+ #"S\255\277I$\303\215NU\4\221\244"
+ #"\301\217\3379\314]\17\376\277|\343\e\3378\245s8\255\247acc#\v\27"
+ #".\304g\4\231X\342\246 \307\206SS,\260\24\201\252\bl\252\300\251)\344"
+ #"\2724\362\\6\34\2322\354\266\265\251"
+ #"\202\255-!\36\377\260\225\306#\315\224"
+ #"\225\225\235\262\361\237v;+\24\n\361"
+ #"\374\363\317\363\373\337\377\236}\365\2731"
+ #"\0221l\212@S\0056U\301\241)\270\355*^\207J\271\317\301\214\n\17\265"
+ #"\59(\202\23\36\nB@R7\371\355\306V&\234w\25\317<\363\314);"
+ #"!O;X\0311M\223T*E$\22!\26\213\21\215F\211D\"\364\367\367"
+ #"\323\330\330\310\336\275{y\357\275\367\330"
+ #"\267{\a3\313=\\6\265\210\361Ent\303\344D\3\336\324\34\340\351M\355"
+ #"\34m\353\240\260\260\360\224\214\371\177\r"
+ #"\254\221\210i\232\364\366\366\362\362\313/"
+ #"s\367]wr\331\304<\256\234V\214\224r\20`\212\200f\177\234g\267\264s"
+ #"\327\217\177\311W\276\362\225S2\236\317"
+ #"4X\3\245\275\275\235\245K\2272Y\353\345\2723JH\31\307\206\255\bAO"
+ #"$\311[\373z\20c\317d\325\252U"
+ #"\247d+\2366\323\341\357\225\362\362r"
+ #"\326\257_\317\272\226$\273\332\302\330\324"
+ #"\201`H4EP\352u\360\361G\37\22\217\307O\311\30\376a\300\2(,,"
+ #"\344\277\376\373\tV\356\351\36\244\354%"
+ #"\326\352\312ujhF\234\266\266\266S"
+ #"\362\374\177(\260\0\226-[F\237\351"
+ #"\242\331\37GS\6:\340\240*\340\261\253ttt\234\222g\377\303\201e"
+ #"\267\333Yz\361%4\365\305\263\321\nA\306)\27\270\354\352\377\277\2622"
+) 500
+(
+ #"\"\204 ??\237\270npL\207\v"
+ #"\22\272\345\356\250\n\304b\261S\362\354"
+ #"\1778\260t]\347\3157\337\244*\317\211\231>\310%\222P\\G\"\211\247L"
+ #"JKKO\311\263\377\341\300z\366\331gQ\2\255L(v\243\247\243\20\261\224"
+ #"I8i %\204\23\6\225\225\225\247\344\331\377P`\255_\277\236o\375\363m"
+ #"\334<\267\2\273*\220X\333\262+\234\304\224\222`\\'&5\306\215\ewJ"
+ #"\236\377\17\1\226\224\222W^y\205\253"
+ #".Y\302\355\v\253\30_\224\203nJ\24\1\301\270No$\211\246\n\32{c"
+ #"\\r\371\2258\235\316S2\216\317<X\246i\362\363\237\377\234o~\345f\356"
+ #"\274`,\263\307\370H\32&\2+\30\330\354\217!%D\223&;\332B<\360"
+ #"\300\3\247\314\221>m\221\322\277E\22"
+ #"\211\4\267\337~;\e^\177\221\357-\251\245\334k\267\200\22`\232p\2707F"
+ #"4ebW\5\e\32\373\271\350\212\3171e\312\224S6\236\317\254o\330\323\323"
+ #"\303\345\227_\216\326}\220/\317\257\300"
+ #"mW\321MK\241\233\22\16\367\305\350"
+ #"\213\246ph\202\275\235\0216\266\3534\36>Bnn\356)\e\323gre5"
+ #"44p\366Y\3639\257B\343s\v+\21\b\v(a\31\237\207{c\370c"
+ #")\34\252BS_\234w\17\364\261q\363'\247\24(\370\f\352\254\335\273w3"
+ #"\373\214\31\\=\301\305\r\263,{\311"
+ #"\224\26P\272!i\350\211f\201j\356\217\263jo\17\257\377\365-f\315\232u"
+ #"\312\307\366\231\332\206\215\215\215\314\2329"
+ #"\235/\316.\342\274\332|\22\206e\225[\321PIco\224PB\307\256*\34"
+ #"\356\213\363\346\336n^{\375\257\\t\321E\247%\177\370\231\1+\20\b0y"
+ #"\322$\256\250\325X:\2610\353\276\bae"
+ #"s\32zbD\222\6\16U\260\277;\312\333\373"
+) 500
+(
+ #"{Y\375\356\32\26-Zt\332\306\370\231\320Y\246ir\323M71\267\320d"
+ #"\311\247\200J\31\222\306\236(\221\244u"
+ #"\352\355\356\b\363\376\2210\37~\274\2319s\346\234\326q\236\24,)%--"
+ #"-\370\375~<\36\17\305\305\305\270\335"
+ #"n\24\345\377\236\272{\371\345\2279\264e-\377va-)\343X\376/s\352"
+ #"\205\223&vM\260\253-\314\346\16\235"
+ #"O\266mg\362\344\311\177\363\363\244\224"
+ #"$\22\t\372\372\372\360\373\3758\34\16"
+ #"\252\252\252p8\34\303~n\330m("
+ #"\245\344\256\273\356\342\17O\374\212\"\217"
+ #"\235x\312\240;\234\242n\312t\226/"
+ #"_\316\365\327_\317\270q\343\376.\340"
+ #"\242\321(\2655\325\3346\333\307\2642"
+ #"o\26\254L\\\275#\224\300\256*\354"
+ #"\355\214\260\341h\214\255\333\2663~\374\370Q?GJIoo/\253W\257\346"
+ #"\271\347\236c\343\206\365\270D\n\257C"
+ #"#\246\e\330\v*\331\271k\327\260\326"
+ #"\377\260`\305b1J\n\362\271\377\242j\312}N\302\t\35\200\366`\202m-"
+ #"!\266\265\6\0313q&\17<\360\0\227\\r\311\337\224B\177\342\211'x\372"
+ #"\307\377\306\267\316\253\316F?\25\1\201"
+ #"\270\301\301\356\b\252\"h\v$X\271"
+ #"\247\207M\237lc\372\364\351\243\272\277"
+ #"\224\222\335\273w\363\223\237\374\204\25/"
+ #"\377\221\231\25\36\346V\371\250-\314A"
+ #"\25\340\266\253\250\212\340\221w\32y\356"
+ #"\215u\314\2337o\310{\r\273\r\223\311$v\305D \370\361\333\215\364DR"
+ #"\224\373\354\234;.\237\353g\225r\303"
+ #"\254R\266\267vq\367\327\276\300\277z"
+ #"\313y\374\361\307Y\262d\311\210O&"
+ #"\3030\370\371\317\177\3065\343\v\30\370"
+ #"\21CB[\300\212\243G\222\6\253\367"
+ #"\367\362\374\213/\217\32\250\246\246&\276\373\335\357\362\301\352"
+ #"\277p\341\204\2\36\275j\2\36\207\312\266\226\20\317lj\343"
+) 500
+(
+ #"h\177\34\217C\345_\27\327P\230c"
+ #"\247\257\257o\330\373\r\273\177\204\20h"
+ #"\252\302\201\356\bM\3768\347\216\313\303iSyvK;w\377\345\0\0377\5"
+ #"8\253&\227{\226\326reE\222\257~\376*n\274\361F\372\373\373G4\231"
+ #"C\207\16\21\355:\312\204\342\34t\343\330\252\n\305u\302\t\3M\21lj\n"
+ #"p\315\215_\344\352\253\257\36!D\326"
+ #"\227\360\353_\377\232\31\223\306\243\34\332"
+ #"\300\17/\253\343\352\351%\34\352\211r"
+ #"\337\e\207x\362\243\26\20\222\363\352\362"
+ #"\350\216$\331\323\21F\0\2326\274\n"
+ #"\37\366\257\16\207\3\247\307G\312\220\330"
+ #"U\301\204\342\34f\216\361r\356\270<>9\32\344\351M\255lj\16\360O\363"
+ #"\307pNm\36\223K\335\254\330\365\36"
+ #"S\247N\341\275\367\326\234T\t\177\360"
+ #"\301\aL)u\223\357\262\221\314$O%\364\305R\330TA{0I\237\360\361"
+ #"\313_\376r\304\2535\32\215\262|\371"
+ #"r\0326\257\341\276\213j\251+\312\241"
+ #"/\232\342\261\365Ml>\32dN\245\217\353\316(%\327\251\2222%k\17\371"
+ #"\21\bB\t\203\222\222\222\277\35,\233\315FQY%6\265\v\4\364DRT"
+ #"\250\nN\233\302\371\343\363\231R\346\346/\273\273yhu\3\377gQ5\343\n"
+ #"s\270y^9\225\207\374\314\2369\203"
+ #"O\266\357`\352\324\251'\274\267\224\222"
+ #"\325\253WcJX\271\247\213\326@\202"
+ #"x\312 \2324\323!\27\205\336H\212"
+ #"\272\2513ijj\242\242\242\2\217\307"
+ #"\203\252\252C\2\27\217\307\271\370\342\213"
+ #"qt\355\345\273\27\216\305cWi\362\307xl]3q\335\344\226y\345\214\311"
+ #"u`\230\22\335\204\376\230NB7\311"
+ #"\317\321\350\211$O\n\326I\267\341\302s\317%\2324(t\333h\366\307"
+ #"P\24\213+\2252$En;\267\314\253\240\320m\347\247k\232h\362\307\221"
+) 500
+(
+ #"\22.\230P\300\227\347\227q\356\202\263"
+ #"\351\356\356\36\4P__\37\253V\255"
+ #"\342\226[n\341\265W\377\314\226\346\0"
+ #"k\17\371\351\t'1$\24\344\330\230"
+ #"Y\341\245\256\320\305\214\n\17Z\317!>\267\370Lj+\212\2318a\2_\372"
+ #"\322\227X\265j\25~\277\237\201g\223a\30\\s\3155h\35\365\334:\277\2"
+ #"\247\246\320\26H\362\3235M\330T\301"
+ #"\227\316\254\240\302\347 eHL\t\212\2-\3768^\207\206MU\260y\v\311"
+ #"\317\317\37\26\254\223Z\360\257\276\372*"
+ #"\277\270\353\253\24\346\330\370\270)\300?"
+ #"\2355&\e\373\6K\307\230\22\376\264"
+ #"\243\223X\312\344\201K\306\341\324\24l"
+ #"\252\302\37\267u`\216=\213?\376\361"
+ #"\217l\331\262\205\207\37~\230M\e\326"
+ #"0\276(\207\31\345\36\306\25\346P\220"
+ #"c\303\343P\261\253\312\t\311Y\326\27"
+ #"c\22I\32\364FR\34\351\213\261\243"
+ #"-\304\241\356(\363\26\236\317\375\367\337"
+ #"\317\302\205\vy\371\345\227\371\341w\276"
+ #"\306\335K\307aS\5\272!\371\361;"
+ #"\215\304u\223\345\263\313\260\251\312\240q"
+ #"\253\212\340\371O\332\31_\224\303\244\222"
+ #"\34\332\212\317\344\225W^\31v\273\237"
+ #"\24\254\356\356n\246\326\216\341\253gW"
+ #"\362\330\272&n\234S\306\230<\347 "
+ #"\32\220\"\0041\335\340\311\17[X2"
+ #"\241\220\345\263\313\320M\223X\312\344\373"
+ #"\253\16\21W\234\224;\r\316\37\237\317"
+ #"\214r/\371.\rE\21\230\246\304\224\26\ak\270A\b\322\34\3234\207\3134"
+ #"%}\321\24{:\302\254=\344'\356*\242\273\273\233\357,(cz\271\a\220"
+ #"\274Q\337\303\237vt\362\265\5\225\370"
+ #"\34\32\206\34<\336\336H\222\247?n"
+ #"\343\356\245\265\274\275\277\227\273~\376\24"
+ #"\327\\s\315pP\234\334\202/**b\322\254\371$\215\26"
+ #"\316\30\343\345\303#\1>?k\260\341fJ\211\307\246r\321\244"
+) 500
+(
+ #"B\336\332\333\313\371\343\363)r\333\311"
+ #"\261\253\374\363\302*\222\206\311\344\0227vUA7\245eO\215\202*)\261V"
+ #"\230)\217}.\317e\343\374\272\2\316"
+ #"\31\233\307\236\2160\335\245yL(\311A7M\202\t\203\327\367ts\376\370|"
+ #"\362\\\332 ^\4X\351\262\217\233\2"
+ #"\324\25\271(v\333\250\357\214\260x\361"
+ #"\342\223\216\343\244\246\267\20\202;\356\270"
+ #"\203\365\r~.\235RDcO\224\206\336\330\240l0X\334\251\t\305\356\254["
+ #"\242\251\2\303\224L,\316az\231'\35\0066\am\205\277GL)\263\341\345"
+ #"Yc\274\\<\251\b\1\250\212\302\376"
+ #"\316\b\272)\231V\346\311\232$\31\321"
+ #"\24AK\177\202\335\355a\256\231Y\302"
+ #"\326\226\20\213/\276\234\274\274\274\223>"
+ #"sD~\312\225W^I\207\356\6\340\242I\205\254\252\357&\2262>\305_\a"
+ #"\273*\310\317\261\321\26Ld\177\237YI\247*\264!\261\16\233\344\200pN{"
+ #"0\201\327\251\341\264\253\203\236k9\346"
+ #"&\253\352\273\231_\235K]a\16\177\335\333\303#\217<2\"\323dD`9"
+ #"\34\16\36~\344\21V\354\352\342\232\231"
+ #"%\344:5^\335\331\205aJ\324\364\n\313D\b\372\242\226\225\377\277%RB"
+ #"\231\317A(\256\223H\231Y\317@\21"
+ #"\2\1\274\276\247\aS\302\255\363+x\357`\37g,X<\342\270\375\210=\340"
+ #"\233o\276\31\245t\2\0374\366\363\275"
+ #"\vk\t&\f\376\264\243\223P\\\307\256Z\304\331m-AtC2\263\302\213"
+ #"n\234z\366\360\211D7M\246\224\272qh\n\233\232\3\330\24\5\273\252\20K"
+ #"\31\254\330\325\315\321\3768w]8\226"
+ #"\236H\212\225\365\275<\361\304\23#6xG\25\374;z\364(\323&\215\347\256"
+ #"\305\325\370\234\32\277\336\320L[ \301\370\242\34R"
+ #"\246\344`w\224[\317,\347\202\t\5\307)\325\323"
+) 500
+(
+ #")6Ua\343\221~~\363Q\vc\v\\\270\354\n\r=1\n\\\32\267/"
+ #"\254\242\330k\347\241\267\32\371\321\257~"
+ #"\313M7\3354\342\373\216:R\372\322K/\361\317_\276\205;/\30Ku\276"
+ #"\223\367\e\375lo\r\241\b8\257.\237Y\25\336QWO\234\n\321\24A}"
+ #"g\204\265\a\373H\30&\323\313=\234"
+ #"_\227\217)\341\227\353\233Y\260\354f"
+ #"\36\177\374\361Q\205\243G\25)\325u\235\365\353\327\2232M~\362\336an_"
+ #"X\305E\223\nY<\376\230\345\373\277"
+ #"\271\242\6\212nJ\246\226\272\231V\346FJ\320T\301Q\177\234\307?8JK"
+ #"\177\234y\311$\206a\234\324y\36("
+ #"#\326Y\272\256s\375\365\327\263q\345"
+ #"\37\270|j\21\301\270N0\256\2232"
+ #"\344\240\377>K\242\233\326\230t\323\252"
+ #"4k\t$8\334\e\343\322\311E|"
+ #"\360\372\213\\\177\375\365\350\272>\342\373"
+ #"\215\b,\3234\371\372\327\277N\373\266"
+ #"\265\334\276\260\212\315\315A\316\252\311e"
+ #"Am\336\2400\360gYR\206dn\245\217\263kr\331\334\34\344\242I\5\354"
+ #"\371`t\245,'\5KJ\311\275\367"
+ #"\336\313\307\177}\231\1779\267\212\365\r~z\302)n\236[\376wO\340t\213"
+ #"\20p\323\334r\242)\203=\35\21n;g\f[\336\372\23\367\336{/#Q"
+ #"\335'\5\353\205\27^\340\205\337<\306"
+ #"7\317\255\"\2324\370\363\316N\256\235"
+ #"YB\361\b\253\273\4\226\262\265\247\253"
+ #"'\34\232u\224\253\312\310\25k\366^"
+ #"b\360\275\354\332\261:\237\221\210aJ\212=v>7\243\204\315M\1|\16\215"
+ #"o\234[\305\v\277y\214\27^x\341\344\317\37\3564<t\350\20gL\233\314"
+ #"\335Kj\231Z\346\346\231\315ml9\32\344\341\313\307\243*b\330\"$"
+ #"\260\352j\22\272Is_\214\206\356\20\275\341\4\252\"(\361:\231P\352"
+) 500
+(
+ #"\245\"\3275d\231\311\240Ab\231\3"
+ #"\221\224\301\341\3560Gz\"\370\243I\0346\2052\237\213\211e^J<\216\223"
+ #"\26|\2Y\n\300\375o\34b^\265\217/\235YA}G\204G\337=\314\216"
+ #"=\373\206M\206\f\tV<\36g\352"
+ #"\324\251\\P\222\344\222\311\205t\207S"
+ #"\334\373\306A\226\317.\343\202\361\5Y"
+ #"\367\342D\242\b\201\20\260\351\210\237\327"
+ #"v\264\21\22n\252\307M\240\274\242\34]78\332\334L{S\3\325n\311\265"
+ #"s*\231\\j\261\370N4\20U\21"
+ #"\244\f\311\332\3\335\374\265\276\23\303\225Om\335DJJK\210Ec45\35"
+ #"\241\273\3450S\213\354\\7\247\222\312<\327I\365\250]Sx\357@\37/m"
+ #"\357\340\221+&P\354\261\361\326\276^"
+ #"\326t\331\251\257\257\0372\303s\302m"
+ #"(\245\344\301\a\37\244\34?\27N("
+ #"\300\224\260\345h\20\233*8\263:\227\3240\nQI\373_O~\320\3043\273"
+ #"B\334\374\255{\370x\363\26\266n\331"
+ #"\304\233o\274\316;o\375\225\235\333\267"
+ #"\362\356\272\r\314\276\342&~\266\256\205\25;;P\24q\\8KU\4\301x"
+ #"\212\237\275s\220\325\355\32\337{\350g"
+ #"l\335\266\235\315\37\177\304\252\277\254d"
+ #"\315\273o\263s\3736^[\265\232\374\231\27\362\3037\17\361Ac\0376ux"
+ #"\355\2222L\346W\373\260)\202-G\203\230\22.\234P@9~\36|\360\301"
+ #"!\365\327\tWVCC\3s\247O\346\337/\255\243\330c\3074%\17\276\325"
+ #"\310\244\322\34n\231WAR?1XV\334I\360\237k\e\351\315\251\344\217\317"
+ #"?\307\274ys\207\35\370\237\376\364g"
+ #"\376\351+_\345\222\32\e\327\314*\37"
+ #"\2247\214\353\222G\336\334O\305\314\205<\367\314\3770v\354\330a\357"
+ #"\365\213\307\36\343\356\357}\217\257\317"
+ #"/aA\355\360\253\337\256)<\273\271"
+) 500
+(
+ #"\215\375\335Q\36\270d\34\212\20t\207"
+ #"\223\374\360\315\6>\331\275\217\272\272\272"
+ #"\343>s\334W`\232&\267\336z+\313\246\27S\346\2632\264\355\241\4m\301"
+ #"8g\325\344a\16[\373\247\360\327=\235\34JxX\361\332\237O\n\24\300u"
+ #"\327]\313\37\236\371=+\367\a\331\335"
+ #"\26\314\226\231h\212\302\363\233\232qVNa\305\237_9)P\0w|\373\333"
+ #"\374\350\221\37\363\333\217Zh\r\306Q\207Q\374\246)9kl\36m\2018\355"
+ #"\351(I\231\317\301\262\351\305\334z\353"
+ #"\255'4'\216\3\353\375\367\337\247m"
+ #"\337\326\264\177g\242*\202=\355\21\362"
+ #"\\6*\323\301\376\23\211\"\2407\232d\345\256.\36\371\321CL\e\"Qq"
+ #"\"\271\372\352e|\371+_\345\217[ZH\31V\35NCO\204\217Z\342\374"
+ #"\327\177\376\212\242\242\242\21\337\353_\357"
+ #"\370\16\363\27-\341\325\255-\f\227("
+ #"7LI\205\317\201\307\241Q\337\21I"
+ #"\353F\223\v&\24\320\266o+\357\277"
+ #"\377\376\361s\34\370\203i\232\334y\347"
+ #"\235\\:\271\b\247\246Z\341^)\251\357\f3\2618\a\327\247\342C\3ES"
+ #"\24\2666\371)\36;\236/\336r\363\210'\227\221;\276\375-\272Sv\232\372"
+ #"\242\3305\205\367\17vq\316\242\305,"
+ #"^|\376\250\356\243(\nw\335\371\257"
+ #"\354\350\260\230\201CY(\22p\332\24"
+ #"\252\362\234\324w\204\255\262<\tNM"
+ #"\345\322\311E\334y\347\235\307\255\256A"
+ #"`m\336\274\231\356\306=\314\255\362\221"
+ #"2\315,\307\274\265?\316\370\342\234\223"
+ #"\16tG\213\237%K\226\222\2233\374"
+ #"\265\353\327\257\347\271\347\236\243\241\241!"
+ #"\373\273\211\23'2q\332\f\352\333\2\30\246\244\276#\314UW^\231\375{\""
+ #"\221\340\2157\336\340\245\227^\242\247\247g\330\373/\\"
+ #"p\16\271%ch\354\16\17k\317\t`L\236\203\226\376"
+) 500
+(
+ #"8\261\2245\337\224i2\267\312GW\343\0366o\336<\350\372,X\231\23p"
+ #"\351\304B\334vkU\t!\b\304tB\t\203\352|\327\260\372J7%}\221"
+ #"\24\223'M\32\362\232L#\214\v.\270\200[n\271\205\5\v\26\260v\355Z"
+ #"k \212Bmm-\335\2418\261\224A\324\20L\234`\331<\261X\214\eo"
+ #"\274\221+\257\274\222\345\313\227\263x\361"
+ #"b\16\37><\344s\362\362\362()+\243;\24\37\326`5LI\261\333N"
+ #" \256\23\210\351\ba\331\216n\273\312"
+ #"y\343\362\217;\31\263`\365\365\365\361"
+ #"\341\332w\2305\306\233u\210\25\1\376"
+ #"X\nM\261\312\323\206\263\367\244\264\362"
+ #"qv\373\320Q\322#G\216\360\37\377"
+ #"\361\37\331\345\335\325\325\305O~\362\223"
+ #"\354\337\35\16G\326\351\225Rd\211&"
+ #"k\327\256\345\265\327^\313^\267g\317"
+ #"\36\236|\362\311!\237#\204@U\265"
+ #"\343\342\357\237\26\23k+\n\4\376\330"
+ #"\261-\233\211X\254}w\365 \376C\26\254\25+V0\2554\207B\267=\233"
+ #"TP\204\240/\232\302\236.\362\36\316"
+ #"\177\322T\201\333\256\320\322\3222\3445\211D\202T*5\350w\3\213\222Z["
+ #"[\311s\331\310\261\253\330\204I{\272\24.\32\215\36w\257H$2\344sb"
+ #"\261\30\375\376>\362\334\366a\275\fS"
+ #"\312\264\353\5}\221Tv\25\232RR"
+ #"\344\261S\235\347`\305\212\25\331\353\25"
+ #"\260\24\373\177\376\352W\234U\223\307\240"
+ #"\f\236\200h\322\260\302\306\232\30>\267'\4\23K}\254[\277~HP\353\352"
+ #"\352\270\356\272\353\262?\253\252\312m\267"
+ #"\335\6XT\356\372=\273\30_\352\303\246*T\347\331y\367\2755\0,^\274"
+ #"x\20\3016??\237[n\271e\310\261\354\333\267\237\216\243M\214-\364"
+ #"\f\312\27\16\36\257E\350Ed\214_}P\222WS\4SJ\334\374\352"
+) 500
+(
+ #"W\277\312\356\4\r\240\277\277\237\303\373"
+ #"\367p\333\25\343\2173\r\342\272\211]"
+ #"S\262-\233\206\22\303\224\234Y[\300"
+ #"\303\357l\346\203\17?\344\334\205\v\217"
+ #"\273\306f\263\361\273\337\375\216E\213\26"
+ #"q\350\320!.\275\364R.\271\344\22\0^|\351eR\376.&\225NA7"
+ #"%\v\306\27\363\207\327\377\302\321\226\26"
+ #"\252*+Y\265j\25O=\365\24\241P\210\345\313\2273{\366\354!\307\362\344"
+ #"SOQ\352\320\251\310u\16i\352dSs\246\304\246\n\2q\375\330\4\323\377"
+ #"V\344:xk\323.\372\373\373)((\260\300\332\271s'5\5N|N\355"
+ #"\370\233\313\f\340\303\303e\230\222\261\205"
+ #"n\316(\321\370\356\367\356f\315;\253"
+ #"q\271\\\307]\347\361x\216\353\354\321"
+ #"\334\334\314C\17?\302\25\323\212\361:"
+ #"4R\272\311\234\252<V\356\330\313="
+ #"\367\336\317\263\317\374\17\345\345\345\334w"
+ #"\337}C>?#\37~\364\21O\375\366w|\353\2341\250\n\230\306PW\n"
+ #"\342)3[,\225\30\220\323\264~\an\207J\211\307\316\316\235;Y\274x1"
+ #"\212\224\222\225+W2\271\304}\\\342\24,\5\230\320\315\21\305{LSr\363"
+ #"\374j\16~\362\1_\377\347\177\31Q\221dkk+\327}\376F\212\364\36\226"
+ #"N)!\225\246\36i\212\340\253\v\307"
+ #"\362\247\347\177\317\277\377\340\207'\275\17"
+ #"\300\216\35;X~\323-,\34\2431kL\336\260\221[\211$\2344@\222."
+ #"\305\23\203\0160\1\250B0&\327\301\312\225+\221RZ`\255[\267\216\332\2"
+ #"\327\361\331b\tN-\235r\227\362\244MuL))t\333\270si\35o\276"
+ #"\374\f\227\\v\5\37m\334x\302kS\251\24\177~\3655\26_\270\224\320\241"
+ #"O\370\346\342Z4\345\230^\324MI]\221\233o"
+ #"-\252\341\247?\372\0017,\377\2{\352\353Ox"
+) 500
+(
+ #"\257H$\302\177?\361\e\226\\t1\325f7_\234_\215)\207\217<\350\246"
+ #"$\2324\254\346fR\242*\326\356\310\314Q`\215\245\304kg\335\272uH)"
+ #"\321R\251\24M\215\207(\\Tv\234i \221x\235\32I\335$\2264\3619"
+ #"\265\223\256\260\224!\31[\340\342\201\313"
+ #"&\362\374\246\217\271x\311\5\314\236\277"
+ #"\200E\347\235GMM5\272\256s\340\340A\326\254YK\303\356m,\256\313\345"
+ #"s\27M8a\317\231\244a2\273\322"
+ #"\307\375\227\214\347\331\367\376\314\2027W"
+ #"q\316\271\213Xp\3169T\216\31C8\22aO}=k\336{\227\316\303\373"
+ #"X6\275\224\213\247\324\0\303S)\24a\25q&u\223\244.\321\r\211\313\246"
+ #"bH9\350D4M\211\327\241\321x\340 \251T\n-\20\b\240\352q\274N"
+ #"\355\270\225eJ(v\333I\32\222@"
+ #"\\'\327\245\r\257\345\a\0\226\357\262"
+ #"\361\315\305u4\366D\331t\370\23^\371\317u\4\23V\312?\317\2512mL"
+ #"._\274\264\216\212\\')\323\34R\21'\rIu\276\213\177\273d\"\373:"
+ #"\302l\332\267\216?|\370W\302I\3"
+ #"\233\"(\310\261\261\260:\237\271WN"
+ #"\246\320c'\245\237\270\375\312`\21\364"
+ #"Eu$\20M\31\350\246\304\347P\255\371\v\201H\263zL\t9v\0053\21"
+ #"#\20\b\240\355\336\275\233\374\34\e96\365\4`Y+\313\241)t\205\223\214"
+ #"-p2\244\276\374\224\30i\36\321\270\242\34\306\227\324Xl;CfC\303\212"
+ #"\"0\6p\24\206\223L$uZ\271\227\31\25\276\254\341*\204\25\215\315\24B"
+ #"\r\25:\32\f\223\265b\3\361\24\252\"\350\217\351\330TA\216]E \262\213"
+ #"\3012\262%\16U\301\353P\331\275{7\312\266m\333\360:\324\23"
+ #":\234R\202\307\241R\342\265s\250;:\242X\267\25\2>v]"
+) 500
+(
+ #"f\22F\272\362T\f\374\335(\0315\272)\263L\234\314x3\244\220\201_\264"
+ #"\5\340\20\343\23\2\1774EB7Q\200\216`\202\\\247\206\313\246\36cL\v"
+ #"\320M\353\v\27B\340\262\251l\333\266"
+ #"\re\337\276}84\205\241p\320\24\301\324R\17\373:#\244\322\5\334Bd"
+ #"\310e\307\272\254e~\27\327M\266\265"
+ #"\204N\b\204\344\344\2738{\377\223\\7\324}\fS\262\255%D\"]\304)"
+ #"\6\214Q\21\26\0\335\221$B\bt\t-\375\t*\363\234\351\304G\332l "
+ #"C\217J'IT\301\276}\373P\266n\335\212\32364\251\3250%\323\312\334"
+ #"\264\207\22tG\222\3305\205\204.\211$\r\2\351\372d\1774E,e\242\b"
+ #"\301\321\3768O~\324\202a\310\21gp\204\0\273\252\240)\2CJ\222\272u"
+ #"Be29#\315\260\253\212\265\35\177\363Q\vG\375\t4\305\262\245\372c)"
+ #"z\"I\202q\203\243\3768\301\270\216"
+ #"\246\b\"\t\235\376x\212\252|\347\247"
+ #"\262D\"k.\t\254\261m\335\272\25"
+ #"\355\300\201\3\234[\351<\3417\251\b\221\316\3068pj\nOmlES\4"
+ #"m\301\4\361\3241>T\346\332\\\227uZ\n\1\207z\242\324\26\272\322\r["
+ #"\5)\323<\241\237\226\241*mh\354c[K\220\336H\212\204a\342P\25\n"
+ #"\3356fW\3728\253&\27\233:t6)\243\267\302I\235\243\375qTE\360"
+ #"\354\2266\24\305\332r\251\1&\201nH\24\305b\16*iW\307cWq\331"
+ #"Tl\252\222\rk\17\234\237\252\b\16"
+ #"\348\2008\363\3143\245\267\277\201\333"
+ #"\316\251\314*\310L\352\251+\234\344\235"
+ #"\3\275|\334\24 \30\327I\32&\v"
+ #"k\3638\243\302\207\317\251f\333\317I\254\243\2707\222d}\203\237"
+ #"\326@\2\247\246\240(\202\361E9\314\257\3661\263\302\213\323\246\f"
+) 500
+(
+ #"\232\260H\377\357\311\217Z\331\320\350\37"
+ #"r\305\234;.\237\257\2353\6>\305=\25\200.%\373:#lj\n\260\247"
+ #"#LB7I\350\222\212\\\a\vk\363(\361\330\361:5TEp\244/F"
+ #"0\246\2230L\272B\t\266\266\204\262"
+ #"s\230^\356\341\352\351%\324\24\270\320"
+ #"\r\223\275]\21\"\t\3\233*x\347@/\2161S\320\346\314\231\303\356\325\a"
+ #"\263\366S\246\6y\365\376\36\376\274\263"
+ #"\213\374\34\215kg\226\220\237c\343\261uM\214+\314a~\265\365M\17T\252"
+ #"B\200\313\246\22N\30\330\3250\337<\257\232C=Q67\axq[\a\252"
+ #"\"8\253&w\220U\235\231\300\207\207"
+ #"\207\6\n\340\303\303~.\235\\\310\330"
+ #"\2\327\240\34\243\"\4\35\2018\377\263"
+ #"\251\215\312<\a\327\235Q\312\344\0227\377\375\301QfTx\271\356\214Rb)"
+ #"\3\201\240+\234 \327\251\222\347\262\272"
+ #"\356z\35*;\332\302,\233^L\312"
+ #"\220\354\357\212\360\320\352F\226N,\340"
+ #"\342\311V\31\237\20\231\26\306\222s\346\314A\233<y2[V\35\333\"\232\""
+ #"\370\244%\310\237vtr\335\31e\234_\227o\255\b\340\214\n/k\16\366Q"
+ #"\223\357\242\266\320\205*\6\177\323\2120"
+ #"q\333U\242)\203\2\267\215\363|y\234;.\217P\334\260\224\353\247l)!"
+ #" \2300N\312\3055%\204\22\306q\272\313DR\225\347\344\321+'\340uj"
+ #"hi\37/\246\233\270\35*I\303:\205\303\t\235#}q\f\t\"=\321\215"
+ #"G\2T\345;\251\314s\342\262)\\3\243\204\35m!\376\260\245\235\270n2"
+ #"\243\334\3\34\343\374O\236<\331ZY"
+ #"\377\25\327\311|\341\31\"\355\203\227\217\247\304cG7%\t\335DS\5\227M"
+ #")\342\241\325\215\354\351\baS\5U\371N\224"
+ #"\264\335$\245U\224dS\5]\241$/n\353@"
+) 500
+(
+ #"\301\332\316\205n\e\245^;\245^\a9\366c[\3210\241\330cu\224\214\17"
+ #"c#\271l\n%\36;\3M\262L)pg(Ag8Iw8I\"m"
+ #"\242t\206\222\0\331\350gs\177\334\252"
+ #"\263\306Z\315G\373\3434\367\307\271aV)\246\224\226\215%\4s\253|\214/"
+ #"v\323\330\23\265NS,/&\2262\2303g\16\332\224)S\360Gu\242I"
+ #"\235\234t89\307n\5\373\6n\31\335\220\324\25\3470\257:\227\365\r~\312"
+ #"s\35\226\362\367\330\331\336\31\342\375\6"
+ #"?\215\275\261\264-$Y\337\340\247\302"
+ #"\347 \241\233\204\22z\272dW\341\233\347U[\205Mi\16|\271\327\301\331c"
+ #"\363X{h\350\212\254\205\265\371\224z"
+ #"\355\3J\354\254\310\346O\327\34\301\37"
+ #"M\341\262Y\335'\2356\225\216`\202"
+ #"\224)Y\261\253\213\225\273\273\311w\331"
+ #"\250+rQW\224\203\333\256\220J\217mbq\16\345^\a\206\264\274\r\211D"
+ #"7\3001 A\233)9\16'\f\246L\231\202\346\363\371\220\216\34B\t\3O"
+ #"\232\\o\31\337'\330\e\22\256\236^"
+ #"\314\203o\205\330\331\32\346Ho\234\255"
+ #"-A\302\t\203\231\25\36n\232[\306"
+ #"\370\"7\177\335\333\303\241\236(\367,"
+ #"\255\305\224\226\315\322\37\323\351\b&\254"
+ #"\0252@\327\231R\262|v)\235\241${;\303\307=r\366\30ov\5d"
+ #"\207!%96\225\345\263\312(t\333(r\333\261\253\326\311\375\357o6p\366"
+ #"\330\\\226L(d\303a?\215=16\36\351g\343\221~\346U\347\2222\254"
+ #"\311_5\255\30SJ\334v5\233sP\4\364\307S\304u#M\330\25\304\222"
+ #"&\232\323\215\317\347C\263\333\355\324\324"
+ #"\326\321\23\351\263\212\200\206\374~\255"
+ #"-Z[\340\342\374\272|\336\334\327\203\313\2460\243"
+ #"\302\313\3315\271\314\251\364\341\320\254\222\217\213'\25\260"
+) 500
+(
+ #"\276\241\217\367\16\366q\361\344BTE"
+ #"\301\353pP\223\357\314n\353c`\201"
+ #"\307\241q\307\371\325\274\261\267\207\217\16"
+ #"\367\23L\373\241K'\26\262tb\1\2522\270\224Db\255\376\263jr1%"
+ #"i\3264\274\265\257\227\216`\202/\235YNw$\311\330\264n='\221\313\301"
+ #"\356(\e\233\2D\222\6\363\253s)"
+ #"\310\261\21O\231\224x\355\331\222\32S\202?\232\"c\377[:U\247\266n<"
+ #"v\273\335\n\376-Y\262\204\303\253\177"
+ #"\317\3541^\206\263\2615E\260\2655"
+ #"\310\246\346\0\36\207\212MQ\230W\345"
+ #"C\21\202\335\355a\306\268\3619m"
+ #"\224\347:\371\302\234r^\336\336A\271"
+ #"\317\332\256-\375qR\246\304\353P\231Si\361\f2O2L\211\323\246\360\371"
+ #"Ye\\6\271\210H\322\300\343P\3618\324\354v\375\264lk\r\321\25J\242"
+ #"\273)\300\16\0\0\20\205IDAT\bA\231\317\216\0^\336\336\311\205\23\n"
+ #"\b'\f\342\31Z\267\1.\273\312\22427\333\333B8m\n\273\332Cx\34"
+ #"*\347\214\315#\317e\313Z\352\241\270"
+ #"A0\256\17\260\35\2413\224d\311\r"
+ #"K\254\371\v!\270\342\212+\370\326\37"
+ #"\36\37\226\372\243*V\27\241\307\3265s\361\244B&\227\272yzS\e\257\357"
+ #"\351f\331\364\22\244\224\34\354\211Q\356"
+ #"3\250\3609\31W\344BJ\370\321\333"
+ #"\215\270l\n\305\36{6\3154\265\324"
+ #"\203\335\251\16\262\271L\t\246a\235b\271.-Kq<\221H\t\e\32\375\264"
+ #"\364'P\5t\205\223\304Rf\332\342\267X7\231\3525%\35k_\271\273\e"
+ #"U\21\\\177F)\a\273\243\274s\240\227q\205.\246\225y\262\316|\246\265T"
+ #"\306\2227LIk\177\234+\256\270\2!\204E\f\351\357\357g\334\230"
+ #"R\36\272\254\16\237S=\341Q\256\b\350\213\3524\371c\314\255\364\21M"
+) 500
+(
+ #"\31lj\n\360\322\366NJ\275v.\233R\204\"\254\22\224]\355!65\a"
+ #"\231V\346&\307\256\262\361H\200\253\246"
+ #"\25s\331\224\242lO\231L\201\23\34\363\337T\305\"g4\373\343T\347;\263"
+ #"\204\271\23]\253\245\233P\257\336\337\313"
+ #"\312\335]\214+\262Z\n\357\357\2122"
+ #"\241(\207\363\307\347g\3\227o\356\355\241#\224\344\3723J\263^F0n0"
+ #"\261$\207\n\237\323\212\232&\f\366w\35\313\30\tauNza['G\333"
+ #"\273\310\313\313\263\3002M\223\5\v\26"
+ #"p\216\263\303\242\24\r\0216\311\270\a)Cf\227\350\366\266\20+vuQ\352"
+ #"u\260db\1\353\e\3744\365\305\270pB!s\252\274\24\273\355\354j\17\363"
+ #"\332\256.4Ep\366\330\\\316\250\360\246\v\241,3\"\246\233t\4\23l="
+ #"\32\344\303#\375\350\246\345\27.\30\233\307\234*\37e>\a.MA\bA4"
+ #"iy\n;\332B|t$@(\241\263\2606\237\251\245n\204\200\266@\202\325"
+ #"\373{qh\n\227L.dCc?\35\241\4\327\314,\241\310mG7$v"
+ #"MaZ\331\261\302+\200C\335Q\372\343z6\232\241)\202\3\335Q\272=\343"
+ #"\370\360\303\17Q\24\345\30\345\350\331g"
+ #"\237\345\327\367\177\223o-\252\31\25\251"
+ #"\366H_\214\206\336\30o\356\355!\2324P\25\270ff)En\eI\335\32"
+ #"\2107\235\b\331\327\31a{k\220\336"
+ #"\250\216C\25\3305\305\352\261`X\261"
+ #"\2562\237\235\v'\0240\243\334\313\356"
+ #"\366\20\357\35\352\243#\230\314:\324\bH\244Lb)\3\257ScJ\251\233\311"
+ #"%\356\254n\313L2\256\233\374yg\27}\321\24\271N\215+\246\26\221\237c"
+ #"\313vI\32_\224C\236\313J\32+\2\272#)\216\364\306\6\31"
+ #"\275\252\"XU\337\303\375?\373\357l\332-\v\226\337\357gle"
+) 500
+(
+ #"9\17,\255\241\32474[f\240d"
+ #"\f\303&\177\214\217\216\364\363\356\201>"
+ #"\334\16\225\213'\26R[h\305\364MI\232\n`y\357\231&\206\301\270N\\"
+ #"\22785A\236\313FU\276\223\302\34\e\232zl\345F\223\6\355\301$\207z"
+ #"\242\364\307t\253T\317n\271,\336\364"
+ #"\313B\214\1[4\0232:\334\e\343\335\203}\204\22:\363\252r9\277.?"
+ #"\er\251\314sP\341sXJ\35\313"
+ #"\225\331\327\25\316\276\305 s\237P\302"
+ #"\340\245\35\3354\265vd+\\\263\214\371\274\274<\226\\r9\353\16l`\371"
+ #"\354\221\365T\227\22\34\232\240\314\353`"
+ #"kK\210yU>\354\232\302\353\365=L-u3\277\306\207\317i)k\231\266"
+ #"\2672\337~\241\333n\275\314\3+\26\326\31J\320\21J\244\231;\fj\234_"
+ #"\221\353`L\256\305\25\223\34\243\ndVS&\372\32\214\353lj\nR\337\31"
+ #"fnU.\271N\2155\a\373\230^\346\301\353T)\363\332)O\3\225\271W"
+ #"K\177\234\204~,\230\b\240\244\17\263"
+ #"\245\227^1\250\264n\20\363o\333\266m,9\367,\276s\276U\34>R6"
+ #"\262!%\233\232\203Y\303\260\331\37\347"
+ #"\375\6?\261\224\301\231\325\271L.q\343\262+ie=\f\370\234<\3507P"
+ #"2:4\2264\331\327\25aSs\200\34\233\312yu\371Y\233\356`w\2241"
+ #"y\16j\362]T\3459\a}\266#\230\244\271?>\b(\213I#yqk"
+ #"\aoo\370xP2w\20X\246i\262h\321\"rz\366\261lz\361I\311"
+ #" \3\305\256*\204\22:\r=Q\22\206\3040Mv\266\205\331\326\22D\21\202"
+ #"\231\25^&\224\344\220\233~!\221e\4\216.\254lM\362XD3\20\3279"
+ #"\330\25eg[\bSJfU\3728\243\3023Hq\253BP\342\265S\341sd\355\272L"
+) 500
+(
+ #"c\305\203=\261\254\317\230\21M\21\354"
+ #"j\17\23-\232\314\372\365\353\a\265\216"
+ #"9\216S\272q\343F\256Z\272\210/\314)gR\211{HS\342\304\23\261|"
+ #"\251f\177\234\376\270\216M\261N\257\372"
+ #"\316\b\273\333\303DS\6\25>\a\23"
+ #"\212\335\224\373\2548\223-\23\230\37\30"
+ #"\253\32\260\30421/\322\333.\30\327i\17&9\330\35\241-\230\300eS\231"
+ #"Q\356aJ\251\e\267]\265\308X[YU\4UyN\212<\266A\246G"
+ #"4ip\260;:((\230y\214nJ^\334\336\311_\336^\307\331g\237="
+ #"h~\307\201e\232&\27_|1\361\306OX8.\217\261\371.<\216\343\323"
+ #"dC\211\20\326@;\202\t\332C\226\221gS\254\320I[ \301\376\316\b-"
+ #"\201\4I\303\304c\327(\310\261Q\220"
+ #"\223y_\205\365j\6U\261\354\265\224a\5\362\372c)\372b:\376H\212P"
+ #"\322j6V\231\353`R\251\233\n\237\303\3129\312c\205\351RJ<\16\215\352"
+ #"|'\36\373\261/[\21\269\357PO\364\230\205?@l\252\340\343\246\0\216"
+ #"\332\271\254^\275\372\270\206D'd+7773\251\256\226\317\317.\243\324k"
+ #"\247\266\300\205\3071\362\25\226\31X8"
+ #"i\320\32H\20\214Y\f\25-M\337"
+ #"\216\353&}\321\24\355\301\4\335\341\24"
+ #"\201X\212p\302\0304\341L\342B\25\2\217C%\327e\243\330m\243<\327\221"
+ #"}Q\210\304\242\fd\22!RJl\252b\205\203<v\224\1\205\r\31\240\32"
+ #"z\243D\223\346q\331\254L$\343\305\255\35\354o8Luu\365\361\v\341D"
+ #"`I)\371\321\217~\3043\277\3741\227O)BU\4\265\205\256Q\35108"
+ #"\266\312\374\261\24]\241d\266\245\257\222\6A\b\v\25\323\264*\267"
+ #"t\303\242\t\230&\3318\231\246\212l\236\21y\254\n?3\214\314"
+) 500
+(
+ #"\311iS\24\n\3346J<v\\6e\3208\25!\b't\32{c\304\365"
+ #"\343\201\312\200\371F}\17_\372?\367p\337}\367\2350\2013d\205E2\231"
+ #"d\366\354\331\24'\333\231S\351\303\224"
+ #"P\235\347\2448\275\377G\243\232\255("
+ #"\251\345\301\367FR\204\22z\332\357\263"
+ #"\362r\331\234\312\0=5P\177\r|"
+ #"\226\314\376\316\362\341\\6\205\\\247\215"
+ #"B\267\rW:\242+\a\1\5\376\250"
+ #"\316\21\177,\233\344\375\264\330T\253x"
+ #"\240\333^\316\266m\333\206d/\16[\273s\364\350Q&O\30\317US\v\30"
+ #"\223k\265&)\361\332\31\223\353DU\6\17j\320M\205E\254\310|\203\231-"
+ #"\2\326\213\207\22\272iy\370\t\235h"
+ #"\322\310\32\214\303\363(D\326Tp\331\24\334v\215\\\247fE?\322I]\231"
+ #"\16\263d\326\235\224V%~{01"
+ #"\244Y\242)\202\326@\202\277\324\367\261"
+ #"\357\340!\252\252\252\206\36\301\311\312~"
+ #"W\256\\\311?}\341z\256\231Y\202\327a\31\230\36\207JU\236\23\257C\35"
+ #"\244c\264tJ*\222\324\t&\fBq\35=M\256\360:T+\313\222v\266"
+ #"\323\323\311FV\223\272IB7I\2312\335I\304\272g\346\215O\331J0U"
+ #"d+\302\fSf\t\302\241\204\225\v\364:5|\16\r!\340\250?No4"
+ #"9d&=\303\370{ug\27O\277\360\n\313\226-\e\16\212\223\203%\245\344"
+ #"\321G\37\345W\217\376\220e\323\213q"
+ #"\331\24t\323\352\272Q\342qP\346\265"
+ #"tD\322\220\354j\v\263\2519\300\376"
+ #"\256\b\321t\337\a!\310\352\240\352|'s\253|\234Y\235K~\216-K\342"
+ #"8\226\201\368\251\23\257\5\233j\361\\77\a\370\344h\220f\177<\333\210"
+ #"'\243\317\\6\225R\257\235\261\5.\306\25\272\262"
+ #"\247\353@\311(\374\225\273\273\371\326\335\377\316\335w"
+) 500
+(
+ #"\337}\322z\351\21\25\224K)\271\343"
+ #"\216;X\361\207\337p\305\324\"l\352"
+ #"\261\243\332\353P\211$\r\336\334\327K"
+ #"k\177\234)\245n\346T\372\250\314sf[\304\305RV\323\235\35m!\266\267"
+ #"\2060%\\1\265\210\v'\24X+m\4fI\346\272\367\16\364\361\306\336\36"
+ #"\24au\n9\243\302\233\326W\226\215"
+ #"\25I\32\264\364\307\331\326\32\242\276#"
+ #"\214\327\251\261\2606/k\321[@Y\325\24o\324\367p\365\27\277\316/~\361"
+ #"\213\21\25\226\217\270\372\3360\f\276\374"
+ #"\345/\363\376\e\177\342\322)\26W\336"
+ #"\224\260\2719\300\307M\1\316\31\233\307"
+ #"\262\351\305\214\311\265\\\212\214\23\r\203"
+ #"y\21\241\270\316\272\6?+\367t3\241(\207\333\316\36\223\215J\f\t\224b"
+ #"}\356\311\215-4\364\304\270jZ1\347\327\345giR\31g\335\2\202\354\266"
+ #"k\r\304y}O\17\37\35\3613\277&/\35\325\265\262Po\356\355\345\374\253"
+ #"n\340\251\247\236\32\361\373\21G\325\252"
+ #"\3000\f\276\373\335\357\362\307\247\376\213"
+ #"\313\247\24\261\2755\304\376\256\b_9k\f\vj\363\262T\240a\37(\254\f"
+ #"\312\21\177\234_\254=\202\313\246r\327"
+ #"\205c\217\353D\224\5J\b\202\t\235\237\274w\4\1|\343\334**\363\234V"
+ #"'\267\223\214<\223m~\277\301\317\357"
+ #">nez\271\2073*\274\254\332\333"
+ #"\303\215_\271\235\237\376\364\247\243z\221"
+ #"\344\250\373:H)y\354\261\307x\340"
+ #"\336\177\3030\f\3568\277\206\31\345\236"
+ #"a\363~'\22\233\252\260\2773\314\257?8\312\230<'w,\252I\23I2"
+ #"\303\21Y\372\365\317\327\36!\2340\270"
+ #"{im6\322:\332g\275\275\277\207"
+ #"\347?\351\300a\327x\360\221\377\207"
+ #"o\177\373\333\243n1\3747\265\v\216\305b\224\227\227q"
+ #"\3434\37\213\307\27\f\312\326\214\370\301i\37mSs\200"
+) 500
+(
+ #"\27>\351\340\312i\305\\<\271\220x\312\314\206_L)y\367@/\e\217\4"
+ #"\370\367K\353\262I\337\321\212U\374\220"
+ #"\344\215\372\36>nO\321\321\321qB&\365I\3573\332\17H)y\372\351\247"
+ #"\231\340\263:\204\f\a\324p_\234\224"
+ #"V\244\242\314\353\340\334q\371\274^\337"
+ #"\315\246\246\0\r=Q\32z\2424\371c\354\353\214\260\346`\0377\314.\243|"
+ #"\4\357q\35\212\327%\22184\313\341.\266\353<\375\364\323#b_\177ZF"
+ #"\rV2\231\344\201\373\357\345\312i\305\303^'%D\22\303\223*U\305\332j"
+ #"\223Js\310\261\251\354\351\214\240\252\""
+ #"K\177\334\333\31\246\310m\347\234\232\334"
+ #"\223\322)\5\20K\232'\6TZ\367"
+ #"\323\24\301\274*\37\337\277\357^\222\311"
+ #"\344\311\246z\234\214\32\254]\273v\221"
+ #"\257\246,F\213q\214\3279Pl\252\240\276#\314/\3265\rr1>}m"
+ #"\306Q\266\253\n\23\213sh\354\211b"
+ #"\244\303\273\206!9\324\23cr\251\373"
+ #"8\252\22p\334\373\2475U\360\314\226"
+ #"6\336\332\337k\305\353\aHF\321\203"
+ #"E\325v\230qv\355\3325\332\251\217\36\254\25+V0\243\334cQ+\261\322"
+ #"E[[\202\237j\232h5\315\21\200#=Q\201\265\322\266\267\204\216#Y\231"
+ #"\246\244\246\300E \246\23\210\353\250\212"
+ #"U\36\22\214\353T\3469\217\313\37*B\260\2573Bg(\221\5,\363b\265"
+ #"\235\255\241\343\328\356\351\b\323\35NfSh\325\371\316A\5L#\225Q\201"
+ #"%\245\244\276\276\236r\237\3)\255S"
+ #"f]C\37\317}\322\221\265\304\301\262"
+ #"\261\232\373c\214-pe\251\222\252\""
+ #"\350\211\244x\374\203\243\364D\223\250\302"
+ #"\n\237\30\351\26\5>\247j\201\237\262\242\2\321t\261\244SS\262\\\251"
+ #"4\266\350\206\311o?neog\4m\200_X[\350\2427\232\"\232"
+) 500
+(
+ #":FOR\205\340\235\3}<\277\265"
+ #"=\353\23\24\344\330\250\257\257\37\265\336"
+ #"\32\365\312\352\354\354\304\343\324\220HR\246dSS\200\371\325>rljv\5"
+ #"\245\fI\177L\317\26\244g\0,r\333\260k\n\255\201\4\212b\235x\211l"
+ #"\22C\301\246)\304S\6\232j\375kO\23\203C\t}\0\377@\320\37\327\t"
+ #"\305u\353\25Xi\35eJI\211\307N4i5\206\315\3062\204\365\336\351}"
+ #"\235Q\372\242V\371\236\323\246\320\331\331"
+ #"9\332\251\217\276y\276\252Zu\207\212\20\4bI\272#)\246\227{\aU\271"
+ #"\352\246\3040$.\233\222\335r\246\264R\367>\207Jg\310ZYV\304Af"
+ #"c\352RZ]\36\17tG\361GSY=\325\27MQ\344\266\302&\212\200\336"
+ #"\250U0Z\220c\e\224\251\311\350\252T\232[\5V\n\276\2560\a\233j\265"
+ #"\333\314s\345`J\376\246\16\343\243\6"
+ #"\253\274\274\234\376\346F\2537iz\253"
+ #"\270\355*\331\263j@0/\223'\314\210\242X\234\362h\322\0a\201 \323I"
+ #"\305\244nb\240\360\353\247\237'//\217\376\376~\276t\363M\244\21443:"
+ #"\246\223\237cC\b\210\245\254&\325V\r\344\261\373ki\306q2]G\230\211"
+ #"\2059mV\223\331\204.\263\366\335\337\362>\261QmC!\4\313\226-cG"
+ #"[\b\211\314\6\333,\336\34611I\277\315\362Sw\27X\315'R\246\305-"
+ #"\260Jm-\245\333\21J0c\326l\256\275\366Z\226,Y\302\265\327^\313\214"
+ #"Y\263\351\b%P\205\240%\20'iX\364\361\244n\242(\3428\352x\346'"
+ #"\371\251\303\246+\234$\2324ph\326"
+ #"J?\352\217\263x\361\342Q[\360\243\326Y\313\226-\243!\b\0374\366S\352"
+ #"uP\354\266\261\2573rl\340\222t\303DA8a0\260\326Ab%Z5\305Jn"
+) 490
+(
+ #"J\231\t\271\350l<\22\340\341\207\37"
+ #"\316N@\b\301\303\17?\314\306#\1"
+ #"\3741\35\303\2244\373\343\30\246\304\241"
+ #"Z\21\206\201U\\`e\226\3144\321-\223\5\327\r\311\216\326\20 )\365\332"
+ #"\331\323\21\246-\n7\334p\303h\247"
+ #">z\260<\36\17o\277\273\206\377\371"
+ #"\244\213\27\267u0&\327\311\a\207\373\323,ek\271{\34\32\271.\e}\321"
+ #"\24N\233\25\264s\246\203u\31\262X0nQ'w\266\205yug\27\367\374"
+ #"\360\21\226,Y2\350YK\226,\341"
+ #"\236\37>\302\253;\273\330\325\36\246\245"
+ #"?\316\201\356(\271\351\256\266\341\204\201"
+ #"\323\246\342\320\24rl\n\301\270\365s"
+ #"\256K\303\236\16D6\367\307\370\344h"
+ #"\20\237Sc\313\321\0\357\36\n\260\341"
+ #"\303\217\360\371|\243\6\353o~\225LWW\27\217>\372(\317?\367,\235]"
+ #"\335L(\316\241\314\353\310\276\222}w{\30E\300\354J\237Up)!\222\246"
+ #")e\270Z\241\224d\341\242\vx\350"
+ #"\241\207\2307o\336\t\267\205\224\222-"
+ #"[\266\360\375\357\177\237\17\326\257\301\255"
+ #"\201\317\251\321\324\27gj\231\233R\257"
+ #"\245\370m\252Bco\214f\177\214\263k\362\220XM\370\333\203\tZ\3q\362"
+ #"\363\v\370\322\255\267r\367\335w\237\264"
+ #"\225\371\377u\2602\222H$\350\350\350"
+ #"`\303\206\r\274\361\306\e\364\364\364\320"
+ #"\337\337O{{;mmmh\232\206\317\347#77\227\334\334\\\362\363\363Y"
+ #"\272t)K\227.e\322\244Ix<\236\21\351\16)%\341p\230\375\373\367\363"
+ #"\316;\357\360\316;\357\340\367\373\t\4"
+ #"\2\4\2\1\202\301 \272\256\343\363\371(//\307\343\361PSS\303UW]"
+ #"\305\202\5\v\250\252\252\302n\267\377]/3\372\377\0\374"
+ #"\263?\262eq\307\245\0\0\0\0IEND\256B`\202"
+) 0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 2 #" ("
+0 0 14 3 3 #"foo"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 3 #") ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 7 #"number?"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #">"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"0"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 9 #"        ("
+0 0 14 3 1 #"-"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"1"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 9 #"        ("
+0 0 14 3 3 #"abs"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 7 #"string?"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 9 #"        ("
+0 0 14 3 13 #"string-length"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 9 #"        ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 6 #"image?"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 13 #"            ("
+0 0 14 3 1 #"*"
+0 0 25 3 2 #" ("
+0 0 14 3 11 #"image-width"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 3 #") ("
+0 0 14 3 12 #"image-height"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 2 #"))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 13 #"            ("
+0 0 14 3 2 #"if"
+0 0 25 3 2 #" ("
+0 0 14 3 3 #"and"
+0 0 25 3 1 #" "
+0 0 14 3 2 #"in"
+0 0 25 3 1 #" "
+0 0 22 3 5 #"#true"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 25 3 16 #"                "
+0 0 22 3 2 #"10"
+0 0 25 29 1 #"\n"
+0 0 25 3 16 #"                "
+0 0 22 3 2 #"20"
+0 0 25 3 5 #")))))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 10:"
+0 0 25 29 1 #"\n"
+0 0 17 3 57 #"; Now relax, eat, sleep, and then tackle the next chapter"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 11: "
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #";Define a functino that consumes two numbers, x and y, and that comp"
+ #"utes the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 40 #"; distance of point (x, y) to the origin"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 3 1 #"("
+0 0 15 3 6 #"define"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"f"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"x"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 25 3 3 #") ("
+0 0 14 3 4 #"sqrt"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"+"
+0 0 25 3 2 #" ("
+0 0 14 3 1 #"*"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"x"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"x"
+0 0 25 3 3 #") ("
+0 0 14 3 1 #"*"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 25 3 1 #" "
+0 0 14 3 1 #"y"
+0 0 25 3 4 #"))))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Exercise 12: Define the function cvolume, which accepts the length"
+ #" of a side"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; of an equalateral cube and computes its volume. If you have time, "
+ #"consider"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 25 #"; defining csurface, too."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Exercise 13: Define the function string-first, which extracts the "
+ #"first"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 33 #"; 1String from a non-empty string"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 14:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Define the function string-last, which extracts the first 1String "
+ #"from a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 19 #"; non-empty string."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 15:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Define ==>. The function consumes two Boolean values, call them su"
+ #"nny and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; friday. Its answer is #true if sunny is false or friday is true. N"
+ #"ote"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Logicians call this Boolean operation implication and they use the"
+ #" notation"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 34 #"; sunny => friday for this purpose"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 16:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Define the function image-area, which counts the number of pixels "
+ #"in a given"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 33 #"; image. See exercise 6 for ideas"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 17:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Define the function image-classify, which consumes an image and co"
+ #"nditionally"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; produces \"tall\" if the image is taller than wide, \"wide\" if it"
+ #" is wider than"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; tall, or \"square\" if its width and height are the same. See exer"
+ #"cise 8 for"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 8 #"; ideas."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Exercise 18: Define the function string-join, which consumes two s"
+ #"trings and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 61
+#"; appends them with \"_\" in between. See exercise 2 for ideas."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Exercise 19: Define the function string-insert, which consumes a s"
+ #"tring plus"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; a number i and inserts \"_\" at the ith position of str. Assume i "
+ #"is a number"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; between 0 and the length of the given string (inclusive). See exer"
+ #"cise 3 for"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 48 #"; ideas. Ponder how string-insert copes with \"\"."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 20:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Define the function string-delete, which consumes a string plus a "
+ #"number i"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; and deletes the ith position from str. Assume i is a number betwee"
+ #"n 0"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; (inclusive) and the length of the given string (exclusive). See ex"
+ #"ercise 4"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 55 #"; for ideas. Can string-delete deal with empty strings?"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 21:"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; Use DrRacket's stepper to evaluate (ff (ff 1)) step-by-step. Also "
+ #"try "
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; (+ (ff 1) (ff 1)). Does DrRacket's stepper reuse the results of co"
+ #"mputations?"
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 22:"
+0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; Use DrRacket's stepper on this programs fragment:"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";  (define (distance-to-origin x y)"
+0 0 25 29 1 #"\n"
+0 0 17 3 32 #";    (sqrt (+ (sqr x) (sqr y))))"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #"; (distance-to-origin 3 4)"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 23:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; The first 1String in \"hello world\" is \"h\". How does the follow"
+ #"ing function"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 22 #"; compute this result?"
+0 0 25 29 1 #"\n"
+0 0 17 3 28 #";   (define (string-first s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 24 #";     (substring s 0 1))"
+0 0 25 29 1 #"\n"
+0 0 17 3 39 #"; Use the stepper to confirm your ideas"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 24:"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #"; (define (==> x y)"
+0 0 25 29 1 #"\n"
+0 0 17 3 18 #";   (or (not x) y)"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 25:"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #"; Take a look at this attempt to solve exercise 17"
+0 0 25 29 1 #"\n"
+0 0 17 3 32 #";   (define (image-classify img)"
+0 0 25 29 1 #"\n"
+0 0 17 3 11 #";     (cond"
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#";       [(>= (image-height img) (image-width img)) \"tall\"]"
+0 0 25 29 1 #"\n"
+0 0 17 3 59
+#";       [(= (image-height img) (image-width img)) \"square\"]"
+0 0 25 29 1 #"\n"
+0 0 17 3 60
+#";       [(<= (image-height img) (image-width img) \"wide\")]))"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 26:"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; What do you expect as the value of this program"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #"; (define (string-insert s i)"
+0 0 25 29 1 #"\n"
+0 0 17 3 36 #";   (string-append (substring s 0 i)"
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";                  \"-\""
+0 0 25 29 1 #"\n"
+0 0 17 3 36 #";                  (substring s i)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 32 #"; (string-insert \"helloworld\" 6)"
+0 0 25 29 1 #"\n"
+0 0 17 3 56 #"; Confirm your expectation with DrRacket and its stepper"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 27:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Our solution to the sample problem contains several constants in t"
+ #"he middle"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 20 #"; of functions. As \""
+0 0 17 3 3 #"One"
+0 0 17 3 54 #" Programs, Many Definitions\" already points out, it is"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; best to give names to such constants so that future readers unders"
+ #"tant where"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; these numbers come from. Collect all definitions in DrRacket's def"
+ #"initions"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; area and change them so that all magic numbers are refactored into"
+ #" constant"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; definitions."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 28:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Determine the potential profit for these ticket prices: $1, $2, $3"
+ #", $4, and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; $5. Which price maximizes the profit of the movie theater? Determi"
+ #"ne the best"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 25 #"; ticket price to a dime."
+0 0 25 29 1 #"\n"
+0 0 17 3 2 #"; "
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Here is an alternate version of the same program, given as a singl"
+ #"e function"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 12 #"; definition"
+0 0 25 29 1 #"\n"
+0 0 17 3 24 #"; (define (profit price)"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (- (* (+ 120"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #";            (* (/ 15 0.1)"
+0 0 25 29 1 #"\n"
+0 0 17 3 31 #";               (- 5.0 price)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";         price)"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #";      (+ 180"
+0 0 25 29 1 #"\n"
+0 0 17 3 17 #";         (* 0.04"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #";            (+ 120"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";               (* (/ 15 0.1)"
+0 0 25 29 1 #"\n"
+0 0 17 3 38 #";                  (- 5.0 price)))))))"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Enter this definition into DrRacket and ensure that it produces th"
+ #"e same"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 61
+#"; results as the original version for $1, $2, $3, $4, and $5."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 29:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; After studying the costs of a show, the owner discovered several w"
+ #"ays of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; lowering the cost. As a result of these improvements, there is no "
+ #"longer a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; fixed cost; a variable cost of $1.50 per attendee remains. Modify "
+ #"both"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; programs to reflect this change. When the programs are modified, t"
+ #"est them"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; again with ticket prices of $3, $4, and $5 and compare the results"
+ #"."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 30:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Define constants for the price optimization program at the movie t"
+ #"heater so"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; that the price sensitivity of attendance (15 people for every 10 c"
+ #"ents)"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 30 #"; becomes a computed constant."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 31:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Recall the letter program from Composing Functions. Here is how to"
+ #" launch the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 64
+#"; program and have it write its output to the interactions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; > (write-file"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #";     'stdout"
+0 0 25 29 1 #"\n"
+0 0 17 3 46 #";     (letter \"Matthew\" \"Fisler\" \"Felleisen\"))"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Dear Matthew,"
+0 0 25 29 1 #"\n"
+0 0 17 3 2 #"; "
+0 0 25 29 1 #"\n"
+0 0 17 3 45 #"; We have discovered that all people with the"
+0 0 25 29 1 #"\n"
+0 0 17 3 45 #"; last name Fisler have won our lottery. So, "
+0 0 25 29 1 #"\n"
+0 0 17 3 40 #"; Matthew, hurry and pick up your prize."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; Sincerely, "
+0 0 25 29 1 #"\n"
+0 0 17 3 11 #"; Felleisen"
+0 0 25 29 1 #"\n"
+0 0 17 3 9 #"; 'stdout"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Of course, programs are useful because you can launch them for man"
+ #"y different"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 52 #"; inputs. Run letter on three inputs of your choice."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 32:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Most people no longer use desktop computers just to run applicatio"
+ #"ns but also"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; employ cell phones, tablets, and their cars\342\200\231 informatio"
+ #"n control screen. Soon"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; people will use wearable computers in the form of intelligent glas"
+ #"ses,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; clothes, and sports gear. In the somewhat more distant future, peo"
+ #"ple may"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; come with built-in bio computers that directly interact with body "
+ #"functions."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Think of ten different forms of events that software applications "
+ #"on such"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; computers will have to deal with."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 33:"
+0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; Research the \342\200\234year 2000\342\200\235 problem and what it"
+ #" meant for software developers."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 34:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Design the function string-first, which extracts the first charact"
+ #"er from a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 54
+#"; non-empty string. Don\342\200\231t worry about empty strings."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; Exercise 35: Design the function string-last, which extracts the l"
+ #"ast"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 36 #"; character from a non-empty string."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Exercise 36: Design the function image-area, which counts the numb"
+ #"er of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 26 #"; pixels in a given image."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Exercise 37: Design the function string-rest, which produces a str"
+ #"ing like"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; the given one with the first character removed."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Exercise 38: Design the function string-remove-last, which produce"
+ #"s a string"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 53 #"; like the given one with the last character removed."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 39:"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #"; We started the development of our car image with a"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #"; single plain definition:"
+0 0 25 29 1 #"\n"
+0 0 25 3 5 #"    ("
+0 0 15 3 6 #"define"
+0 0 25 3 1 #" "
+0 0 14 3 12 #"WHEEL-RADIUS"
+0 0 25 3 1 #" "
+0 0 22 3 1 #"5"
+0 0 25 3 1 #")"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; The definition of WHEEL-DISTANCE is based on the wheel\342\200\231"
+ #"s radius. Hence,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; changing WHEEL-RADIUS from 5 to 10 doubles the size of the car ima"
+ #"ge. This"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; kind of program  organization is dubbed single point of control, a"
+ #"nd good"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; design employs this idea as much as possible. Develop your favorit"
+ #"e image of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; an automobile so that  WHEEL-RADIUS remains the single point of co"
+ #"ntrol."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; Exercise 40: Formulate the examples as BSL tests, that is, using t"
+ #"he"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 59
+#"; check-expect form. Introduce a mistake. Re-run the tests."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 41:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Finish the sample problem and get the program to run. That is, ass"
+ #"uming that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; you have solved exercise 39, define the constants BACKGROUND and Y"
+ #"-CAR. Then"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; assemble all the function definitions, including their tests. When"
+ #" your"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; program runs to your satisfaction, add a tree to the scenery. We u"
+ #"sed:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (define tree"
+0 0 25 29 1 #"\n"
+0 0 17 3 46 #";     (underlay/xy (circle 10 \"solid\" \"green\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 23 #";                  9 15"
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #";                  (rectangle 2 20 \"solid\" \"brown\")))"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; to create a tree-like shape. Also add a clause to the big-bang exp"
+ #"ression"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; that stops the animation when the car has disappeared on the right"
+ #" side."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 42:"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Modify the interpretation of the sample data definition so that a "
+ #"state"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 62
+#"; denotes the x-coordinate of the right-most edge of the car. "
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 43:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Design the functions tock and render. Then develop a big-bang expr"
+ #"ession so"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; that once again you get an animation of a car traveling from left "
+ #"to right"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 30 #"; across the world\342\200\231s canvas."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; How do you think this program relates to animate from Prologue: Ho"
+ #"w to Program?"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Use the data definition to design a program that moves the car acc"
+ #"ording to a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 46 #"; sine wave. (Don\342\200\231t try to drive like that.)"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 44:"
+0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; Formulate the examples as BSL tests. Click RUN and watch them fail"
+ #"."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 45:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Design a \342\200\234virtual cat\342\200\235 world program that co"
+ #"ntinuously moves the cat from"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; left to right. Let\342\200\231s c"
+ #"all it cat-prog and let\342\200\231s assume it consumes the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; starting position of the cat. Furthermore, make the cat move three"
+ #" pixels per"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; clock tick. Whenever the cat disappears on the right, it reappears"
+ #" on the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 55 #"; left. You may wish to read up on the modulo function."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 46:"
+0 0 25 29 1 #"\n"
+0 0 17 3 60
+#"; Improve the cat animation with a slightly different image:"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #";   (define cat2 'insert-image-here')"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Adjust the rendering function from exercise 45 so that it uses one"
+ #" cat image"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; or the other based on whether the x-coordinate is odd. Read up on "
+ #"odd? in the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 59
+#"; HelpDesk, and use a cond expression to select cat images."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 47:"
+0 0 25 29 1 #"\n"
+0 0 17 3 85
+(
+ #"; Design a world program that maintains and displays a \342\200\234h"
+ #"appiness gauge.\342\200\235 Let\342\200\231s"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; call it gauge-prog, and let\342\200\231s agree that the program co"
+ #"nsumes the maximum"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; level of happiness. The gauge display starts with the maximum scor"
+ #"e, and with"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; each clock tick, happiness decreases by -0.1; it never falls below"
+ #" 0, the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; minimum happiness score. Every time the down arrow key is pressed,"
+ #" happiness"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; increases by 1/5; every time the up arrow is pressed, happiness ju"
+ #"mps by 1/3."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; To show the level of happiness, we use a scene with a solid, red r"
+ #"ectangle"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; with a black frame. For a happiness level of 0, the red bar should"
+ #" be gone;"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; for the maximum happiness level of 100, the bar should go all the "
+ #"way across"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 12 #"; the scene."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 48:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Enter the definition of reward followed by (reward 18) into the de"
+ #"finitions"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; area of DrRacket and use the stepper to find out how DrRacket eval"
+ #"uates"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 31 #"; applications of the function."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 49:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; A cond expression is really just an expression and may therefore s"
+ #"how up in"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; the middle of another expression:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 41 #";   (- 200 (cond [(> y 200) 0] [else y]))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 66
+#"; Use the stepper to evaluate the expression for y as 100 and 210."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Reformulate create-rocket-scene.v5 to use a nested expression; the"
+ #" resulting"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 42 #"; function mentions place-image only once."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 50:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; If you copy and paste the above function definition into the defin"
+ #"itions area"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; of DrRacket and click RUN, DrRacket highlights two of the three co"
+ #"nd lines."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 68
+#"; This coloring tells you that your test cases do not cover the full"
+0 0 25 29 1 #"\n"
+0 0 17 3 55 #"; conditional. Add enough tests to make DrRacket happy."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 51:"
+0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; Design a big-bang program that simulates a traffic light for a giv"
+ #"en"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; duration. The program renders the state of a traffic light as a so"
+ #"lid circle"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; of the appropriate color, and it changes state on every clock tick"
+ #". What is"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; the most appropriate initial state? Ask your engineering friends."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 52:"
+0 0 25 29 1 #"\n"
+0 0 17 3 59
+#"; Which integers are contained in the four intervals above?"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 53:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; The design recipe for world programs demands that you translate in"
+ #"formation"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; into data and vice versa to ensure a complete understanding of the"
+ #" data"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; definition. It\342\200\231s best to draw some world scenarios and "
+ #"to represent them with"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; data and, conversely, to pick some data examples and to draw pictu"
+ #"res that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; match them. Do so for the LR definition, including at least HEIGHT"
+ #" and 0 as"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 11 #"; examples."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 54:"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Why is (string=? \"resting\" x) incorrect as the first condition i"
+ #"n show?"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Conversely, formulate a completely accurate condition, that is, a "
+ #"Boolean"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; expression that evaluates to #true precisely when x belongs to the"
+ #" first"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 20 #"; sub-class of LRCD."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 55:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Take another look at show. It contains three instances of an expre"
+ #"ssion with"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 24 #"; the approximate shape:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";   (place-image ROCKET 10 (- ... CENTER) BACKG)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; This expression appears three times in the function: twice to draw"
+ #" a resting"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; rocket and once to draw a flying rocket. Define an auxiliary funct"
+ #"ion that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; performs this work and thus shorten show. Why is this a good idea?"
+ #" You may"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 42 #"; wish to reread Prologue: How to Program."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 56:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Define main2 so that you can launch the rocket and watch it lift o"
+ #"ff. Read up"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; on the on-tick clause to determine the length of one tick and how "
+ #"to change"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 5 #"; it."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; If you watch the entire launch, you will notice that once the rock"
+ #"et reaches"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; the top something curious happens. Explain. Add a stop-when clause"
+ #" to main2"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; so that the simulation of the liftoff stops gracefully when the ro"
+ #"cket is out"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 11 #"; of sight."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 57:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Recall that the word \342\200\234height\342\200\235 forced us to c"
+ #"hoose one of two possible"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; interpretations. Now that you have solved the exercises in this se"
+ #"ction,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; solve them again using the first interpretation of the word. Compa"
+ #"re and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 25 #"; contrast the solutions."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 58:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Introduce constant definitions that separate the intervals for low"
+ #" prices and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; luxury prices from the others so that the legislators in Tax Land "
+ #"can easily"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 28 #"; raise the taxes even more."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 59:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Finish the design of a world program that simulates the traffic li"
+ #"ght FSA."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 28 #"; Here is the main function:"
+0 0 25 29 1 #"\n"
+0 0 17 3 34 #";   ; TrafficLight -> TrafficLight"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #";   ; simulates a clock-based American traffic light"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #";   (define (traffic-light-simulation initial-state)"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";     (big-bang initial-state"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";       [to-draw tl-render]"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";       [on-tick tl-next 1]))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; The function\342\200\231s argument is the initial state for the bi"
+ #"g-bang expression, "
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; which tells DrRacket to redraw the state of the world with tl-rend"
+ #"er and to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; handle clock ticks with tl-next. Also note that it informs the com"
+ #"puter that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 40 #"; the clock should tick once per second."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 66
+#"; Complete the design of tl-render and tl-next. Start with copying"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; TrafficLight, tl-next, and tl-render into DrRacket\342\200\231s de"
+ #"finitions area."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 56 #"; Here are some test cases for the design of the latter:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 56
+#";   (check-expect (tl-render \"red\") \"insert-image-here\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 59
+#";   (check-expect (tl-render \"yellow\") \"insert-image-here\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Your function may use these images directly. If you decide to crea"
+ #"te images"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; with the functions from the 2htdp/image library, design an auxilia"
+ #"ry function"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; for creating the image of a one-color bulb. Then read up on the pl"
+ #"ace-image"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 58
+#"; function, which can place bulbs into a background scene."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 60:"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; An alternative data representation for a traffic light program may"
+ #" use"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 29 #"; numbers instead of strings:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 34 #";   ; An N-TrafficLight is one of:"
+0 0 25 29 1 #"\n"
+0 0 17 3 54
+#";   ; \342\200\223 0 interpretation the traffic light shows red"
+0 0 25 29 1 #"\n"
+0 0 17 3 56
+#";   ; \342\200\223 1 interpretation the traffic light shows green"
+0 0 25 29 1 #"\n"
+0 0 17 3 57
+#";   ; \342\200\223 2 interpretation the traffic light shows yellow"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #"; It greatly simplifies the definition of tl-next:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 38 #";   ; N-TrafficLight -> N-TrafficLight"
+0 0 25 29 1 #"\n"
+0 0 17 3 51 #";   ; yields the next state, given current state cs"
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #";   (define (tl-next-numeric cs) (modulo (+ cs 1) 3))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Reformulate tl-next\342\200\231s tests for tl-next-numeric. Does t"
+ #"he tl-next function"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; convey its intention more clearly than the tl-next-numeric functio"
+ #"n? If so,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 23 #"; why? If not, why not?"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 61:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Figure 27 displays two different functions that switch the state o"
+ #"f a traffic"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; light in a simulation program. Which of the two is properly design"
+ #"ed using"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; the recipe for itemization? Which of the two continues to work if "
+ #"you change"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 32 #"; the constants to the following"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";   (define RED \"red\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #";   (define GREEN \"green\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 28 #";   (define YELLOW \"yellow\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 42 #"; Does this help you answer the questions?"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 62:"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #"; ; DoorState -> DoorState"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #"; ; simulates a door with an automatic door closer"
+0 0 25 29 1 #"\n"
+0 0 17 3 41 #"; (define (door-simulation initial-state)"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   (big-bang initial-state"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";     [on-tick door-closer]"
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #";     [on-key door-action]"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";     [to-draw door-render]))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; During a door simulation the \342\200\234open\342\200\235 state is"
+ #" barely visible. Modify"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; door-simulation so that the clock ticks once every three seconds. "
+ #"Rerun the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; simulation."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 63:"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #"; Evaluate the following expressions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";   (distance-to-0 (make-posn 3 4))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 41 #";   (distance-to-0 (make-posn 6 (* 2 4)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 43 #";   (+ (distance-to-0 (make-posn 12 5)) 10)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; by hand. Show all steps. Assume that sqr performs its computation "
+ #"in a single"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 52
+#"; step. Check the results with DrRacket\342\200\231s stepper."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 64:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Design the function manhattan-distance, which measures the Manhatt"
+ #"an distance"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 34 #"; of the given posn to the origin."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 13 #";Exercise 65:"
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#"; Take a look at the following structure type definitions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";   (define-struct movie [title producer year])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #";   (define-struct person [name hair eyes phone])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #";   (define-struct pet [name number])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 43 #";   (define-struct CD [artist title price])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #";   (define-struct sweater [material size producer])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; Write down the names of the functions (constructors, selectors, an"
+ #"d"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; predicates) that each introduces."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 66:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Revisit the structure type definitions of exercise 65. Make sensib"
+ #"le guesses"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; as to what kind of values go with which fields. Then create at lea"
+ #"st one"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 41 #"; instance per structure type definition."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 67:"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #"; Here is another way to represent bouncing balls:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 20 #";   (define SPEED 3)"
+0 0 25 29 1 #"\n"
+0 0 17 3 46 #";   (define-struct balld [location direction])"
+0 0 25 29 1 #"\n"
+0 0 17 3 24 #";   (make-balld 10 \"up\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; Interpret this code fragment and create other instances of balld."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 68:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; An alternative to the nested data representation of balls uses fou"
+ #"r fields to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 36 #"; keep track of the four properties:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 45 #";   (define-struct ballf [x y deltax deltay])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Programmers call this a flat representation. Create an instance of"
+ #" ballf that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 39 #"; has the same interpretation as ball1."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 69:"
+0 0 25 29 1 #"\n"
+0 0 17 3 59
+#"; Draw box representations for the solution of exercise 65."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 70:"
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#"; Spell out the laws for these structure type definitions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #";   (define-struct centry [name home office cell])"
+0 0 25 29 1 #"\n"
+0 0 17 3 39 #";   (define-struct phone [area number])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Use DrRacket\342\200\231s stepper to confirm 101 as the value of t"
+ #"his expression:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #";   (phone-area"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #";    (centry-office"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";     (make-centry \"Shriram Fisler\""
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";       (make-phone 207 \"363-2421\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";       (make-phone 101 \"776-1099\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 41 #";       (make-phone 208 \"112-9981\")))) \"\""
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 71:"
+0 0 25 29 1 #"\n"
+0 0 17 3 57
+#"; Place the following into DrRacket\342\200\231s definitions area:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #";   ; distances in terms of pixels:"
+0 0 25 29 1 #"\n"
+0 0 17 3 23 #";   (define HEIGHT 200)"
+0 0 25 29 1 #"\n"
+0 0 17 3 39 #";   (define MIDDLE (quotient HEIGHT 2))"
+0 0 25 29 1 #"\n"
+0 0 17 3 23 #";   (define WIDTH  400)"
+0 0 25 29 1 #"\n"
+0 0 17 3 38 #";   (define CENTER (quotient WIDTH 2))"
+0 0 25 29 1 #"\n"
+0 0 17 3 6 #";     "
+0 0 25 29 1 #"\n"
+0 0 17 3 56 #";   (define-struct game [left-player right-player ball])"
+0 0 25 29 1 #"\n"
+0 0 17 3 6 #";     "
+0 0 25 29 1 #"\n"
+0 0 17 3 17 #";   (define game0"
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#";     (make-game MIDDLE MIDDLE (make-posn CENTER CENTER)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; Click RUN and evaluate the following expressions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 21 #";   (game-ball game0)"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";   (posn? (game-ball game0))"
+0 0 25 29 1 #"\n"
+0 0 17 3 28 #";   (game-left-player game0)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; Explain the results with step-by-step computations. Double-check y"
+ #"our"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 41 #"; computations with DrRacket\342\200\231s stepper."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 72:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Formulate a data definition for the above phone structure type def"
+ #"inition"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 39 #"; that accommodates the given examples."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Next formulate a data definition for phone numbers using this stru"
+ #"cture type"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 13 #"; definition:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 44 #";   (define-struct phone# [area switch num])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Historically, the first three digits make up the area code, the ne"
+ #"xt three"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; the code for the phone switch (exchange) of your neighborhood, and"
+ #" the last"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; four the phone with respect to the neighborhood. Describe the cont"
+ #"ent of the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 55 #"; three fields as precisely as possible with intervals."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 73:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Design the function posn-up-x, which consumes a Posn p and a Numbe"
+ #"r n. It"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 47 #"; produces a Posn like p with n in the x field."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 62
+#"; A neat observation is that we can define x+ using posn-up-x:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 18 #";   (define (x+ p)"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #";     (posn-up-x p (+ (posn-x p) 3)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Note Functions such as posn-up-x are often called updaters or func"
+ #"tional"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; setters. They are extremely useful when you write large programs."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 74:"
+0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; Copy all relevant constant and "
+ #"function definitions to DrRacket\342\200\231s definitions"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; area. Add the tests and make sure they pass. Then run the program "
+ #"and use the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 29 #"; mouse to place the red dot."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 75:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Enter these definitions and their test cases into the definitions "
+ #"area of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; DrRacket and make sure they work. This is the first time that you "
+ #"have dealt"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 83
+(
+ #"; with a \342\200\234wish,\342\200\235 and you need to make sure you"
+ #" understand how the two functions"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 16 #"; work together."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 76:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Formulate data definitions for the following structure type defini"
+ #"tions:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";   (define-struct movie [title producer year])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #";   (define-struct person [name hair eyes phone])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #";   (define-struct pet [name number])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 43 #";   (define-struct CD [artist title price])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #";   (define-struct sweater [material size producer])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Make sensible assumptions as to what kind of values go into each f"
+ #"ield."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 77:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Provide a structure type definition and a data definition for repr"
+ #"esenting"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; points in time since midnight. A point in time consists of three n"
+ #"umbers:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 30 #"; hours, minutes, and seconds."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 78:"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; Provide a structure type and a data definition for representing th"
+ #"ree-"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; words. A word consists of lowercase letters, represented with the "
+ #"1Strings"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; \"a\" through \"z\" plus #false. Note This exercise is a part of t"
+ #"he design of a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 33 #"; hangman game; see exercise 396."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 79:"
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #"; Create examples for the following data definitions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";       ; A Color is one of: "
+0 0 25 29 1 #"\n"
+0 0 17 3 21 #";       ; \342\200\224 \"white\""
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";       ; \342\200\224 \"yellow\""
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";       ; \342\200\224 \"orange\""
+0 0 25 29 1 #"\n"
+0 0 17 3 21 #";       ; \342\200\224 \"green\""
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #";       ; \342\200\224 \"red\""
+0 0 25 29 1 #"\n"
+0 0 17 3 20 #";       ; \342\200\224 \"blue\""
+0 0 25 29 1 #"\n"
+0 0 17 3 21 #";       ; \342\200\224 \"black\""
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 61
+#";   Note DrRacket recognizes many more strings as colors. End"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 42 #";       ; H is a Number between 0 and 100."
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #";       ; interpretation represents a happiness value"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";       (define-struct person [fstname lstname male?])"
+0 0 25 29 1 #"\n"
+0 0 17 3 34 #";       ; A Person is a structure:"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";       ;   (make-person String String Boolean)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #";   Is it a good idea to use a field name that looks like the name o"
+ #"f a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 14 #";   predicate?"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";       (define-struct dog [owner name age happiness])"
+0 0 25 29 1 #"\n"
+0 0 17 3 31 #";       ; A Dog is a structure:"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";       ;   (make-dog Person String PositiveInteger H)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 55 #";   Add an interpretation to this data definition, too."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 30 #";       ; A Weapon is one of: "
+0 0 25 29 1 #"\n"
+0 0 17 3 20 #";       ; \342\200\224 #false"
+0 0 25 29 1 #"\n"
+0 0 17 3 18 #";       ; \342\200\224 Posn"
+0 0 25 29 1 #"\n"
+0 0 17 3 57 #";       ; interpretation #false means the missile hasn't "
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";       ; been fired yet; a Posn means it is in flight"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; The last definition is an unusual itemization, combining built-in "
+ #"data with a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; structure type. The next chapter deals with such definitions in de"
+ #"pth."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 80:"
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; Create templates for functions that consume instances of the follo"
+ #"wing"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 18 #"; structure types:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";   (define-struct movie [title director year])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 37 #";   (define-struct pet [name number])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 43 #";   (define-struct CD [artist title price])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #";   (define-struct sweater [material size color])"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #"; No, you do not need data definitions for this task."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 81:"
+0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; Design the function time->seconds, which consumes instances of tim"
+ #"e"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; structures (see exercise 77) and produces the number of seconds th"
+ #"at have"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; passed since midnight. For example, if you are representing 12 hou"
+ #"rs, 30"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; minutes, and 2 seconds with one of these structures and if you the"
+ #"n apply"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 62
+#"; time->seconds to this instance, the correct result is 45002."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 82:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Design the function compare-word. The function consumes two three-"
+ #"letter"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; words (see exercise 78). It produces a word that indicates where t"
+ #"he given"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; ones agree and disagree. The function retains the content of the s"
+ #"tructure"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; fields if the two agree; otherwise it places #false in the field o"
+ #"f the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; resulting word. Hint The exercises mentions two tasks: the compari"
+ #"son of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 44
+#"; words and the comparison of \342\200\234letters.\342\200\235"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 83:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Design the function render, which consumes an Editor and produces "
+ #"an image."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 2 #"; "
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; The purpose of the function is to render the text within an empty "
+ #"scene of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; image pixels. For the cursor, use a image red rectangle and for th"
+ #"e strings,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 24 #"; black text of size 16."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Develop the image for a sample string in DrRacket\342\200\231s  in"
+ #"teractions area. We"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 31 #"; started with this expression:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 34 #";   (overlay/align \"left\" \"center\""
+0 0 25 29 1 #"\n"
+0 0 17 3 50 #";                  (text \"hello world\" 11 \"black\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 40 #";                  (empty-scene 200 20))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; You may wish to read up on beside, above, and such  functions. Whe"
+ #"n you are"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; happy with the looks of the  image, use the expression as a test a"
+ #"nd as a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 33 #"; guide to  the design of render."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 84:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Design edit. The function consumes two inputs, an editor ed and a "
+ #"KeyEvent"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; ke, and it produces another editor. Its task is to add a single-ch"
+ #"aracter"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; KeyEvent ke to the end of the pre field of ed, unless ke denotes t"
+ #"he"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; backspace (\"\\b\") key. In that case, it deletes the character im"
+ #"mediately to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; the left of the cursor (if there are any). The function ignores th"
+ #"e tab key"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; (\"\\t\") and the return key (\"\\r\")."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; The function pays attention to only two KeyEvents longer than one "
+ #"letter:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; \"left\" and \"right\". The left arrow moves the cursor one charac"
+ #"ter to the left"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; (if any), and the right arrow moves it one character to the right "
+ #"(if any)."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 39 #"; All other such KeyEvents are ignored."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Develop a goodly number of examples for edit, paying attention to "
+ #"special"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; cases. When we solved this exercise, we created 20 examples and tu"
+ #"rned all"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 21 #"; of them into tests."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Hint Think of this function as consuming KeyEvents, a collection t"
+ #"hat is"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; specified as an enumeration. It uses auxiliary functions to deal w"
+ #"ith the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Editor structure. Keep a wish list handy; you will need to design "
+ #"additional"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; functions for most of these auxiliary functions, such as string-fi"
+ #"rst,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; string-rest, string-last, and  "
+ #"string-remove-last. If you haven\342\200\231t done so,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; solve the exercises in Functions."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 85:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Define the function run. Given the pre field of an editor, it laun"
+ #"ches an"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; interactive editor, using render and edit from the preceding two e"
+ #"xercises"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 51 #"; for the to-draw and on-key clauses, respectively."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 86:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Notice that if you type a lot, your editor program does not displa"
+ #"y all of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; the text. Instead the text is cut off at the right margin. Modify "
+ #"your"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; function edit from exercise 84 so that it ignores a keystroke if a"
+ #"dding it to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; the end of the pre field would mean the rendered text is too wide "
+ #"for your"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 9 #"; canvas."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 87:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Develop a data representation for an editor based on our first ide"
+ #"a, using a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; string and an index. Then solve the preceding exercises again. Ret"
+ #"race the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; design recipe. Hint if you haven\342\200\231t done so, solve the e"
+ #"xercises in Functions."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; Note on Design Choices The exercise is a first study of making des"
+ #"ign"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; choices. It shows that the very first design choice concerns the d"
+ #"ata"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; representation. Making the right choice requires planning ahead an"
+ #"d weighing"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; the complexity of each. Of course, getting good at this is a quest"
+ #"ion of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 21 #"; gaining experience."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 88:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Define a structure type that keeps track of the cat\342\200\231s x"
+ #"-coordinate and its"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; happiness. Then formulate a data definition for cats, dubbed VCat,"
+ #" including"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 20 #"; an interpretation."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 89:"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Design the happy-cat world program, which manages a walking cat an"
+ #"d its"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; happiness level. Let\342\200\231s assume that the cat starts out w"
+ #"ith perfect happiness."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Hints (1) Reuse the functions from the world programs in Virtual P"
+ #"et Worlds."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; (2) Use structure type from the preceding exercise to represent th"
+ #"e state of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 12 #"; the world."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 90:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Modify the happy-cat program from the preceding exercises so that "
+ #"it stops"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 44 #"; whenever the cat\342\200\231s happiness falls to 0."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 91:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Extend your structure type definition and data definition from exe"
+ #"rcise 88 to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; include a direction field. Adjust your happy-cat program so that t"
+ #"he cat"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; moves in the specified direction. The program should move the cat "
+ #"in the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; current direction, and it should turn the cat around when it reach"
+ #"es either"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 19 #"; end of the scene."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 92:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Design the cham program, which has the chameleon continuously walk"
+ #"ing across"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; the canvas from left to right. When it reaches the right end of th"
+ #"e canvas,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; it disappears and immediately reappears on the left. Like the cat,"
+ #" the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; chameleon gets hungry from all the walking, and, as time passes by"
+ #", this"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 41 #"; hunger expresses itself as unhappiness."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; For managing the chameleon\342\200\231s happiness gauge, you may r"
+ #"euse the happiness"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; gauge from the virtual cat. To make the chameleon happy, you feed "
+ #"it (down"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; arrow, two points only); petting isn\342\200\231t allowed. Of cour"
+ #"se, like all"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; chameleons, ours can change color, too: \"r\" turns it red, \"b\" "
+ #"blue, and \"g\""
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; green. Add the chameleon world program to the virtual cat game and"
+ #" reuse"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 42 #"; functions from the latter when possible."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; Start with a data definition, VCham, for representing chameleons."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 93:"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Copy your solution to exercise 92 and modify the copy so that the "
+ #"chameleon"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; walks across a tricolor background. Our solution uses these colors"
+ #":"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";   (define BACKGROUND"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";     (beside (empty-scene WIDTH HEIGHT \"green\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";             (empty-scene WIDTH HEIGHT \"white\")"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";             (empty-scene WIDTH HEIGHT \"red\")))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; but you may use any colors. Observe how the chameleon changes colo"
+ #"rs to blend"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; in as it crosses the border between two colors."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Note When you watch the animation carefully, you see the chameleon"
+ #" riding on"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; a white rectangle. If you know how to use image editing software, "
+ #"modify the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; picture so that the white rectangle is invisible. Then the chamele"
+ #"on will"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 18 #"; really blend in."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 94:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Draw some sketches of what the game scenery looks like  at various"
+ #" stages."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Use the sketches to determine the constant and the variable pieces"
+ #" of the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; game. For the former, develop physical and graphical constants tha"
+ #"t describe"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; the dimensions of the world (canvas) and its objects. Also develop"
+ #" some"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; background scenery. Finally, create your initial scene from the co"
+ #"nstants for"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 40 #"; the tank, the UFO, and the background."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 95:"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Explain why the three instances are generated according to the fir"
+ #"st or"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 39 #"; second clause of the data definition."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 96:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Sketch how each of the three game states could be rendered assumin"
+ #"g a 200x200"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; image canvas."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 97:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Design the functions tank-render, ufo-render, and missile-render. "
+ #"Compare"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 18 #"; this expression:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   (tank-render"
+0 0 25 29 1 #"\n"
+0 0 17 3 20 #";     (fired-tank s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 31 #";     (ufo-render (fired-ufo s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 51 #";                 (missile-render (fired-missile s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";                                 BACKGROUND)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #"; with this one:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #";   (ufo-render"
+0 0 25 29 1 #"\n"
+0 0 17 3 19 #";     (fired-ufo s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 33 #";     (tank-render (fired-tank s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 52 #";                  (missile-render (fired-missile s)"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";                                  BACKGROUND)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #"; When do the two expressions produce the same result?"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 98:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Design the function si-game-over? for use as the  stop-when handle"
+ #"r. The game"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; stops if the UFO lands or if the missile hits the UFO. For both co"
+ #"nditions,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #"; we recommend that you check for proximity of one object to another"
+ #"."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; The stop-when clause allows for an optional second sub-expression,"
+ #" namely a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; function that renders the final state of the game. Design si-rende"
+ #"r-final and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; use it as the second part for your stop-when clause in the main fu"
+ #"nction of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; exercise 100."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Exercise 99:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Design si-move. This function is called for every clock tick to de"
+ #"termine to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; which position the objects move now. Accordingly, it consumes an e"
+ #"lement of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 32 #"; SIGS and produces another one."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Moving the tank and the missile (if any) is relatively straightfor"
+ #"ward. They"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; move in straight lines at a constant speed. Moving the UFO calls f"
+ #"or small"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; random jumps to the left or the right. Since you have never dealt "
+ #"with"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; functions that create random numbers, the rest of this exercise is"
+ #" a longish"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 38 #"; hint on how to deal with this issue."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; BSL comes with a function that creates random numbers. Introducing"
+ #" this"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; function illustrates why the signatures and purpose statements pla"
+ #"y such an"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; important role during the design. Here is the relevant material fo"
+ #"r the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 20 #"; function you need:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 22 #";   ; Number -> Number"
+0 0 25 29 1 #"\n"
+0 0 17 3 46 #";   ; produces a number in the interval [0,n),"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";   ; possibly a different one each time it is called "
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   (define (random n) ...)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Since the signature and purpose statement precisely describe what "
+ #"a function"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; computes, you can now experi"
+ #"ment with random in DrRacket\342\200\231s interactions area."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 14 #"; Stop! Do so!"
+0 0 25 29 1 #"\n"
+0 0 17 3 2 #"; "
+0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; If random produces different numbers (almost) every time it is cal"
+ #"led,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; testing functions that use random is difficult. To start with, sep"
+ #"arate"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 54 #"; si-move and its proper functionality into two parts:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 23 #";   (define (si-move w)"
+0 0 25 29 1 #"\n"
+0 0 17 3 38 #";     (si-move-proper w (random ...)))"
+0 0 25 29 1 #"\n"
+0 0 17 3 5 #";    "
+0 0 25 29 1 #"\n"
+0 0 17 3 26 #";   ; SIGS Number -> SIGS "
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#";   ; moves the space-invader objects predictably by delta"
+0 0 25 29 1 #"\n"
+0 0 17 3 36 #";   (define (si-move-proper w delta)"
+0 0 25 29 1 #"\n"
+0 0 17 3 8 #";     w)"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; With this definition you separate the creation of a random number "
+ #"from the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; act of moving the game objects. While random may produce different"
+ #" results"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; every time it is called, si-move-proper can be tested on specific "
+ #"numeric"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; inputs and is thus guaranteed to return the same result when given"
+ #" the same"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 54 #"; inputs. In short, most of the code remains testable."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Instead of calling random directly, you may wish to design a funct"
+ #"ion that"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; creates a random x-coordinate for the UFO. Consider using check-ra"
+ #"ndom from"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 52
+#"; BSL\342\200\231s testing framework to test such a function."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 100:"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; Design the function si-control, which plays the role of the key-ev"
+ #"ent"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; handler. As such, it consumes a game state and a KeyEvent and prod"
+ #"uces a new"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 48 #"; game state. It reacts to three different keys:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 61
+#";   pressing the left arrow ensures that the tank moves left;"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 67
+#";   pressing the right arrow ensures that the tank moves right; and"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #";   pressing the space bar fires the missile if it hasn\342\200\231t"
+ #" been launched yet."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Once you have this function, you can define the si-main  function,"
+ #" which uses"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 52 #"; big-bang to spawn the game-playing  window. Enjoy!"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 101:"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #"; Turn the examples in figure 35 into test cases."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 102:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Design all other functions that are needed to complete the game fo"
+ #"r this"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 25 #"; second data definition."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 103:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Develop a data representation for the following four kinds of zoo "
+ #"animals:"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #";   spiders, whose relevant attributes are the number of remaining l"
+ #"egs (we"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #";   assume that spiders can lose legs in accidents) and the space th"
+ #"ey need in"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 22 #";   case of transport;"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #";   elephants, whose only attributes are the space they need in case"
+ #" of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 14 #";   transport;"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 68
+#";   boa constrictors, whose attributes include length and girth; and"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #";   armadillos, for which you must determine appropriate attributes,"
+ #" including"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 55 #";   one that determines the space needed for transport."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 60
+#"; Develop a template for functions that consume zoo animals."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Design the fits? function, which consumes a zoo animal and a descr"
+ #"iption of a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; cage. It determines whether the cage\342\200\231s volume is large "
+ #"enough for the animal."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 104:"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Your home town manages a fleet of vehicles: automobiles, vans, bus"
+ #"es, and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; SUVs. Develop a data representation for vehicles. The representati"
+ #"on of each"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; vehicle must describe the number of passengers that it can carry, "
+ #"its license"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; plate number, and its fuel consumption (miles per gallon). Develop"
+ #" a template"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 38 #"; for functions that consume vehicles."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 105:"
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #"; Some program contains the following data definition:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 30 #";   ; A Coordinate is one of: "
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   ; \342\200\223 a NegativeNumber "
+0 0 25 29 1 #"\n"
+0 0 17 3 53 #";   ; interpretation on the y axis, distance from top"
+0 0 25 29 1 #"\n"
+0 0 17 3 27 #";   ; \342\200\223 a PositiveNumber "
+0 0 25 29 1 #"\n"
+0 0 17 3 54 #";   ; interpretation on the x axis, distance from left"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   ; \342\200\223 a Posn"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";   ; interpretation an ordinary Cartesian point"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; Make up at least two data examples per clause in the data definiti"
+ #"on. For"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; each of the examples, explain its meaning with a sketch of a canva"
+ #"s."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 106:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; In More Virtual Pets we discussed the creation of virtual pets tha"
+ #"t come with"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; happiness gauges. One of the virtual pets is a cat; the other one,"
+ #" a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 64
+#"; chameleon. Each program is dedicated to a single pet, however."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Design the cat-cham world program. Given both a location and an an"
+ #"imal, it"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; walks the latter across the canvas, starting from the given locati"
+ #"on. Here is"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 45 #"; the chosen data representation for animals:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 25 #";   ; A VAnimal is either"
+0 0 25 29 1 #"\n"
+0 0 17 3 16 #";   ; \342\200\223 a VCat"
+0 0 25 29 1 #"\n"
+0 0 17 3 17 #";   ; \342\200\223 a VCham"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; where VCat and VCham are your data definitions from exercises 88 a"
+ #"nd 92."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; Given that VAnimal is the collection of world states, you need to "
+ #"design"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 47 #";   a rendering function from VAnimal to Image;"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 69
+(
+ #";   a function for handling clock ticks, from VAnimal to VAnimal; an"
+ #"d"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #";   a function for dealing with key events so that you can feed and "
+ #"pet and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 41 #";   colorize your animal\342\200\224as applicable."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; It remains impossible to change the color of a cat or to pet a cha"
+ #"meleon."
+) 0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 107:"
+0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; Design the cham-and-cat program, which deals with both a virtual c"
+ #"at and a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; virtual chameleon. You need a data definition for a \342\200\234zo"
+ #"o\342\200\235 containing both"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 44 #"; animals and functions for dealing with it."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; The problem statement leaves open how keys manipulate the two anim"
+ #"als. Here"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; are two possible interpretations:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 40 #";   Each key event goes to both animals."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 58
+#";   Each key event applies to only one of the two animals."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; For this alternative, you need a data representation that specifie"
+ #"s a focus"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; animal, that is, the animal that can currently be manipulated. To "
+ #"switch"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 81
+(
+ #"; focus, have the key-handling function interpret \"k\" for \342\200"
+ #"\234kitty\342\200\235 and \"l\" for"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; lizard. Once a player hits \"k\", the following keystrokes apply t"
+ #"o the cat"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; only\342\200\224until the player hits \"l\"."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 68
+#"; Choose one of the alternatives and design the appropriatevprogram."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 108:"
+0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; In its default state, a pedestrian crossing light shows an orange "
+ #"person"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 74
+(
+ #"; standing on a red background. When it is time to allow the pedestr"
+ #"ian to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; cross the street, the light receives a signal and switches to a gr"
+ #"een,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; walking person. This phase lasts for 10 seconds. After that the li"
+ #"ght"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 75
+(
+ #"; displays the digits 9, 8, ..., 0 with odd numbers colored orange a"
+ #"nd even"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; numbers colored green. When the countdown reaches 0, the light swi"
+ #"tches back"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 23 #"; to its default state."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Design a world program that implements such a pedestrian traffic l"
+ #"ight. The"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; light switches from its default state when you press the space bar"
+ #" on your"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; keyboard. All other transitions must be reactions to clock ticks."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 109:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; Design a world program that recognizes a pattern in a sequence of "
+ #"KeyEvents."
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; Initially the program shows a 100 by 100 white rectangle. Once you"
+ #"r program"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; has encountered the first desired letter, it displays a yellow rec"
+ #"tangle of"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 70
+(
+ #"; the same size. After encountering the final letter, the color of t"
+ #"he"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 82
+(
+ #"; rectangle turns green. If any \342\200\234bad\342\200\235 key even"
+ #"t occurs, the program displays a"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 16 #"; red rectangle."
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 77
+(
+ #"; The specific sequences that you"
+ #"r program looks for start with \"a\", followed"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; by an arbitrarily long mix of"
+ #" \"b\" and \"c\", and ended by a \"d\". Clearly,"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 72
+(
+ #"; \"acbd\" is one example of an acceptable string; two others are \""
+ #"ad\" and"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 3 #"; \""
+0 0 17 3 54
+#"abcbbbcd\". Of course, \"da\", \"aa\", or \"d\" do not match."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 110:"
+0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; A checked version of area-of-disk can also enforce that the argume"
+ #"nts to the"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 67
+#"; function are positive numbers, not just arbitrary numbers. Modify"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; checked-area-of-disk in this way."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 111:"
+0 0 25 29 1 #"\n"
+0 0 17 3 35 #"; Take a look at these definitions:"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 29 #";   (define-struct vec [x y])"
+0 0 25 29 1 #"\n"
+0 0 17 3 14 #";   ; A vec is"
+0 0 25 29 1 #"\n"
+0 0 17 3 48 #";   ;   (make-vec PositiveNumber PositiveNumber)"
+0 0 25 29 1 #"\n"
+0 0 17 3 49 #";   ; interpretation represents a velocity vector"
+0 0 25 29 1 #"\n"
+0 0 17 3 1 #";"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Develop the function checked-make-vec, which is to be understood a"
+ #"s a checked"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; version of the primitive operation make-vec. It ensures that the a"
+ #"rguments to"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 78
+(
+ #"; make-vec are positive numbers. In other words, checked-make-vec en"
+ #"forces our"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 27 #"; informal data definition."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 112:"
+0 0 25 29 1 #"\n"
+0 0 17 3 56 #"; Reformulate the predicate now using an or expression. "
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 113:"
+0 0 25 29 1 #"\n"
+0 0 17 3 73
+(
+ #"; Design predicates for the following data definitions from the prec"
+ #"eding"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 56 #"; section: SIGS, Coordinate (exercise 105), and VAnimal."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 114:"
+0 0 25 29 1 #"\n"
+0 0 17 3 71
+(
+ #"; Use the predicates from exercise 113 to check the space invader wo"
+ #"rld"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 76
+(
+ #"; program, the virtual pet program (exercise 106), and the editor pr"
+ #"ogram (A"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 20 #"; Graphical Editor)."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0 0 17 3 15 #"; Exercise 115:"
+0 0 25 29 1 #"\n"
+0 0 17 3 79
+(
+ #"; Revise light=? so that the error message specifies which of the tw"
+ #"o arguments"
+) 0 0 25 29 1 #"\n"
+0 0 17 3 37 #"; isn\342\200\231t an element of TrafficLight."
+0 0 25 29 1 #"\n"
+0 0 25 29 1 #"\n"
+0           0
