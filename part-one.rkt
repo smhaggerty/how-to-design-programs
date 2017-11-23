@@ -1,6 +1,6 @@
 ;; The first three lines of this file were inserted by DrRacket. They record metadata
 ;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname chapter-1) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname part-one) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 ; Exercise 1:
 ; Add the following definitions for x and y to DrRacket's definitions area:
 ;   (define x 3)
@@ -8,6 +8,8 @@
 ; Now imagine that x and y are coordinates of a Cartesian point. Write down an
 ; expression that computes the distance of this point to the origin, that is, a
 ; point with the coordinates (0,0).
+  (define (distance-to-origin x y)
+    (sqrt (+ (expt x 2) (expt y 2))))
 
 
 ; Exercise 2:
@@ -17,6 +19,10 @@
 ; Then use string primitives to create an expression that concatenates prefix
 ; and suffix and adds "_" between them When you run this program, you will see
 ; "hello_world" in the interactions area
+(define prefix "hello")
+(define suffix "world")
+(string-append prefix "_" suffix)
+
 
 ; Exercise 3:
 ; Add the following definitions for x and y to the
@@ -26,24 +32,38 @@
 ; Then create an expression using string primitives that adds "_" at position
 ; i. In general this means the resulting string is longer than the original
 ; one; here is the expected result is "hello_world"
+(define str "helloworld")
+(define i 5)
+(string-append (substring str 0 i) "_"(substring str i))
 
 
 ; Exercise 4:
 ; Use the same setup as in exercise 3 to create an expression that deletes the
 ; ith position from str. Clearly this expression create a shorter string than
 ; the given one. Which values for i are legitimate?
-
+(define str "helloworld")
+(define i 5)
+(string-append (substring str 0 i) (substring str (+ i 1)))
+; all positive Integer values less than the length of str are legitimate
 
 ; Exercise 5:
 ; Use the 2htdp/image library to create the image of a simple boat or tree.
 ; Make sure you can easily change the scale of the entire image
 (require 2htdp/image)
+(define size 50)
+(define (draw-tree size)
+  (overlay/xy
+    (circle size "solid" "green")
+    (- size (/ (/ size 5) 2))
+    (* size 2)
+    (rectangle (/ size 5) (* size 2) "solid" "green")))
 
 
 ; Exercise 6:
 ; Add the following line to the definitions area:
 ;   (define cat "paste-image-here")
 ; Create and expression that counts the number of pixels in the image
+
 
 
 ; Exercise 7:
@@ -83,9 +103,7 @@
 ; Now relax, eat, sleep, and then tackle the next chapter
 
 
-(define str "helloworld")
-(define i 5)
-(string-append (substring str 0 i) (substring str (+ i 1)))
+
 (require 2htdp/image)
 (define in "soo")
 (if (number? in)
@@ -291,7 +309,7 @@
 
 
 
-: Exercise 34:
+; Exercise 34:
 ; Design the function string-first, which extracts the first character from a
 ; non-empty string. Don’t worry about empty strings.
 
@@ -380,7 +398,7 @@
 
 
 
-: Exercise 46:
+; Exercise 46:
 ; Improve the cat animation with a slightly different image:
 ;   (define cat2 'insert-image-here')
 ; Adjust the rendering function from exercise 45 so that it uses one cat image
