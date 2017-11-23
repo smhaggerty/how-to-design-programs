@@ -41,7 +41,8 @@
 (define str2 "helloworld")
 (define j 5)
 (string-append (substring str2 0 j) (substring str2 (+ j 1)))
-; all positive Integer values less than the length of str are legitimate
+
+  ; all positive Integer values less than the length of str are legitimate
 
 ; Exercise 5:
 ; Use the 2htdp/image library to create the image of a simple boat or tree.
@@ -64,6 +65,7 @@
 (define (count-pixels image)
   (* (image-width image) (image-height image)))
 
+
 ; Exercise 7:
 ; Suppose you want to decide whether today is an appropriate day to go to the
 ; mall. You go to the mall either if it is not sunny or if today is Friday
@@ -77,6 +79,11 @@
 (define sunny #true)
 (define friday #false)
 (or (not (and sunny #true)) (and friday #true))
+
+  ; The answer is false because if neither of the arguments to "or" are #true,
+  ; then "or" is false. It is not true that sunny is #false or friday is #true
+  ; so the expression evaluates to #true
+
 
 ; Exercise 8:
 ; Add the following line to the definitions area:
@@ -125,7 +132,6 @@
 ; Now relax, eat, sleep, and then tackle the next chapter
 
 
-
 ; Exercise 11: 
 ;Define a function that consumes two numbers, x and y, and that computes the
 ; distance of point (x, y) to the origin
@@ -155,6 +161,7 @@
 ; non-empty string.
 (define (string-last string)
         (substring string (- (string-length string) 1)))
+
 
 ; Exercise 15:
 ; Define ==>. The function consumes two Boolean values, call them sunny and
@@ -192,14 +199,16 @@
 (define (string-join prefix suffix)
         (string-append prefix "_" suffix))
 
+
 ; Exercise 19: Define the function string-insert, which consumes a string plus
 ; a number i and inserts "_" at the ith position of str. Assume i is a number
 ; between 0 and the length of the given string (inclusive). See exercise 3 for
 ; ideas. Ponder how string-insert copes with "".
 (define (string-insert str3 number)
         (string-append (substring str3 0 number) "_" (substring str3 number)))
-; The function will return an error if an index greater than 0 is used with an
-; empty string
+
+  ; The function will return an error if an index greater than 0 is used with an
+  ; empty string
 
 
 ; Exercise 20:
@@ -212,14 +221,17 @@
             ""
             (string-append
               (substring str4 0 number2) (substring str4 (+ number2 1)))))
-; Yes, string-delete can check for empty strings and return an empty string
-; if so
+
+  ; Yes, string-delete can check for empty strings and return an empty string if
+  ; so
 
 
 ; Exercise 21:
 ; Use DrRacket's stepper to evaluate (ff (ff 1)) step-by-step. Also try 
 ; (+ (ff 1) (ff 1)). Does DrRacket's stepper reuse the results of computations?
 
+  ; No, DrRacket's stepper will reevaluate (ff 1) for each application of ff
+  ; inside the + operation expression  
 
 
 ; Exercise 22:
@@ -227,6 +239,11 @@
 ;  (define (distance-to-origin x y)
 ;    (sqrt (+ (sqr x) (sqr y))))
 ; (distance-to-origin 3 4)
+; Does the explanation match your intuition?
+
+  ; Yes, DrRacket evaluates the most deeply nested sub-expressions from left to
+  ; right then moving up in scope until the top-level expression is evaluated
+
 
 ; Exercise 23:
 ; The first 1String in "hello world" is "h". How does the following function
@@ -235,12 +252,17 @@
 ;     (substring s 0 1))
 ; Use the stepper to confirm your ideas
 
+  ; DrRacket substitues "hello world" for s in the function's body, then
+  ; evaluates the body, returning the 1String "h"
 
 
 ; Exercise 24:
 ; (define (==> x y)
 ;   (or (not x) y)
+; Use the stepper to determine the value of (==> #true #false). 
 
+  ; The fonditional is false in only in the case of #true #false, so it returns
+  ; #false
 
 
 ; Exercise 25:
@@ -250,7 +272,10 @@
 ;       [(>= (image-height img) (image-width img)) "tall"]
 ;       [(= (image-height img) (image-width img)) "square"]
 ;       [(<= (image-height img) (image-width img) "wide")]))
+; Does stepping through an application suggest a fix?
 
+  ; Because the comparisons use are ">=" and "<=" rather than ">" and "<", the
+  ; "=" comparison condition should come first
 
 
 ; Exercise 26:
@@ -262,6 +287,8 @@
 ; (string-insert "helloworld" 6)
 ; Confirm your expectation with DrRacket and its stepper
 
+  ; The expression will insert "_" at index number 6 of the string
+  ; "helloworld", yielding "hellow_orld" (the string is 0 indexed)
 
 
 ; Exercise 27:
@@ -271,7 +298,26 @@
 ; these numbers come from. Collect all definitions in DrRacket's definitions
 ; area and change them so that all magic numbers are refactored into constant
 ; definitions.
+(define (attendees ticket-price)
+  (- BASE_ATTENDANCE (* (- ticket-price BASE_TICKET_PRICE)
+                        TICKET_PRICE_CHANGE_ATTENDANCE_IMPACT)))
 
+(define (revenue ticket-price)
+  (* ticket-price (attendees ticket-price)))
+
+(define (cost ticket-price)
+  (+ FIXED_PERFORMANCE_COST (* VARIABLE_PERFORMANCE_COST_RATE
+                               (attendees ticket-price))))
+
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+
+(define FIXED_PERFORMANCE_COST 180)
+(define VARIABLE_PERFORMANCE_COST_RATE 0.04)
+(define BASE_TICKET_PRICE 5)
+(define BASE_ATTENDANCE 120)
+(define TICKET_PRICE_CHANGE_ATTENDANCE_IMPACT (/ 15 0.1))
 
 
 ; Exercise 28:
@@ -293,7 +339,14 @@
 ;                  (- 5.0 price)))))))
 ; Enter this definition into DrRacket and ensure that it produces the same
 ; results as the original version for $1, $2, $3, $4, and $5.
+(profit 1) --> 511.2
+(profit 2) --> 937.2
+(profit 3) --> 1063.2
+(profit 4) --> 889.2
+(profit 5) --> 415.2
 
+  ; A price of $3 yields the most profit out of whole dollar prices $1-$5.
+  ; The most profitable ticket price (to a dime) is $2.90, which yields $1064.1
 
 
 ; Exercise 29:
@@ -302,7 +355,48 @@
 ; fixed cost; a variable cost of $1.50 per attendee remains. Modify both
 ; programs to reflect this change. When the programs are modified, test them
 ; again with ticket prices of $3, $4, and $5 and compare the results.
+(define (attendees ticket-price)
+  (- BASE_ATTENDANCE (* (- ticket-price BASE_TICKET_PRICE)
+                        TICKET_PRICE_CHANGE_ATTENDANCE_IMPACT)))
 
+(define (revenue ticket-price)
+  (* ticket-price (attendees ticket-price)))
+
+(define (cost ticket-price)
+  (+ FIXED_PERFORMANCE_COST (* VARIABLE_PERFORMANCE_COST_RATE
+                               (attendees ticket-price))))
+
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+
+(define FIXED_PERFORMANCE_COST 0)
+(define VARIABLE_PERFORMANCE_COST_RATE 1.5)
+(define BASE_TICKET_PRICE 5)
+(define BASE_ATTENDANCE 120)
+(define TICKET_PRICE_CHANGE_ATTENDANCE_IMPACT (/ 15 0.1))
+
+(define (_profit price)
+  (- (* (+ 120
+           (* (/ 15 0.1)
+              (- 5.0 price)))
+        price)
+     (+ 0
+        (* 1.5
+           (+ 120
+              (* (/ 15 0.1)
+                 (- 5.0 price)))))))
+
+(profit 1)   -->  -360
+(_profit 1)  -->  -360
+(profit 2)   -->   285
+(_profit 2)  -->   285
+(profit 3)   -->   630
+(_profit 3)  -->   630
+(profit 4)   -->   675
+(_profit 4)  -->   675
+(profit 5)   -->   420
+(_profit 5)  -->   420
 
 
 ; Exercise 30:
