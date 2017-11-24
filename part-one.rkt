@@ -403,7 +403,28 @@
 ; Define constants for the price optimization program at the movie theater so
 ; that the price sensitivity of attendance (15 people for every 10 cents)
 ; becomes a computed constant.
+(define (attendees ticket-price)
+  (- BASE_ATTENDANCE (* (- ticket-price BASE_TICKET_PRICE)
+                        PRICE_SENSITIVITY_OF_ATTENDANCE)))
 
+(define (revenue ticket-price)
+  (* ticket-price (attendees ticket-price)))
+
+(define (cost ticket-price)
+  (+ FIXED_PERFORMANCE_COST (* VARIABLE_PERFORMANCE_COST_RATE
+                               (attendees ticket-price))))
+
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+
+(define FIXED_PERFORMANCE_COST 180)
+(define VARIABLE_PERFORMANCE_COST_RATE 0.04)
+(define BASE_TICKET_PRICE 5)
+(define BASE_ATTENDANCE 120)
+(define ATTENDANCE_DELTA 15)
+(define PRICE_DELTA 0.1)
+(define PRICE_SENSITIVITY_OF_ATTENDANCE (/ ATTENDANCE_DELTA PRICE_DELTA))
 
 
 ; Exercise 31:
