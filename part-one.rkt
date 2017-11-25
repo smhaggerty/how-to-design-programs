@@ -445,8 +445,46 @@
 ;
 ; Of course, programs are useful because you can launch them for many different
 ; inputs. Run letter on three inputs of your choice.
+;
+; Here is a letter-writing batch program that reads names from three files and
+; writes a letter to one:
+; (define (main in-fst in-lst in-signature out)
+;   (write-file out
+;               (letter (read-file in-fst)
+;                       (read-file in-lst)
+;                       (read-file in-signature))))
+; Create appropriate files, launch main, and check whether it delivers the
+; expected letter in a given file.
+(require 2htdp/batch-io)
+(define (letter fst lst signature-name)
+  (string-append
+    (opening fst)
+    "\n\n"
+    (body fst lst)
+    "\n\n"
+    (closing signature-name)))
+ 
+(define (opening fst)
+  (string-append "Dear " fst ","))
+ 
+(define (body fst lst)
+  (string-append
+   "We have discovered that all people with the" "\n"
+   "last name " lst " have won our lottery. So, " "\n"
+   fst ", " "hurry and pick up your prize."))
+ 
+(define (closing signature-name)
+  (string-append
+   "Sincerely,"
+   "\n\n"
+   signature-name
+   "\n"))
 
-
+(define (main in-fst in-lst in-signature out)
+  (write-file out
+              (letter (read-file in-fst)
+                      (read-file in-lst)
+                      (read-file in-signature))))
 
 ; Exercise 32:
 ; Most people no longer use desktop computers just to run applications but also
@@ -457,6 +495,16 @@
 ; Think of ten different forms of events that software applications on such
 ; computers will have to deal with.
 
+  ; Changes in blood glucose levels (bio-computers)
+  ; Changes in heart rate (bio-computers)
+  ; Changes in hormone levels (bio-computers)
+  ; Changes in ambient light levels (smart glasses)
+  ; Changes in body heat (smart clothes)
+  ; Realtime road incident updates (smart cars)
+  ; Changes in air pressure (sports gear)
+  ; GPS-enabled positional updates (smart cars, smart clothes, sports gear)
+  ; Incoming chat messages (smart car, smart glasses)
+  ; Wear-level threshold crossing events
 
 
 ; Exercise 33:
