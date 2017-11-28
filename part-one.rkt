@@ -510,33 +510,65 @@
 ; Exercise 33:
 ; Research the “year 2000” problem and what it meant for software developers.
 
+  ; During the 20th century it was common for programmers to represent the four
+  ; digit year with only the last two digits. Because of this, when the date
+  ; rolled over from 1999 to 2000, any programs with this bug would incorrectly
+  ; display the date as 1900. Developers were aware of this problem, and worked
+  ; to ensure that it would not affect any critical systems. In 1997 the
+  ; British Standards Institute developed DISC PD2000-1, defining year 2000
+  ; conformity standards to prevent the issue.
 
 
 ; Exercise 34:
 ; Design the function string-first, which extracts the first character from a
 ; non-empty string. Don’t worry about empty strings.
 
+  ; String -> String
+  ; Extracts the first character from non-empty string str
+  ; given: "foo", expected: "f"
+  ; given: "bar", expected: "b"
+  (define (extract-first-char str) (substring str 0 1))
 
 
 ; Exercise 35: Design the function string-last, which extracts the last
 ; character from a non-empty string.
 
+  ; String -> String
+  ; extracts the last character from non-empty string str
+  ; given: "foo", expected: "o"
+  ; given: "bar", expected: "r"
+  (define (extract-last-char str)
+    (substring str (- (string-length str) 1) (string-length str)))
 
 
 ; Exercise 36: Design the function image-area, which counts the number of
 ; pixels in a given image.
-
+(require 2htdp/image)
+  ; Image -> Number
+  ; Counts the number of pixels in img
+  ; given: a 100 by 100 image, expected: 10000
+  ; given: a 250 by 200 image, expected: 50000
+  (define (image-area img) (* (image-width img) (image-height img)))
 
 
 ; Exercise 37: Design the function string-rest, which produces a string like
 ; the given one with the first character removed.
 
+  ; String -> String
+  ; Produces a string identical to str except with the first character removed
+  ; given: "Tom", expected "om"
+  ; given: "Christina", expected "hristina"
+  (define (string-rest str) (substring str 1 (string-length str)))
 
 
 ; Exercise 38: Design the function string-remove-last, which produces a string
 ; like the given one with the last character removed.
 
-
+  ; String -> String
+  ; Produces a string identical to str except with the last character removed
+  ; given: "Tom", expected "To"
+  ; given: "Christina", expected "Christin"
+  (define (string-remove-last str) (substring str 0 (- (string-length str) 1)))
 
 ; Exercise 39:
 ; We started the development of our car image with a
