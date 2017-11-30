@@ -546,8 +546,8 @@
 (require 2htdp/image)
   ; Image -> Number
   ; Counts the number of pixels in img
-  ; given: a 100 by 100 image, expected: 10000
-  ; given: a 250 by 200 image, expected: 50000
+  ; given: (square 100 "solid" "red"), expected: 10000
+  ; given: (rectangle 250 200 "solid" "blue"), expected: 50000
   (define (image-area img) (* (image-width img) (image-height img)))
 
 
@@ -580,11 +580,38 @@
 ; design employs this idea as much as possible. Develop your favorite image of
 ; an automobile so that  WHEEL-RADIUS remains the single point of control.
 
+(require 2htdp/image)
+(define BACKGROUND (empty-scene 100 100))
+(define WHEEL-RADIUS 5)
+(define WHEEL (circle WHEEL-RADIUS "solid" "black"))
+(define WHEELS (overlay/offset WHEEL (* 3.8 WHEEL-RADIUS) 0 WHEEL))
+(define CAB (rectangle (* 7.5 WHEEL-RADIUS) (* 2 WHEEL-RADIUS) "solid" "blue"))
+(define TOP  (rectangle (* 4 WHEEL-RADIUS) (* 1.5 WHEEL-RADIUS) "solid" "blue"))
+(define BODY (overlay/offset CAB 0 (* -1 WHEEL-RADIUS) TOP))
+(define CAR-WHEELS (overlay/offset WHEELS 0 (* -1.5 WHEEL-RADIUS) BODY))
+(define CAR (overlay/offset CAR-WHEELS 0 0 BACKGROUND))
 
 
 ; Exercise 40: Formulate the examples as BSL tests, that is, using the
 ; check-expect form. Introduce a mistake. Re-run the tests.
 
+  ; WorldState -> Image
+  ; places the image of the car x pixels from
+  ; the left margin of the BACKGROUND image
+  (define (render ws)
+    (place-image CAR ws CAR-Y-POS BACKGROUND)
+  (check-expect (render 10) (place-image CAR 10 CAR-Y-POS BACKGROUND))
+  (check-expect (render 100) (place-image CAR 100 CAR-Y-POS BACKGROUND))
+    
+  ; WorldState -> WorldState
+  ; moves the car by 3 pixels for every clock tick
+  ; examples:
+  ;   given: 20, expect: 23
+  ;   given: 78, expect: 81
+  (define (tock ws)
+    (+ ws 3))
+  (check-expect (tock 20) 23)
+  (check-expect (tock 78) 81)
 
 
 ; Exercise 41:
@@ -592,13 +619,66 @@
 ; you have solved exercise 39, define the constants BACKGROUND and Y-CAR. Then
 ; assemble all the function definitions, including their tests. When your
 ; program runs to your satisfaction, add a tree to the scenery. We used:
-;   (define tree
-;     (underlay/xy (circle 10 "solid" "green")
-;                  9 15
-;                  (rectangle 2 20 "solid" "brown")))
+  ; (define tree
+  ;   (underlay/xy (circle 10 "solid" "green")
+  ;                9 15
+  ;                (rectangle 2 20 "solid" "brown")))
 ; to create a tree-like shape. Also add a clause to the big-bang expression
 ; that stops the animation when the car has disappeared on the right side.
+(require 2htdp/universe)
+(require 2htdp/image)
+(define WIDTH-OF-WORLD 500)
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD 100))
+(define Y-CAR 50)
+(define WHEEL-RADIUS 5)
+(define CAR-WIDTH (* 7.5 WHEEL-RADIUS))
+(define WHEEL (circle WHEEL-RADIUS "solid" "black"))
+(define WHEELS (overlay/offset WHEEL (* 3.8 WHEEL-RADIUS) 0 WHEEL))
+(define CAB (rectangle CAR-WIDTH (* 2 WHEEL-RADIUS) "solid" "blue"))
+(define TOP  (rectangle (* 4 WHEEL-RADIUS) (* 1.5 WHEEL-RADIUS) "solid" "blue"))
+(define BODY (overlay/offset CAB 0 (* -1 WHEEL-RADIUS) TOP))
+(define CAR (overlay/offset WHEELS 0 (* -1.5 WHEEL-RADIUS) BODY))
+(define tree
+  (underlay/xy (circle 10 "solid" "green")
+                9 15
+                (rectangle 2 20 "solid" "brown")))
+(define scene (overlay/offset tree 100 20 BACKGROUND))
 
+
+; WorldState -> Image
+; places the image of the car x pixels from
+; the left margin of the BACKGROUND image
+(define (render ws)
+  (place-image CAR ws Y-CAR scene))
+(check-expect (render 10) (place-image CAR 10 Y-CAR scene))
+(check-expect (render 100) (place-image CAR 100 Y-CAR scene))
+  
+; WorldState -> WorldState
+; moves the car by 3 pixels for every clock tick
+; examples:
+;   given: 20, expect: 23
+;   given: 78, expect: 81
+(define (tock ws)
+  (+ ws 3))
+(check-expect (tock 20) 23)
+(check-expect (tock 78) 81)
+
+; WorldState -> Boolean
+; checks whether the car is past the edge of the window
+; given: 300, expect: #false
+; given: 550, expect: #true
+(define (end? ws) (>= ws (+ WIDTH-OF-WORLD CAR-WIDTH))) 
+(check-expect (end? 300) #false)
+(check-expect (end? 550) #true)
+
+
+; WorldState -> WorldState
+; launches the program from some initial state
+(define (main ws)
+  (big-bang ws
+    [on-tick tock]
+    [to-draw render]
+    [stop-when end?]))
 
 
 ; Exercise 42:
