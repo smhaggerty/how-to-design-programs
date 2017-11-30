@@ -683,8 +683,70 @@
 
 ; Exercise 42:
 ; Modify the interpretation of the sample data definition so that a state
-; denotes the x-coordinate of the right-most edge of the car. 
+; denotes the x-coordinate of the right-most edge of the car.
 
+;; Data definition
+; A WorldState is a Number.
+; interpretation the number of pixels between
+; the left border of the scene and the car
+
+;; Physical constants
+(require 2htdp/universe)
+(require 2htdp/image)
+(define WIDTH-OF-WORLD 500)
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD 100))
+(define Y-CAR 50)
+(define WHEEL-RADIUS 5)
+(define CAR-WIDTH (* 7.5 WHEEL-RADIUS))
+
+; Graphical constants
+(define WHEEL (circle WHEEL-RADIUS "solid" "black"))
+(define WHEELS (overlay/offset WHEEL (* 3.8 WHEEL-RADIUS) 0 WHEEL))
+(define CAB (rectangle CAR-WIDTH (* 2 WHEEL-RADIUS) "solid" "blue"))
+(define TOP  (rectangle (* 4 WHEEL-RADIUS) (* 1.5 WHEEL-RADIUS) "solid" "blue"))
+(define BODY (overlay/offset CAB 0 (* -1 WHEEL-RADIUS) TOP))
+(define CAR (overlay/offset WHEELS 0 (* -1.5 WHEEL-RADIUS) BODY))
+(define tree
+  (underlay/xy (circle 10 "solid" "green")
+                9 15
+                (rectangle 2 20 "solid" "brown")))
+(define scene (overlay/offset tree 100 20 BACKGROUND))
+
+;; Functions
+; WorldState -> Image
+; places the image of the car x pixels from
+; the left margin of the BACKGROUND image
+(define (render ws)
+  (place-image CAR ws Y-CAR scene))
+;(check-expect (render 10) (place-image CAR (- 10 CAR-WIDTH) Y-CAR scene))
+;(check-expect (render 100) (place-image CAR (- 100 CAR-WIDTH) Y-CAR scene))
+  
+; WorldState -> WorldState
+; moves the car by 3 pixels for every clock tick
+; examples:
+;   given: 20, expect: 23
+;   given: 78, expect: 81
+(define (tock ws)
+  (+ ws 3))
+(check-expect (tock 20) 23)
+(check-expect (tock 78) 81)
+
+; WorldState -> Boolean
+; checks whether the car is past the edge of the window
+; given: 300, expect: #false
+; given: 550, expect: #true
+(define (end? ws) (> ws (+ WIDTH-OF-WORLD (/ CAR-WIDTH 2) 1))) 
+(check-expect (end? 300) #false)
+(check-expect (end? 550) #true)
+
+
+; WorldState -> WorldState
+; launches the program from some initial state
+(define (main ws)
+  (big-bang ws
+    [on-tick tock]
+    [to-draw render]
+    [stop-when end?]))
 
 
 ; Exercise 43:
