@@ -750,6 +750,17 @@
 
 
 ; Exercise 43:
+; Let’s work through the same problem statement with a time-based data
+; definition:
+
+  ; An AnimationState is a Number.
+  ; interpretation the number of clock ticks 
+  ; since the animation started
+
+; Like the original data definition, this one also equates the states of the
+; world with the class of numbers. Its interpretation, however, explains that
+; the number means something entirely different.
+;
 ; Design the functions tock and render. Then develop a big-bang expression so
 ; that once again you get an animation of a car traveling from left to right
 ; across the world’s canvas.
@@ -758,12 +769,148 @@
 ;
 ; Use the data definition to design a program that moves the car according to a
 ; sine wave. (Don’t try to drive like that.)
+(require 2htdp/image)
+(require 2htdp/universe)
 
+;; Constant definitions
 
+; Physical constants
+(require 2htdp/universe)
+(require 2htdp/image)
+(define WIDTH-OF-WORLD 500)
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD 100))
+(define Y-CAR 50)
+(define WHEEL-RADIUS 5)
+(define CAR-WIDTH (* 7.5 WHEEL-RADIUS))
+(define SPEED 3)
+
+;; Graphical constants
+(define WHEEL (circle WHEEL-RADIUS "solid" "black"))
+(define WHEELS (overlay/offset WHEEL (* 3.8 WHEEL-RADIUS) 0 WHEEL))
+(define CAB (rectangle CAR-WIDTH (* 2 WHEEL-RADIUS) "solid" "blue"))
+(define TOP  (rectangle (* 4 WHEEL-RADIUS) (* 1.5 WHEEL-RADIUS) "solid" "blue"))
+(define BODY (overlay/offset CAB 0 (* -1 WHEEL-RADIUS) TOP))
+(define CAR (overlay/offset WHEELS 0 (* -1.5 WHEEL-RADIUS) BODY))
+(define tree
+  (underlay/xy (circle 10 "solid" "green")
+                9 15
+                (rectangle 2 20 "solid" "brown")))
+(define scene (overlay/offset tree 100 20 BACKGROUND))
+
+;; Data Definitions
+
+; An AnimationState is a Number.
+; interpretation the number of clock ticks 
+; since the animation started
+(define as 0)
+
+;; Function definitions
+; AnimationState -> AnimationState
+; Increment the the clock by 1 for each clock tick
+(check-expect (tock 0) 1)
+(check-expect (tock 50) 51)
+(define (tock as)
+  (+ as 1))
+
+; AnimationState -> Image
+; Place the image of the car against the background according to the the
+; AnimationState
+(check-expect (render 130) (place-image CAR (* 130 SPEED) Y-CAR scene))
+(check-expect (render 0) (place-image CAR (* 0 SPEED) Y-CAR scene))
+(define (render as)
+  (place-image CAR (* as SPEED) Y-CAR scene))
+
+; AnimationState -> Boolean
+; checks whether the car is past the edge of the window
+(check-expect (end? 174) #true)
+(check-expect (end? 173) #false)
+(define (end? as) (> (* as SPEED) (+ WIDTH-OF-WORLD (/ CAR-WIDTH 2) 1)))
+
+(big-bang 0
+  [on-tick tock]
+  [to-draw render]
+  [stop-when end?])
+
+;==============================================================================
+(require 2htdp/image)
+(require 2htdp/universe)
+
+;; Constant definitions
+
+; Physical constants
+(require 2htdp/universe)
+(require 2htdp/image)
+(define WIDTH-OF-WORLD 500)
+(define HEIGHT-OF-WORLD 100)
+(define Y-CAR 50)
+(define WHEEL-RADIUS 5)
+(define CAR-WIDTH (* 7.5 WHEEL-RADIUS))
+(define SPEED 3)
+(define AMPLITUDE (/ HEIGHT-OF-WORLD 4))
+
+;; Graphical constants
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD HEIGHT-OF-WORLD))
+(define WHEEL (circle WHEEL-RADIUS "solid" "black"))
+(define WHEELS (overlay/offset WHEEL (* 3.8 WHEEL-RADIUS) 0 WHEEL))
+(define CAB (rectangle CAR-WIDTH (* 2 WHEEL-RADIUS) "solid" "blue"))
+(define TOP  (rectangle (* 4 WHEEL-RADIUS) (* 1.5 WHEEL-RADIUS) "solid" "blue"))
+(define BODY (overlay/offset CAB 0 (* -1 WHEEL-RADIUS) TOP))
+(define CAR (overlay/offset WHEELS 0 (* -1.5 WHEEL-RADIUS) BODY))
+(define tree
+  (underlay/xy (circle 10 "solid" "green")
+                9 15
+                (rectangle 2 20 "solid" "brown")))
+(define scene (overlay/offset tree 100 20 BACKGROUND))
+
+;; Data Definitions
+
+; An AnimationState is a Number.
+; interpretation the number of clock ticks 
+; since the animation started
+(define as 0)
+
+;; Function definitions
+; AnimationState -> AnimationState
+; Increment the the clock by 1 for each clock tick
+(check-expect (tock 0) 1)
+(check-expect (tock 50) 51)
+(define (tock as)
+  (+ as 1))
+
+; AnimationState -> Image
+; Place the image of the car against the background according to the the
+; AnimationState
+(check-expect (render 130) (place-image CAR (* 130 SPEED) (+ Y-CAR (get-y-pos 130)) scene))
+(check-expect (render 0) (place-image CAR (* 0 SPEED) (+ Y-CAR (get-y-pos 0)) scene))
+(define (render as)
+  (place-image CAR (* as SPEED) (+ Y-CAR (get-y-pos as)) scene))
+
+; AnimationState -> Number
+; returns the proper y position of the car based off the AnimationState
+(define (get-y-pos as)
+  (* (sin as) AMPLITUDE))
+
+; AnimationState -> Boolean
+; checks whether the car is past the edge of the window
+(check-expect (end? 174) #true)
+(check-expect (end? 173) #false)
+(define (end? as) (> (* as SPEED) (+ WIDTH-OF-WORLD (/ CAR-WIDTH 2) 1)))
+
+(big-bang 0
+  [on-tick tock]
+  [to-draw render]
+  [stop-when end?])
 
 ; Exercise 44:
 ; Formulate the examples as BSL tests. Click RUN and watch them fail.
 
+; WorldState Number Number String -> WorldState
+; places the car at x-mouse if the given me is "button-down" 
+(check-expect (hyper 21 10 20 "enter") 21)
+(check-expect (hyper 42 10 20 "button-down") 10)
+(check-expect (hyper 42 10 20 "move") 42)
+(define (hyper x-position-of-car x-mouse y-mouse me)
+  x-position-of-car)
 
 
 ; Exercise 45:
