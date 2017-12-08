@@ -865,8 +865,7 @@
 ;; Data Definitions
 
 ; An AnimationState is a Number.
-; interpretation the number of clock ticks 
-; since the animation started
+; interpretation the number of clock ticks since the animation started  
 (define as 0)
 
 ;; Function definitions
@@ -919,7 +918,45 @@
 ; starting position of the cat. Furthermore, make the cat move three pixels per
 ; clock tick. Whenever the cat disappears on the right, it reappears on the
 ; left. You may wish to read up on the modulo function.
+(require 2htdp/image)
+(require 2htdp/universe)
 
+;; Data definitions
+; Using string "cat1.png" as placeholder for the actual image file.
+(define cat1 "cat1.png")
+(define CAT-WIDTH (image-width cat1))
+(define SPEED 3)
+(define WIDTH-OF-WORLD 300)
+(define HEIGHT-OF-WORLD 150)
+(define Y-CAT (/ HEIGHT-OF-WORLD 2))
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD HEIGHT-OF-WORLD))
+
+; An AnimationState is a number
+; interpretation is the distance to the left edge of the image from the left
+; edge of the scene
+(define as 0)  
+
+;; Function definitions
+; AnimationState -> AnimationState
+; increments AnimationState for each clock tick. If AnimationState is greater
+; than the width of the scene, set it to 0
+(define (tock as)
+  (if (< as (+ WIDTH-OF-WORLD CAT-WIDTH))
+      (+ as SPEED)
+      0))
+(check-expect (tock 0) 3)
+(check-expect (tock (+ WIDTH-OF-WORLD CAT-WIDTH)) 0)
+
+; AnimationState -> Image
+; renders the current frame from the AnimationState
+(define (render as) (place-image cat1 (- as (/ CAT-WIDTH 2)) Y-CAT BACKGROUND))
+(check-expect (render 0) (place-image cat1 (- 0 (/ CAT-WIDTH 2)) Y-CAT BACKGROUND))
+(check-expect (render 100) (place-image cat1 (- 100 (/ CAT-WIDTH 2)) Y-CAT BACKGROUND))
+
+(define (main as)
+  (big-bang as
+    [on-tick tock]
+    [to-draw render]))
 
 
 ; Exercise 46:
@@ -928,7 +965,47 @@
 ; Adjust the rendering function from exercise 45 so that it uses one cat image
 ; or the other based on whether the x-coordinate is odd. Read up on odd? in the
 ; HelpDesk, and use a cond expression to select cat images.
+(require 2htdp/image)
+(require 2htdp/universe)
 
+;; Data definitions
+; Using string "cat1.png" and "cat2.png" as placeholder for the actual images(define cat1 .)
+(define cat1 "cat1.png")
+(define cat2 "cat2.png")
+(define CAT-WIDTH (image-width cat1))
+(define SPEED 3)
+(define WIDTH-OF-WORLD 300)
+(define HEIGHT-OF-WORLD 150)
+(define Y-CAT (/ HEIGHT-OF-WORLD 2))
+(define BACKGROUND (empty-scene WIDTH-OF-WORLD HEIGHT-OF-WORLD))
+
+; An AnimationState is a number
+; interpretation is the distance to the left edge of the image from the left
+; edge of the scene
+(define as 0)  
+
+; AnimationState -> AnimationState
+; increments AnimationState for each clock tick. If AnimationState is greater
+; than the width of the scene, set it to 0
+(define (tock as)
+  (if (< as (+ WIDTH-OF-WORLD CAT-WIDTH))
+      (+ as SPEED)
+      0))
+(check-expect (tock 0) (+ 0 SPEED))
+(check-expect (tock (+ WIDTH-OF-WORLD CAT-WIDTH)) 0)
+
+; AnimationState -> Image
+; renders the current frame from the AnimationState
+(define (render as)
+  (cond [(odd? as) (place-image cat1 (- as (/ CAT-WIDTH 2)) Y-CAT BACKGROUND)]
+        [else (place-image cat2 (- as (/ CAT-WIDTH 2)) Y-CAT BACKGROUND)]))
+(check-expect (render 0) (place-image cat2 (- 0 (/ CAT-WIDTH 2)) Y-CAT BACKGROUND))
+(check-expect (render 37) (place-image cat1 (- 37 (/ CAT-WIDTH 2)) Y-CAT BACKGROUND))
+
+(define (main as)
+  (big-bang as
+    [on-tick tock]
+    [to-draw render]))
 
 
 ; Exercise 47:
